@@ -8,19 +8,18 @@
     <link rel="icon" href="https://fav.farm/💼">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js pour le graphique -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:italic,wght@700&display=swap');
         
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
         .timeline-line::after {
             content: '';
             position: absolute;
@@ -32,24 +31,36 @@
             margin-left: -1px;
         }
         @media (max-width: 768px) {
-            .timeline-line::after {
-                left: 20px;
-            }
+            .timeline-line::after { left: 20px; }
         }
+
         .nav-scrolled {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             padding-top: 0.75rem;
             padding-bottom: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
     </style>
 </head>
 <body class="bg-[#FDFDFD] text-slate-900 selection:bg-blue-100 overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
-        <div class="container mx-auto px-6 flex justify-between items-center">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 px-6">
+        <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
                 <div class="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white font-bold shadow-lg transition-transform group-hover:scale-110">
                     ACD
@@ -60,10 +71,9 @@
             </div>
 
             <div class="hidden md:flex items-center space-x-10">
+                <a href="#mon-parcours" class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-blue-900 transition-colors">Parcours</a>
                 <a href="#services" class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-blue-900 transition-colors">Services</a>
-                <a href="#mon-parcours" class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-blue-900 transition-colors">Parcours & Perf</a>
-                <a href="#vision" class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-blue-900 transition-colors">Vision</a>
-                <a href="#contact" class="bg-[#1E293B] text-white px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-md">Contact</a>
+                <a href="#contact" class="bg-[#1E293B] text-white px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-md">Me contacter</a>
             </div>
         </div>
     </nav>
@@ -81,377 +91,275 @@
                 pour votre sérénité financière.
             </h1>
             <p class="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-                Étudiant en Économie-Finance, je mets mes connaissances académiques au profit de votre budget quotidien et de votre culture financière.
+                Étudiant en Économie-Finance, je transforme la complexité des chiffres en stratégies claires pour votre budget et vos investissements.
             </p>
-            <a href="#mon-parcours" class="group inline-flex items-center space-x-3 text-[#0F172A] font-black uppercase tracking-widest text-xs border-b-2 border-blue-800 pb-1 hover:text-blue-900 transition-colors">
-                <span>Découvrir mes résultats</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
-            </a>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contact" class="bg-blue-900 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-slate-800 transition-all shadow-xl">
+                    Lancer mon projet
+                </a>
+                <a href="#mon-parcours" class="group inline-flex items-center space-x-3 text-[#0F172A] font-black uppercase tracking-widest text-xs border-b-2 border-blue-100 py-4 hover:border-blue-900 transition-all">
+                    <span>Voir mes résultats</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
         </div>
-        <!-- Décoration de fond -->
         <div class="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-[#0F172A] rounded-full"></div>
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-[#0F172A] rounded-full"></div>
         </div>
     </section>
 
-    <!-- Section À Propos & Performance -->
+    <!-- Performance Graph -->
     <section id="mon-parcours" class="py-24 bg-slate-50">
         <div class="container mx-auto px-6">
-            
-            <!-- BLOC 1 : Présentation -->
-            <div class="grid lg:grid-cols-2 gap-20 items-center mb-32">
-                <div class="relative group">
-                    <div class="aspect-[4/5] bg-slate-200 rounded-3xl overflow-hidden relative shadow-2xl border border-white/50">
-                        <img src="https://acd0603.github.io/ACD-Gestion-Conseil/image-personelle.png" 
-                             alt="Portrait de ACD" 
-                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 to-transparent"></div>
-                        <div class="absolute bottom-8 left-8 text-white">
-                            <p class="text-xs font-black uppercase tracking-[0.2em] mb-1 opacity-80">Fondateur</p>
-                            <p class="text-2xl font-bold italic font-serif">ACD Gestion & Conseil</p>
-                        </div>
-                    </div>
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-xs font-black text-blue-900 uppercase tracking-[0.4em] mb-4">Transparence & Rigueur</h2>
+                    <h3 class="text-4xl font-bold text-slate-800 tracking-tight">Application Réelle</h3>
+                    <p class="text-slate-500 mt-4 max-w-xl mx-auto">Je pilote mon propre patrimoine avec les méthodes que je vous enseigne.</p>
                 </div>
 
-                <div class="space-y-8">
-                    <h2 class="text-xs font-black text-blue-900 uppercase tracking-[0.4em]">Qui suis-je ?</h2>
-                    <h3 class="text-4xl font-bold text-[#0F172A] leading-tight tracking-tight">
-                        La rigueur de l'économie, <br/>
-                        <span class="text-slate-400 font-light font-serif">la clarté du conseil.</span>
-                    </h3>
-                    <div class="space-y-6 text-lg text-slate-600 leading-relaxed font-medium">
-                        <p>Actuellement étudiant en Licence d'Économie et Gestion, j'ai fondé ACD Gestion & Conseil car je suis convaincu que les outils de la finance doivent être accessibles à tous.</p>
-                        <p class="italic font-serif text-slate-500 border-l-4 border-blue-900 pl-6 text-base">
-                            "Mon objectif est de vous apprendre comment l'argent circule, afin que vous puissiez prendre vos propres décisions."
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BLOC 2 : Graphique de Performance -->
-            <div class="max-w-5xl mx-auto mb-32">
-                <div class="text-center mb-12">
-                    <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Transparence & Résultats</h2>
-                    <h3 class="text-3xl font-bold text-slate-800">Mon Application Concrète</h3>
-                    <p class="text-slate-500 mt-4 max-w-2xl mx-auto">Je n'enseigne pas seulement la théorie. J'applique mes connaissances à mon propre capital avec rigueur depuis 2024.</p>
-                </div>
-
-                <div class="bg-white rounded-[2rem] shadow-xl border border-slate-100 p-8 md:p-12 relative overflow-hidden">
-                    <!-- En-tête du graphique -->
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 p-8 md:p-12 relative">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
                         <div>
                             <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
                                 <i data-lucide="trending-up" class="text-blue-600"></i>
-                                Croissance du Patrimoine Brut
+                                Croissance du Patrimoine
                             </h3>
-                            <p class="text-sm text-slate-500 italic mt-1">Données réelles extraites de mon suivi (2024-2026)</p>
+                            <p class="text-sm text-slate-500 italic mt-1">Données consolidées 2024-2026</p>
                         </div>
-                        <div class="mt-4 md:mt-0 text-right bg-blue-50 px-6 py-3 rounded-2xl border border-blue-100">
-                            <span class="block text-3xl font-black text-blue-900">17 596 €</span>
-                            <span class="text-xs font-bold text-green-600 uppercase tracking-widest flex items-center justify-end gap-1">
-                                <i data-lucide="arrow-up-right" class="w-3 h-3"></i> +75% de progression
+                        <div class="mt-4 md:mt-0 bg-green-50 px-6 py-3 rounded-2xl border border-green-100">
+                            <span class="block text-3xl font-black text-green-700">17 596 €</span>
+                            <span class="text-[10px] font-bold text-green-600 uppercase tracking-widest flex items-center justify-end gap-1">
+                                <i data-lucide="arrow-up-right" class="w-3 h-3"></i> +75% Performance
                             </span>
                         </div>
                     </div>
 
-                    <!-- Canvas Chart.js -->
-                    <div class="h-[350px] w-full">
+                    <div class="h-[350px] w-full mb-8">
                         <canvas id="performanceChart"></canvas>
                     </div>
 
-                    <!-- Indicateurs Clés -->
-                    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="p-4 bg-slate-50 rounded-2xl text-center hover:bg-slate-100 transition-colors">
-                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Capital Initial</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-2xl text-center border border-transparent hover:border-slate-200 transition-all">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Capital Départ</p>
                             <p class="font-bold text-slate-800">~10 000 €</p>
                         </div>
-                        <div class="p-4 bg-slate-50 rounded-2xl text-center hover:bg-slate-100 transition-colors">
-                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Discipline</p>
-                            <p class="font-bold text-slate-800">Mensuelle</p>
-                        </div>
-                        <div class="p-4 bg-slate-50 rounded-2xl text-center hover:bg-slate-100 transition-colors">
-                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Statut</p>
-                            <p class="font-bold text-slate-800">Étudiant</p>
-                        </div>
-                        <div class="p-4 bg-slate-50 rounded-2xl text-center hover:bg-slate-100 transition-colors">
+                        <div class="p-4 bg-slate-50 rounded-2xl text-center border border-transparent hover:border-slate-200 transition-all">
                             <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Horizon</p>
                             <p class="font-bold text-slate-800">Long Terme</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BLOC 3 : Timeline Chronologie -->
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Chronologie</h2>
-                    <h3 class="text-3xl font-bold text-slate-800">Mon Parcours Académique</h3>
-                </div>
-                
-                <div class="relative timeline-line">
-                    <!-- 2023 -->
-                    <div class="relative mb-12 flex flex-col md:flex-row items-center">
-                        <div class="flex-1 md:text-right md:pr-12 mb-4 md:mb-0">
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 inline-block text-left w-full md:w-auto md:max-w-sm group hover:-translate-y-1 transition-transform duration-300">
-                                <span class="inline-block px-3 py-1 mb-3 text-[10px] font-black tracking-widest text-blue-800 uppercase bg-blue-50 rounded-full">2023</span>
-                                <h4 class="text-lg font-bold text-slate-800 flex items-center md:justify-end">
-                                    <i data-lucide="graduation-cap" class="w-4 h-4 mr-2 text-blue-600"></i>
-                                    Début des études
-                                </h4>
-                                <p class="text-slate-500 mt-2 text-sm leading-relaxed">Formation initiale axée sur la rigueur méthodologique et l'acquisition de bases théoriques solides.</p>
-                            </div>
+                        <div class="p-4 bg-slate-50 rounded-2xl text-center border border-transparent hover:border-slate-200 transition-all">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Discipline</p>
+                            <p class="font-bold text-slate-800">Mensuelle</p>
                         </div>
-                        <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white z-10 hidden md:block shadow-md"></div>
-                        <div class="flex-1 hidden md:block"></div>
-                    </div>
-
-                    <!-- 2024 -->
-                    <div class="relative mb-12 flex flex-col md:flex-row items-center">
-                        <div class="flex-1 hidden md:block"></div>
-                        <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-green-600 rounded-full border-4 border-white z-10 hidden md:block shadow-md"></div>
-                        <div class="flex-1 md:pl-12">
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 inline-block w-full md:max-w-sm group hover:-translate-y-1 transition-transform duration-300">
-                                <span class="inline-block px-3 py-1 mb-3 text-[10px] font-black tracking-widest text-green-800 uppercase bg-green-50 rounded-full">2024</span>
-                                <h4 class="text-lg font-bold text-slate-800 flex items-center">
-                                    <i data-lucide="trending-up" class="w-4 h-4 mr-2 text-green-600"></i>
-                                    Gestion Active (PEA & CTO)
-                                </h4>
-                                <p class="text-slate-500 mt-2 text-sm leading-relaxed">Passage à la pratique : ouverture d'un PEA et d'un CTO. Mise en place d'une stratégie d'investissement régulière.</p>
-                            </div>
+                        <div class="p-4 bg-slate-50 rounded-2xl text-center border border-transparent hover:border-slate-200 transition-all">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Stratégie</p>
+                            <p class="font-bold text-slate-800">Diversifiée</p>
                         </div>
-                    </div>
-
-                    <!-- 2025 -->
-                    <div class="relative mb-8 flex flex-col md:flex-row items-center">
-                        <div class="flex-1 md:text-right md:pr-12 mb-4 md:mb-0">
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 inline-block text-left w-full md:w-auto md:max-w-sm border-l-4 border-l-indigo-500 group hover:-translate-y-1 transition-transform duration-300">
-                                <span class="inline-block px-3 py-1 mb-3 text-[10px] font-black tracking-widest text-indigo-800 uppercase bg-indigo-50 rounded-full">2025</span>
-                                <h4 class="text-lg font-bold text-slate-800 flex items-center md:justify-end">
-                                    <i data-lucide="landmark" class="w-4 h-4 mr-2 text-indigo-600"></i>
-                                    Spécialisation Éco-Finance
-                                </h4>
-                                <p class="text-slate-500 mt-2 text-sm leading-relaxed">Alignement du parcours académique avec l'expertise terrain. Approfondissement des mécanismes de marchés.</p>
-                            </div>
-                        </div>
-                        <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-indigo-600 rounded-full border-4 border-white z-10 hidden md:block shadow-md"></div>
-                        <div class="flex-1 hidden md:block"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
+    <!-- Services Section -->
     <section id="services" class="py-32 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-20">
-                <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Mon Accompagnement</h2>
-                <h3 class="text-4xl font-bold text-[#0F172A]">Deux piliers pour votre réussite.</h3>
-            </div>
+        <div class="container mx-auto px-6 text-center mb-20">
+            <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Services Sur-Mesure</h2>
+            <h3 class="text-4xl font-bold text-[#0F172A] font-serif italic">Optimiser pour mieux bâtir.</h3>
             
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="group p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-blue-900 hover:bg-white transition-all duration-500 shadow-sm hover:shadow-xl">
-                    <div class="w-14 h-14 bg-[#0F172A] rounded-2xl flex items-center justify-center text-white mb-8 group-hover:bg-blue-900 transition-colors shadow-lg">
+            <div class="grid md:grid-cols-2 gap-8 mt-16 max-w-6xl mx-auto">
+                <!-- Service 1 -->
+                <div class="group text-left p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-blue-900 hover:bg-white transition-all duration-500">
+                    <div class="w-14 h-14 bg-[#0F172A] rounded-2xl flex items-center justify-center text-white mb-8 group-hover:scale-110 transition-transform">
                         <i data-lucide="wallet"></i>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 text-[#0F172A]">Optimisation Budgétaire</h4>
-                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Identification de vos leviers d'épargne en analysant vos frais fixes et vos habitudes de consommation.</p>
+                    <h4 class="text-2xl font-bold mb-4">Gestion Budgétaire</h4>
+                    <p class="text-slate-500 mb-8 leading-relaxed">Reprenez le contrôle total de vos finances avec une analyse granulaire de vos dépenses.</p>
                     <ul class="space-y-4 text-sm font-bold text-slate-700">
-                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-900 rounded-full"></span><span>Audit des contrats & charges fixes</span></li>
-                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-900 rounded-full"></span><span>Stratégies d'épargne automatique</span></li>
-                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-900 rounded-full"></span><span>Pilotage du reste-à-vivre</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="w-4 h-4 text-blue-600"></i><span>Audit des frais fixes & contrats</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="w-4 h-4 text-blue-600"></i><span>Mise en place d'épargne automatique</span></li>
                     </ul>
                 </div>
-                
-                <div class="group p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-indigo-900 hover:bg-white transition-all duration-500 shadow-sm hover:shadow-xl">
-                    <div class="w-14 h-14 bg-[#334155] rounded-2xl flex items-center justify-center text-white mb-8 group-hover:bg-indigo-900 transition-colors shadow-lg">
+
+                <!-- Service 2 -->
+                <div class="group text-left p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-blue-900 hover:bg-white transition-all duration-500">
+                    <div class="w-14 h-14 bg-[#334155] rounded-2xl flex items-center justify-center text-white mb-8 group-hover:scale-110 transition-transform">
                         <i data-lucide="graduation-cap"></i>
                     </div>
-                    <h4 class="text-2xl font-bold mb-4 text-[#0F172A]">Pédagogie Financière</h4>
-                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Comprendre les enveloppes fiscales (PEA, Assurance-vie) et les marchés financiers sans jargon complexe.</p>
+                    <h4 class="text-2xl font-bold mb-4">Éducation Financière</h4>
+                    <p class="text-slate-500 mb-8 leading-relaxed">Comprendre pour ne plus subir. Apprenez le fonctionnement des marchés et de la fiscalité.</p>
                     <ul class="space-y-4 text-sm font-bold text-slate-700">
-                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span><span>Binôme Risque/Rendement</span></li>
-                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span><span>Fonctionnement des enveloppes fiscales</span></li>
-                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span><span>Introduction aux classes d'actifs</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="w-4 h-4 text-blue-600"></i><span>Fiscalité : PEA vs Assurance-Vie</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="w-4 h-4 text-blue-600"></i><span>Psychologie de l'investisseur</span></li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Vision / Disclaimer -->
-    <section id="vision" class="py-24 bg-[#0F172A] text-white overflow-hidden relative">
+    <!-- Contact Unified Section -->
+    <section id="contact" class="py-24 bg-slate-50 relative overflow-hidden">
         <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/3 text-center md:text-left">
-                    <div class="w-20 h-20 bg-blue-500/10 rounded-3xl flex items-center justify-center mb-6 mx-auto md:mx-0">
-                        <i data-lucide="shield-check" class="w-10 h-10 text-blue-400"></i>
-                    </div>
-                    <h4 class="text-2xl font-bold">Confiance & Éthique</h4>
-                </div>
-                <div class="md:w-2/3 space-y-6">
-                    <p class="text-slate-300 text-xl font-medium leading-relaxed italic font-serif">
-                        "En tant qu'étudiant, ma valeur ajoutée est ma capacité à transmettre des concepts complexes de manière simple, moderne et désintéressée."
-                    </p>
-                    <div class="p-5 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 leading-loose">
-                        Disclaimer : ACD Gestion & Conseil n'est pas CIF (Conseiller en Investissements Financiers). Mes services relèvent de l'information et de l'aide à la gestion budgétaire. Pas de conseil personnalisé d'investissement.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="py-32 bg-white">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-12 tracking-tight italic font-serif text-[#0F172A]">Parlons de votre stratégie.</h2>
-            <div class="flex flex-col items-center space-y-8">
-                <div class="space-y-2">
-                    <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-xl md:text-3xl font-bold text-[#0F172A] hover:text-blue-700 transition-colors border-b-2 border-slate-100 pb-2">
-                        ACD_Gestion_Conseil@outlook.com
-                    </a>
-                    <p class="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 mt-4">06 84 48 65 08</p>
-                </div>
+            <div class="max-w-6xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100 flex flex-col lg:flex-row">
                 
-                <div class="flex flex-col md:flex-row gap-4 mt-8">
-                    <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="px-12 py-5 bg-[#0F172A] text-white rounded-full font-black uppercase tracking-[0.2em] text-[10px] hover:bg-blue-900 transition-all shadow-xl hover:-translate-y-1">
-                        Envoyer un Email
-                    </a>
+                <!-- Left: Info -->
+                <div class="lg:w-1/3 bg-[#0F172A] p-12 lg:p-16 text-white">
+                    <h2 class="text-3xl font-bold mb-8">Contactons-nous.</h2>
+                    <p class="text-slate-400 mb-12 text-lg">Un projet ? Une question ? Je réponds généralement en moins de 24h.</p>
+                    
+                    <div class="space-y-10">
+                        <div class="flex items-center space-x-5">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-blue-400">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Email</p>
+                                <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-sm font-semibold hover:text-blue-400 transition-colors">ACD_Gestion_Conseil@outlook.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-5">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-blue-400">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Téléphone</p>
+                                <p class="text-sm font-semibold">06 84 48 65 08</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-5">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-blue-400">
+                                <i class="fas fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Localisation</p>
+                                <p class="text-sm font-semibold">Lyon / Distanciel France</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="lg:w-2/3 p-12 lg:p-16 bg-white">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nom complet</label>
+                                <input type="text" placeholder="Ex: Jean Dupont" class="form-input">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Email professionnel</label>
+                                <input type="email" placeholder="jean@exemple.com" class="form-input">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Sujet du projet</label>
+                            <select class="form-input bg-white appearance-none">
+                                <option>Optimisation Budgetaire</option>
+                                <option>Éducation Financière</option>
+                                <option>Demande d'information</option>
+                                <option>Autre</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Votre message</label>
+                            <textarea rows="5" placeholder="Décrivez brièvement votre situation..." class="form-input resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-blue-900 text-white rounded-xl font-black uppercase tracking-widest text-[11px] hover:bg-[#0F172A] transition-all shadow-xl hover:-translate-y-1">
+                            Envoyer ma demande
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-16 border-t border-slate-100 bg-white text-center">
+    <!-- Vision / Ethics Footer Section -->
+    <section class="py-12 bg-[#0F172A] text-white/50 text-[10px] text-center uppercase tracking-[0.2em] font-bold">
         <div class="container mx-auto px-6">
-            <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-8">
-                <span class="font-black text-xs">ACD</span>
+            Disclaimer : ACD Gestion & Conseil n'est pas CIF. Services d'information et d'aide à la gestion.
+        </div>
+    </section>
+
+    <footer class="py-16 bg-white border-t border-slate-100 text-center">
+        <div class="container mx-auto px-6">
+            <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 text-[#0F172A] font-black text-xs">
+                ACD
             </div>
-            <div class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                © 2026 ACD Gestion & Conseil — Lyon, France
-            </div>
-            <div class="mt-4">
-                <a href="#" class="text-[9px] font-black uppercase tracking-widest text-slate-300 hover:text-blue-900 transition-colors">
-                    Expertise & Pédagogie Financière
-                </a>
-            </div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">© 2026 ACD Gestion & Conseil — Lyon, France</p>
         </div>
     </footer>
 
     <script>
-        // Initialisation des icônes
+        // Initialisation Lucide
         lucide.createIcons();
 
-        // Gestion du scroll pour la navbar
+        // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
                 navbar.classList.add('nav-scrolled');
-                navbar.classList.remove('py-6');
             } else {
                 navbar.classList.remove('nav-scrolled');
-                navbar.classList.add('py-6');
             }
         });
 
-        // Animation d'entrée pour les éléments au scroll (simplifiée)
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.add('transition-all', 'duration-1000', 'translate-y-10', 'opacity-0');
-            observer.observe(section);
-        });
-
-        // --- Configuration du Graphique Chart.js ---
+        // Chart Configuration
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('performanceChart').getContext('2d');
-            
-            // Création d'un dégradé pour la courbe
             const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)'); // Blue-600 avec transparence
+            gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)');
             gradient.addColorStop(1, 'rgba(37, 99, 235, 0.0)');
 
-            const data = {
-                labels: ['Mai 24', 'Juil 24', 'Sept 24', 'Nov 24', 'Fév 25', 'Avr 25', 'Juin 25', 'Août 25', 'Oct 25', 'Déc 25', 'Fév 26'],
-                datasets: [{
-                    label: 'Patrimoine Brut (€)',
-                    data: [10000, 10500, 10200, 11800, 14200, 12500, 15500, 14200, 17200, 16500, 17596],
-                    borderColor: '#2563eb', // Blue-600
-                    borderWidth: 3,
-                    fill: true,
-                    backgroundColor: gradient,
-                    tension: 0.4, // Courbe lisse
-                    pointRadius: 0, // Points cachés par défaut
-                    pointHoverRadius: 6,
-                    pointBackgroundColor: '#ffffff',
-                    pointBorderColor: '#2563eb',
-                    pointBorderWidth: 2
-                }]
-            };
-
-            const config = {
+            new Chart(ctx, {
                 type: 'line',
-                data: data,
+                data: {
+                    labels: ['Mai 24', 'Juil 24', 'Sept 24', 'Nov 24', 'Fév 25', 'Avr 25', 'Juin 25', 'Août 25', 'Oct 25', 'Déc 25', 'Fév 26'],
+                    datasets: [{
+                        label: 'Patrimoine (€)',
+                        data: [10000, 10500, 10200, 11800, 14200, 12500, 15500, 14200, 17200, 16500, 17596],
+                        borderColor: '#1e3a8a',
+                        borderWidth: 3,
+                        fill: true,
+                        backgroundColor: gradient,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 3
+                    }]
+                },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index',
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#0f172a',
-                            titleFont: { family: 'Inter', size: 13 },
-                            bodyFont: { family: 'Inter', size: 14, weight: 'bold' },
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(context) {
-                                    return context.parsed.y.toLocaleString('fr-FR') + ' €';
-                                }
-                            }
-                        }
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
-                        y: {
-                            beginAtZero: false,
-                            grid: { 
-                                color: '#f1f5f9',
-                                drawBorder: false 
-                            },
-                            ticks: {
-                                callback: function(value) { return value / 1000 + 'k €'; },
-                                font: { family: 'Inter', size: 11 },
-                                color: '#64748b'
-                            },
-                            border: { display: false }
+                        y: { 
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { family: 'Inter', size: 10 } }
                         },
-                        x: {
-                            grid: { display: false },
-                            ticks: { 
-                                font: { family: 'Inter', size: 11 },
-                                color: '#64748b',
-                                maxRotation: 0
-                            },
-                            border: { display: false }
-                        }
+                        x: { grid: { display: false } }
                     }
                 }
-            };
+            });
+        });
 
-            new Chart(ctx, config);
+        // Simple Fade-in Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = "0";
+            section.style.transform = "translateY(20px)";
+            section.style.transition = "all 0.8s ease-out";
+            observer.observe(section);
         });
     </script>
 </body>
