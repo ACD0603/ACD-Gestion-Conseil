@@ -82,6 +82,57 @@
             border: 1px solid #F1F5F9;
         }
 
+        /* Style Formulaire selon Capture */
+        .contact-card-split {
+            display: flex;
+            overflow: hidden;
+            border-radius: 3rem;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .contact-left {
+            background: #0F172A;
+            color: white;
+            width: 35%;
+            padding: 60px 40px;
+        }
+        .contact-right {
+            width: 65%;
+            padding: 60px;
+        }
+        .form-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #94A3B8;
+            margin-bottom: 8px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            font-size: 14px;
+            color: #1E293B;
+            transition: all 0.3s;
+            background: #F8FAFC;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #1E3A8A;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.05);
+        }
+
+        @media screen and (max-width: 992px) {
+            .contact-card-split { flex-direction: column; border-radius: 2rem; }
+            .contact-left, .contact-right { width: 100%; padding: 40px; }
+        }
+
         @media screen and (max-width: 768px) {
             .timeline-container::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; text-align: left !important; }
@@ -286,7 +337,7 @@
         </div>
     </section>
 
-    <!-- Vision / Footer Info -->
+    <!-- Vision Info -->
     <section id="vision" class="py-24 bg-[#0F172A] text-white">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
@@ -306,18 +357,67 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-32 bg-white text-center">
+    <!-- Contact Section (Formulaire Capture) -->
+    <section id="contact" class="py-32 bg-slate-50">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-8 italic font-serif text-[#0F172A]">Parlons de votre stratégie.</h2>
-            <div class="flex flex-col items-center space-y-6">
-                <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-2xl md:text-3xl font-bold text-[#0F172A] hover:text-blue-900 transition-colors border-b-2 border-slate-100 pb-2">
-                    ACD_Gestion_Conseil@outlook.com
-                </a>
-                <p class="text-xs font-black uppercase tracking-[0.2em] text-slate-400">06 84 48 65 08</p>
-                <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="mt-8 px-12 py-5 bg-[#0F172A] text-white rounded-full font-black uppercase tracking-[0.2em] text-[10px] hover:bg-blue-900 transition-all shadow-xl">
-                    Envoyer un Email
-                </a>
+            <div class="contact-card-split">
+                <!-- Gauche : Info -->
+                <div class="contact-left">
+                    <h2 class="text-4xl font-bold mb-6">Contactons-nous.</h2>
+                    <p class="text-slate-400 mb-12 text-lg">Un projet ? Une question ? Je réponds généralement en moins de 24h.</p>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <span class="form-label text-white/50">Email</span>
+                            <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-sm font-bold hover:text-blue-400 transition-colors">ACD_Gestion_Conseil@outlook.com</a>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="form-label text-white/50 text-[8px]">Téléphone</span>
+                                <p class="text-sm font-bold">06 84 48 65 08</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="form-label text-white/50 text-[8px]">Localisation</span>
+                                <p class="text-sm font-bold">Lyon / Distanciel France</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Droite : Formulaire -->
+                <div class="contact-right">
+                    <form action="https://formspree.io/f/xvzbavqk" method="POST" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label">Nom complet</label>
+                                <input type="text" name="name" class="form-input" placeholder="Ex: Jean Dupont" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Email professionnel</label>
+                                <input type="email" name="email" class="form-input" placeholder="jean@exemple.com" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label">Sujet du projet</label>
+                            <input type="text" name="subject" class="form-input" placeholder="Optimisation Budgétaire">
+                        </div>
+                        <div>
+                            <label class="form-label">Votre message</label>
+                            <textarea name="message" rows="5" class="form-input resize-none" placeholder="Décrivez brièvement votre situation..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-[#1E3A8A] text-white rounded-xl font-black uppercase tracking-widest text-xs hover:bg-blue-800 transition-all shadow-lg hover:shadow-blue-900/20">
+                            Envoyer ma demande
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
