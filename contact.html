@@ -89,32 +89,32 @@
                     </div>
                 </div>
 
-                <!-- Formulaire -->
+                <!-- Formulaire connecté à Formspree -->
                 <div class="bg-white p-8 lg:p-12 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100">
-                    <form id="contactForm" class="space-y-6">
+                    <form action="https://formspree.io/f/xvzbavqk" method="POST" id="contactForm" class="space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-widest">Prénom</label>
-                                <input type="text" required class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 placeholder-slate-300" placeholder="Votre prénom">
+                                <input type="text" name="firstname" required class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 placeholder-slate-300" placeholder="Votre prénom">
                             </div>
                             <div>
                                 <label class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-widest">Email</label>
-                                <input type="email" required class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 placeholder-slate-300" placeholder="email@exemple.com">
+                                <input type="email" name="email" required class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 placeholder-slate-300" placeholder="email@exemple.com">
                             </div>
                         </div>
 
                         <div>
                             <label class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-widest">Objet</label>
-                            <select class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 appearance-none">
-                                <option>Demande d'Audit Budgétaire</option>
-                                <option>Question sur le PEA</option>
-                                <option>Partenariat / Autre</option>
+                            <select name="subject" class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 appearance-none">
+                                <option value="Audit Budgétaire">Demande d'Audit Budgétaire</option>
+                                <option value="Question PEA">Question sur le PEA</option>
+                                <option value="Autre">Partenariat / Autre</option>
                             </select>
                         </div>
 
                         <div>
                             <label class="text-[10px] font-black uppercase text-slate-400 block mb-2 tracking-widest">Votre Message</label>
-                            <textarea rows="5" required class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 placeholder-slate-300" placeholder="Comment puis-je vous aider ?"></textarea>
+                            <textarea name="message" rows="5" required class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-medium text-slate-700 placeholder-slate-300" placeholder="Comment puis-je vous aider ?"></textarea>
                         </div>
 
                         <button type="submit" class="w-full bg-slate-900 text-white p-5 rounded-xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-blue-900 transition-all flex items-center justify-center space-x-2">
@@ -123,15 +123,7 @@
                         </button>
                     </form>
                     
-                    <!-- Message de succès caché -->
-                    <div id="successMessage" class="hidden text-center py-12 space-y-4">
-                        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="check" class="w-8 h-8"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">Message envoyé !</h3>
-                        <p class="text-slate-500">Merci de votre confiance. Je reviens vers vous très vite.</p>
-                        <button onclick="window.location.reload()" class="text-blue-800 font-bold text-xs uppercase underline">Envoyer un autre message</button>
-                    </div>
+                    <p class="text-[9px] text-slate-400 text-center mt-4 uppercase tracking-tighter">Sécurisé par Formspree</p>
                 </div>
 
             </div>
@@ -140,18 +132,11 @@
 
     <!-- Footer -->
     <footer class="py-12 border-t border-slate-100 text-center bg-slate-50">
-        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">&copy; 2024 ACD Gestion & Conseil</p>
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">&copy; 2026 ACD Gestion & Conseil</p>
     </footer>
 
     <script>
         lucide.createIcons();
-
-        // Simulation d'envoi de formulaire
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            this.classList.add('hidden');
-            document.getElementById('successMessage').classList.remove('hidden');
-        });
     </script>
 </body>
 </html>
