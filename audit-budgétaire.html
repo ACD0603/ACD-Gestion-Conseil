@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Budgétaire | ACD Gestion & Conseil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:italic,wght@700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #FDFDFD; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .card-gradient { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); }
+    </style>
+</head>
+<body class="text-slate-900">
+
+    <!-- Header / Nav -->
+    <nav class="py-6 px-6 border-b border-slate-100 bg-white sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-xs">ACD</div>
+                <span class="text-xs font-black uppercase tracking-widest">Audit Budgétaire</span>
+            </div>
+            <a href="index.html" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-900 transition-colors">Retour Accueil</a>
+        </div>
+    </nav>
+
+    <!-- Hero Audit -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                Reprenez le <span class="text-blue-800 italic font-serif">contrôle</span> de vos flux.
+            </h1>
+            <p class="text-slate-500 max-w-2xl mx-auto text-lg">
+                Un audit budgétaire n'est pas une restriction, c'est une libération de capital pour vos projets futurs.
+            </p>
+        </div>
+    </section>
+
+    <!-- Simulation interactive simple -->
+    <section class="py-12 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-3 gap-8">
+                
+                <!-- Colonne Inputs -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
+                        <h3 class="font-bold mb-6 flex items-center"><i data-lucide="calculator" class="w-5 h-5 mr-2 text-blue-800"></i> Vos Chiffres</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400 block mb-2">Revenus Nets Mensuels</label>
+                                <input type="number" id="income" value="2500" class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-bold text-slate-700">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400 block mb-2">Loyers & Charges fixes</label>
+                                <input type="number" id="fixed" value="1200" class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-bold text-slate-700">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400 block mb-2">Loisirs & Variables</label>
+                                <input type="number" id="variable" value="800" class="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-800 outline-none font-bold text-slate-700">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonne Graphique -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 h-full">
+                        <div class="flex justify-between items-center mb-8">
+                            <h3 class="font-bold uppercase tracking-widest text-xs">Répartition Actuelle</h3>
+                            <div id="savings-badge" class="px-4 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-black">CAPACITÉ D'ÉPARGNE : 500€</div>
+                        </div>
+                        <div class="h-[300px]">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Méthodologie -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-16 text-center">Ma méthodologie en 3 étapes</h2>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Étape 1 -->
+                <div class="space-y-4">
+                    <div class="text-4 font-black text-slate-100 text-6xl mb-[-20px]">01</div>
+                    <h4 class="text-xl font-bold text-blue-900">Nettoyage des Flux</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Analyse des 3 derniers relevés bancaires. Identification des "fuites" : abonnements oubliés, assurances doublonnées, frais bancaires excessifs.
+                    </p>
+                </div>
+
+                <!-- Étape 2 -->
+                <div class="space-y-4">
+                    <div class="text-4 font-black text-slate-100 text-6xl mb-[-20px]">02</div>
+                    <h4 class="text-xl font-bold text-blue-900">Optimisation 50/30/20</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Rééquilibrage de votre budget : 50% Besoins, 30% Envies, 20% Épargne. Nous créons des enveloppes virtuelles pour stopper le stress de fin de mois.
+                    </p>
+                </div>
+
+                <!-- Étape 3 -->
+                <div class="space-y-4">
+                    <div class="text-4 font-black text-slate-100 text-6xl mb-[-20px]">03</div>
+                    <h4 class="text-xl font-bold text-blue-900">Automatisation</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Mise en place de virements automatiques le lendemain du salaire. L'épargne devient une "dépense obligatoire" avant même de commencer à consommer.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="card-gradient p-12 rounded-[3rem] text-center text-white relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold mb-6">Prêt à libérer votre potentiel ?</h3>
+                    <p class="text-slate-400 mb-10 max-w-xl mx-auto">Recevez un tableur de suivi personnalisé et une heure de coaching pour restructurer vos comptes.</p>
+                    <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="inline-block bg-white text-slate-900 px-10 py-4 rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-blue-50 transition-all">
+                        Réserver mon audit gratuit
+                    </a>
+                </div>
+                <!-- Déco -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        lucide.createIcons();
+
+        const ctx = document.getElementById('budgetChart').getContext('2d');
+        let budgetChart;
+
+        function updateChart() {
+            const income = parseFloat(document.getElementById('income').value) || 0;
+            const fixed = parseFloat(document.getElementById('fixed').value) || 0;
+            const variable = parseFloat(document.getElementById('variable').value) || 0;
+            const savings = Math.max(0, income - (fixed + variable));
+
+            document.getElementById('savings-badge').innerText = `CAPACITÉ D'ÉPARGNE : ${savings}€`;
+
+            const data = {
+                labels: ['Besoins Fixes', 'Envies/Variables', 'Épargne Possible'],
+                datasets: [{
+                    data: [fixed, variable, savings],
+                    backgroundColor: ['#1E3A8A', '#64748B', '#10B981'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            };
+
+            if (budgetChart) {
+                budgetChart.data = data;
+                budgetChart.update();
+            } else {
+                budgetChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { position: 'bottom', labels: { font: { size: 10, weight: 'bold' }, padding: 20 } }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Listeners
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', updateChart);
+        });
+
+        // Init
+        updateChart();
+    </script>
+</body>
+</html>
