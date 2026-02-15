@@ -1,98 +1,184 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentions Légales | ACD Gestion & Conseil</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://acd0603.github.io/ACD-Gestion-Conseil/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:italic,wght@700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #F8FAFC; 
+        }
+        
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        .legal-card {
+            background: white;
+            border-radius: 2.5rem;
+            border: 1px solid #f1f5f9;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .legal-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 leading-relaxed">
+<body class="text-slate-900 selection:bg-blue-100">
 
-    <!-- Header Simple -->
-    <nav class="bg-white border-b border-slate-200 py-6">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black group-hover:bg-blue-800 transition-colors">ACD</div>
-                <span class="text-xs font-black uppercase tracking-widest text-slate-500">Retour au site</span>
+            <a href="https://acd0603.github.io/ACD-Gestion-Conseil/index.html" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+                    ACD
+                </div>
+                <div class="hidden sm:flex flex-col">
+                    <span class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
+                </div>
             </a>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Analyse du budget</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Stratégie d'investissement</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Pédagogie</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl">
+                    Me contacter
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Content -->
-    <main class="container mx-auto px-6 py-20 max-w-4xl">
-        <h1 class="text-4xl font-black mb-4 tracking-tight">Mentions Légales</h1>
-        <p class="text-slate-500 mb-12 font-medium">En vigueur au 15 février 2026</p>
+    <!-- Header Section -->
+    <header class="pt-40 pb-16 bg-white border-b border-slate-100">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 mb-4 tracking-tighter">
+                Mentions <span class="text-blue-700 italic font-serif font-medium">Légales</span>
+            </h1>
+            <p class="text-slate-500 font-medium uppercase tracking-widest text-xs">
+                Dernière mise à jour : 15 février 2026
+            </p>
+        </div>
+    </header>
 
-        <div class="space-y-12">
-            <!-- Éditeur du site -->
-            <section>
-                <h2 class="text-xl font-bold mb-4 flex items-center text-blue-800">
-                    <i data-lucide="user" class="w-5 h-5 mr-3"></i> 1. Édition du site
-                </h2>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                    <p class="mb-2">Le présent site est édité par :</p>
-                    <ul class="space-y-1 font-medium">
-                        <li><strong>Entreprise :</strong> Entreprise Individuelle (EI) Czurczak-Delcampe</li>
-                        <li><strong>Nom Commercial :</strong> ACD Gestion & Conseil</li>
-                        <li><strong>Siège Social :</strong> Lille, France</li>
-                        <li><strong>SIREN :</strong> 938 126 956</li>
-                        <li><strong>Directeur de la publication :</strong> Czurczak-Delcampe</li>
-                        <li><strong>Contact :</strong> <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-blue-600 underline">ACD_Gestion_Conseil@outlook.com</a></li>
+    <!-- Main Content -->
+    <main class="py-20">
+        <div class="container mx-auto px-6 max-w-4xl space-y-12">
+            
+            <!-- 1. Édition du site -->
+            <section class="legal-card">
+                <div class="flex items-center space-x-4 mb-8">
+                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="user" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-black tracking-tight">1. Édition du site</h2>
+                </div>
+                <div class="space-y-4 text-slate-600 font-medium">
+                    <p>Le présent site est édité par :</p>
+                    <ul class="space-y-2 border-l-2 border-slate-100 pl-6">
+                        <li><span class="text-slate-400 text-xs uppercase block tracking-widest mb-1">Structure</span> <strong>Entreprise Individuelle (EI) Czurczak-Delcampe</strong></li>
+                        <li><span class="text-slate-400 text-xs uppercase block tracking-widest mb-1">Nom Commercial</span> <strong>ACD Gestion & Conseil</strong></li>
+                        <li><span class="text-slate-400 text-xs uppercase block tracking-widest mb-1">Siège Social</span> <strong>Lille, France</strong></li>
+                        <li><span class="text-slate-400 text-xs uppercase block tracking-widest mb-1">SIREN</span> <strong>938 126 956</strong></li>
+                        <li><span class="text-slate-400 text-xs uppercase block tracking-widest mb-1">Directeur de publication</span> <strong>Czurczak-Delcampe</strong></li>
+                        <li><span class="text-slate-400 text-xs uppercase block tracking-widest mb-1">E-mail</span> <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-blue-700 hover:underline">ACD_Gestion_Conseil@outlook.com</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Hébergeur -->
-            <section>
-                <h2 class="text-xl font-bold mb-4 flex items-center text-blue-800">
-                    <i data-lucide="server" class="w-5 h-5 mr-3"></i> 2. Hébergement
-                </h2>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                    <p class="mb-2">Le site est hébergé par :</p>
-                    <ul class="space-y-1 font-medium">
-                        <li><strong>Nom :</strong> GitHub Pages / GitHub Inc.</li>
-                        <li><strong>Adresse :</strong> 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA</li>
-                    </ul>
+            <!-- 2. Hébergement -->
+            <section class="legal-card">
+                <div class="flex items-center space-x-4 mb-8">
+                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="server" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-black tracking-tight">2. Hébergement</h2>
+                </div>
+                <div class="space-y-4 text-slate-600 font-medium">
+                    <p>Le site est hébergé par :</p>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <p class="font-bold text-slate-900">GitHub Pages / GitHub Inc.</p>
+                        <p class="text-sm">88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- Propriété Intellectuelle -->
-            <section>
-                <h2 class="text-xl font-bold mb-4 flex items-center text-blue-800">
-                    <i data-lucide="shield-check" class="w-5 h-5 mr-3"></i> 3. Propriété Intellectuelle
-                </h2>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                    <p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.</p>
-                    <p class="mt-4">Toute reproduction ou représentation intégrale ou partielle, par quelque procédé que ce soit, du contenu de ce site, faite sans l'autorisation expresse de ACD Gestion & Conseil est illicite et constitue une contrefaçon.</p>
+            <!-- 3. Propriété Intellectuelle -->
+            <section class="legal-card">
+                <div class="flex items-center space-x-4 mb-8">
+                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-black tracking-tight">3. Propriété Intellectuelle</h2>
+                </div>
+                <div class="text-slate-600 font-medium leading-relaxed space-y-4">
+                    <p>
+                        L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. 
+                        Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques.
+                    </p>
+                    <p class="p-4 bg-amber-50/50 rounded-xl border-l-4 border-amber-400 text-amber-900 text-sm">
+                        Toute reproduction ou représentation intégrale ou partielle, par quelque procédé que ce soit, faite sans l'autorisation expresse de ACD Gestion & Conseil est illicite et constitue une contrefaçon.
+                    </p>
                 </div>
             </section>
 
-            <!-- Données Personnelles -->
-            <section>
-                <h2 class="text-xl font-bold mb-4 flex items-center text-blue-800">
-                    <i data-lucide="lock" class="w-5 h-5 mr-3"></i> 4. Protection des données (RGPD)
-                </h2>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                    <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression des données vous concernant collectées via le formulaire de contact.</p>
-                    <p class="mt-4">Ces données sont utilisées exclusivement pour répondre à vos demandes et ne sont en aucun cas cédées à des tiers.</p>
+            <!-- 4. Protection des données -->
+            <section class="legal-card">
+                <div class="flex items-center space-x-4 mb-8">
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="lock" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-black tracking-tight">4. Protection des données (RGPD)</h2>
+                </div>
+                <div class="text-slate-600 font-medium leading-relaxed space-y-4">
+                    <p>
+                        Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression des données vous concernant collectées via le formulaire de contact.
+                    </p>
+                    <p>
+                        Ces données sont utilisées exclusivement pour répondre à vos demandes et ne sont en aucun cas cédées ou vendues à des tiers.
+                    </p>
                 </div>
             </section>
+
         </div>
     </main>
 
-    <!-- Footer Simple -->
-    <footer class="py-12 border-t border-slate-200 text-center">
-        <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">© 2026 ACD GESTION & CONSEIL — LILLE</p>
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-100 bg-white text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">© 2026 ACD GESTION & CONSEIL — LILLE</p>
+        </div>
     </footer>
 
     <script>
+        // Initialize Icons
         lucide.createIcons();
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
     </script>
 </body>
 </html>
