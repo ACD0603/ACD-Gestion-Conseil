@@ -1,311 +1,220 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Wallet, 
-  TrendingUp, 
-  GraduationCap, 
-  ShieldAlert, 
-  Menu, 
-  X, 
-  CheckCircle2, 
-  ArrowRight, 
-  Mail, 
-  Phone, 
-  Target,
-  BarChart3,
-  ArrowUpRight,
-  ShieldCheck,
-  User,
-  BookOpen,
-  Award
-} from 'lucide-react';
-
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
-
-  return (
-    <div className="min-h-screen bg-[#FDFDFD] font-sans text-slate-900 selection:bg-emerald-100">
-      
-      {/* Navigation - Sophistiquée */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled 
-        ? 'bg-white/90 backdrop-blur-lg shadow-sm py-3' 
-        : 'bg-transparent py-6'
-      }`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection('home')}>
-            <div className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white font-bold shadow-lg transition-transform group-hover:scale-110">
-              ACD
-            </div>
-            <div className="hidden sm:flex flex-col">
-              <span className="text-sm font-black uppercase tracking-widest text-slate-900">Gestion & Conseil</span>
-            </div>
-          </div>
-
-          <div className="hidden md:flex items-center space-x-10">
-            {['Services', 'Mon Parcours', 'Vision'].map((item) => (
-              <button 
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
-                className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-emerald-600 transition-colors"
-              >
-                {item}
-              </button>
-            ))}
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="bg-emerald-600 text-white px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 transition-all shadow-md active:scale-95"
-            >
-              Contact
-            </button>
-          </div>
-
-          <button onClick={toggleMenu} className="md:hidden text-slate-900">
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Hero Section - Épurée & Statutaire */}
-      <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block px-4 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-8">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">
-                La finance, une science au service de l'humain
-              </span>
-            </div>
-            <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.05] tracking-tighter mb-8">
-              L'expertise d'un <span className="text-emerald-600 italic font-serif">passionné</span><br/>
-              pour votre sérénité financière.
-            </h1>
-            <p className="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-              Étudiant en Économie-Finance, je mets mes connaissances académiques au profit de votre budget quotidien et de votre culture financière.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button 
-                onClick={() => scrollToSection('mon-parcours')}
-                className="group flex items-center space-x-3 text-slate-900 font-black uppercase tracking-widest text-xs border-b-2 border-emerald-500 pb-1 hover:text-emerald-600 transition-colors"
-              >
-                <span>Découvrir mon profil</span>
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACD Gestion & Conseil | Expertise & Pédagogie</title>
+    <!-- Tailwind CSS pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons pour les icônes -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:italic,wght@700&display=swap');
         
-        {/* Motif de fond minimaliste */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none select-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-slate-900 rounded-full"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-slate-900 rounded-full"></div>
-        </div>
-      </section>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-[#FDFDFD] text-slate-900 selection:bg-emerald-100">
 
-      {/* Section À Propos / Biographie */}
-      <section id="mon-parcours" className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div className="relative">
-              {/* Carré de couleur simulant une photo ou un visuel pro */}
-              <div className="aspect-[4/5] bg-slate-200 rounded-3xl overflow-hidden relative shadow-2xl">
-                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
-                 <div className="absolute bottom-8 left-8 text-white">
-                    <p className="text-xs font-black uppercase tracking-[0.2em] mb-1">Fondateur</p>
-                    <p className="text-2xl font-bold italic font-serif">ACD Gestion & Conseil</p>
-                 </div>
-              </div>
-              {/* Badge flottant */}
-              <div className="absolute -right-8 top-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hidden md:block">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
-                    <BookOpen size={20} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-black uppercase text-slate-400">Formation</p>
-                    <p className="font-bold text-slate-900">L1 Éco-Gestion</p>
-                  </div>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                <div class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white font-bold shadow-lg transition-transform group-hover:scale-110">
+                    ACD
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                    <Award size={20} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-black uppercase text-slate-400">Spécialité</p>
-                    <p className="font-bold text-slate-900">Analyse Financière</p>
-                  </div>
+                <div class="hidden sm:flex flex-col">
+                    <span class="text-sm font-black uppercase tracking-widest text-slate-900">Gestion & Conseil</span>
                 </div>
-              </div>
             </div>
 
-            <div className="space-y-8">
-              <h2 className="text-xs font-black text-emerald-600 uppercase tracking-[0.4em]">Qui suis-je ?</h2>
-              <h3 className="text-4xl font-bold text-slate-900 leading-tight tracking-tight">
-                La rigueur de l'économie, <br/>
-                <span className="text-slate-400 font-light font-serif">la clarté du conseil.</span>
-              </h3>
-              <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-medium">
-                <p>
-                  Actuellement étudiant en Licence d'Économie et Gestion, j'ai fondé **ACD Gestion & Conseil** avec une conviction simple : les outils de la finance ne doivent pas être réservés à une élite.
-                </p>
-                <p>
-                  Mon approche combine la fraîcheur de mes apprentissages académiques (Macro-économie, Gestion de portefeuille, Fiscalité) avec une volonté d'aider concrètement les particuliers à optimiser leur vie quotidienne.
-                </p>
-                <p className="italic font-serif text-slate-500 border-l-4 border-emerald-500 pl-6">
-                  "Mon objectif n'est pas de vous dire quoi acheter, mais de vous apprendre comment l'argent circule, afin que vous puissiez prendre vos propres décisions."
-                </p>
-              </div>
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="#services" class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-emerald-600 transition-colors">Services</a>
+                <a href="#mon-parcours" class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-emerald-600 transition-colors">Mon Parcours</a>
+                <a href="#vision" class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-emerald-600 transition-colors">Vision</a>
+                <a href="#contact" class="bg-emerald-600 text-white px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 transition-all shadow-md">Contact</a>
             </div>
-          </div>
         </div>
-      </section>
+    </nav>
 
-      {/* Mes Services - Modernisés */}
-      <section id="services" className="py-32 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-20">
-            <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4">Mon Accompagnement</h2>
-            <h3 className="text-4xl font-bold text-slate-900">Deux piliers pour votre réussite.</h3>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="group p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-emerald-200 hover:bg-white transition-all duration-500 shadow-sm hover:shadow-xl">
-              <div className="w-14 h-14 bg-emerald-600 rounded-2xl flex items-center justify-center text-white mb-8 group-hover:rotate-6 transition-transform">
-                <Wallet size={28} />
-              </div>
-              <h4 className="text-2xl font-bold mb-4">Optimisation Budgétaire</h4>
-              <p className="text-slate-500 mb-8 font-medium leading-relaxed">
-                Utilisation de méthodes analytiques pour identifier vos leviers d'épargne. Nous passons au crible vos frais fixes et vos habitudes de consommation.
-              </p>
-              <ul className="space-y-4">
-                {["Audit des abonnements & charges fixes", "Stratégies d'épargne automatique", "Pilotage du reste-à-vivre"].map((item, i) => (
-                  <li key={i} className="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="inline-block px-4 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-8">
+                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">
+                    La finance, une science au service de l'humain
+                </span>
             </div>
-
-            <div className="group p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-blue-200 hover:bg-white transition-all duration-500 shadow-sm hover:shadow-xl">
-              <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white mb-8 group-hover:rotate-6 transition-transform">
-                <GraduationCap size={28} />
-              </div>
-              <h4 className="text-2xl font-bold mb-4">Pédagogie Financière</h4>
-              <p className="text-slate-500 mb-8 font-medium leading-relaxed">
-                Cours particuliers sur les marchés financiers. Je vous explique les produits (PEA, Assurance-vie, ETF) pour lever les barrières de la peur et du jargon.
-              </p>
-              <ul className="space-y-4">
-                {["Comprendre le binôme Risque/Rendement", "Fonctionnement des enveloppes fiscales", "Introduction aux classes d'actifs"].map((item, i) => (
-                  <li key={i} className="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Vision / Disclaimer Section */}
-      <section id="vision" className="py-24 bg-slate-900 text-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
-             <div className="md:w-1/3 text-center md:text-left">
-                <ShieldCheck size={64} className="text-emerald-500 mx-auto md:mx-0 mb-4" />
-                <h4 className="text-2xl font-bold">Confiance & Éthique</h4>
-             </div>
-             <div className="md:w-2/3 space-y-4">
-                <p className="text-slate-400 font-medium leading-relaxed italic">
-                  "En tant qu'étudiant, ma valeur ajoutée réside dans ma capacité à transmettre des concepts complexes de manière simple et moderne, sans les biais commerciaux des grands réseaux bancaires."
-                </p>
-                <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500">
-                  Disclaimer : ACD Gestion & Conseil n'est pas CIF. Pas de conseil personnalisé d'investissement.
-                </div>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Simple & Élégant */}
-      <section id="contact" className="py-32 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-8 tracking-tight italic font-serif text-slate-900">Commençons à bâtir votre stratégie.</h2>
-            <p className="text-xl text-slate-500 mb-12 font-medium">
-              Une question ? Un besoin d'accompagnement ? Envoyez-moi un message pour en discuter de vive voix.
+            <h1 class="text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.05] tracking-tighter mb-8">
+                L'expertise d'un <span class="text-emerald-600 italic font-serif">passionné</span><br/>
+                pour votre sérénité financière.
+            </h1>
+            <p class="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
+                Étudiant en Économie-Finance, je mets mes connaissances académiques au profit de votre budget quotidien et de votre culture financière.
             </p>
-            <div className="flex flex-col items-center space-y-6">
-               <a href="mailto:contact@acd-gestion.fr" className="text-2xl font-bold text-slate-900 hover:text-emerald-600 transition-colors border-b-2 border-slate-100 pb-2">
-                 contact@acd-gestion.fr
-               </a>
-               <div className="flex items-center space-x-6">
-                  <div className="flex items-center space-x-2 text-xs font-black uppercase tracking-[0.2em] text-slate-400">
-                    <Phone size={14} />
-                    <span>06 00 00 00 00</span>
-                  </div>
-               </div>
-               <button 
-                  onClick={() => scrollToSection('contact')}
-                  className="mt-8 px-12 py-5 bg-slate-900 text-white rounded-full font-black uppercase tracking-[0.2em] text-[10px] hover:bg-emerald-600 transition-all shadow-xl"
-               >
-                 Envoyer un Message
-               </button>
+            <a href="#mon-parcours" class="group inline-flex items-center space-x-3 text-slate-900 font-black uppercase tracking-widest text-xs border-b-2 border-emerald-500 pb-1 hover:text-emerald-600 transition-colors">
+                <span>Découvrir mon profil</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+            </a>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-slate-900 rounded-full"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-slate-900 rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Section À Propos -->
+    <section id="mon-parcours" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="relative">
+                    <div class="aspect-[4/5] bg-slate-200 rounded-3xl overflow-hidden relative shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                        <div class="absolute bottom-8 left-8 text-white">
+                            <p class="text-xs font-black uppercase tracking-[0.2em] mb-1">Fondateur</p>
+                            <p class="text-2xl font-bold italic font-serif">ACD Gestion & Conseil</p>
+                        </div>
+                    </div>
+                    <div class="absolute -right-8 top-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hidden md:block">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
+                                <i data-lucide="book-open" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-black uppercase text-slate-400">Formation</p>
+                                <p class="font-bold text-slate-900 text-sm">L1 Éco-Gestion</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                                <i data-lucide="award" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-black uppercase text-slate-400">Spécialité</p>
+                                <p class="font-bold text-slate-900 text-sm">Analyse Financière</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <h2 class="text-xs font-black text-emerald-600 uppercase tracking-[0.4em]">Qui suis-je ?</h2>
+                    <h3 class="text-4xl font-bold text-slate-900 leading-tight tracking-tight">
+                        La rigueur de l'économie, <br/>
+                        <span class="text-slate-400 font-light font-serif">la clarté du conseil.</span>
+                    </h3>
+                    <div class="space-y-6 text-lg text-slate-600 leading-relaxed font-medium">
+                        <p>Actuellement étudiant en Licence d'Économie et Gestion, j'ai fondé **ACD Gestion & Conseil** car je suis convaincu que les outils de la finance doivent être accessibles à tous.</p>
+                        <p>Mon approche combine la fraîcheur de mes cours académiques avec une volonté d'aider concrètement les particuliers à mieux gérer leur argent.</p>
+                        <p class="italic font-serif text-slate-500 border-l-4 border-emerald-500 pl-6 text-base">
+                            "Mon objectif est de vous apprendre comment l'argent circule, afin que vous puissiez prendre vos propres décisions."
+                        </p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Footer Minimaliste */}
-      <footer className="py-12 border-t border-slate-100 bg-white">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-            © {new Date().getFullYear()} ACD Gestion & Conseil — Étudiant en L1 Éco-Fi
-          </div>
-          <div className="flex space-x-8">
-             <a href="#" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-emerald-600">Mentions</a>
-             <a href="#" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-emerald-600">LinkedIn</a>
-          </div>
+    <!-- Services -->
+    <section id="services" class="py-32 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-4 text-center">Mon Accompagnement</h2>
+            <h3 class="text-4xl font-bold text-slate-900 mb-20 text-center">Deux piliers pour votre réussite.</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8 text-left">
+                <div class="group p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-emerald-200 hover:bg-white transition-all duration-500">
+                    <div class="w-14 h-14 bg-emerald-600 rounded-2xl flex items-center justify-center text-white mb-8 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="wallet"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-4 text-slate-900">Optimisation Budgétaire</h4>
+                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Identification de vos leviers d'épargne en analysant vos frais fixes et vos habitudes de consommation.</p>
+                    <ul class="space-y-4 text-sm font-bold text-slate-700">
+                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>Audit des contrats & charges fixes</span></li>
+                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>Stratégies d'épargne automatique</span></li>
+                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span><span>Pilotage du reste-à-vivre</span></li>
+                    </ul>
+                </div>
+                <div class="group p-12 bg-slate-50 rounded-[2.5rem] border border-transparent hover:border-blue-200 hover:bg-white transition-all duration-500">
+                    <div class="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white mb-8 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="graduation-cap"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-4 text-slate-900">Pédagogie Financière</h4>
+                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Cours particuliers sur les marchés financiers. Comprendre les enveloppes (PEA, Assurance-vie) sans jargon.</p>
+                    <ul class="space-y-4 text-sm font-bold text-slate-700">
+                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span><span>Comprendre le binôme Risque/Rendement</span></li>
+                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span><span>Fonctionnement des enveloppes fiscales</span></li>
+                        <li class="flex items-center space-x-3"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span><span>Introduction aux classes d'actifs</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </footer>
+    </section>
 
-      {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-white z-[60] p-10 flex flex-col justify-center items-center space-y-10">
-          <button onClick={toggleMenu} className="absolute top-10 right-10 text-slate-900">
-            <X size={32} />
-          </button>
-          {['Services', 'Mon Parcours', 'Vision', 'Contact'].map((item) => (
-            <button 
-              key={item}
-              onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
-              className="text-2xl font-black uppercase tracking-[0.2em] text-slate-900"
-            >
-              {item}
-            </button>
-          ))}
+    <!-- Vision / Disclaimer -->
+    <section id="vision" class="py-24 bg-slate-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3 text-center md:text-left">
+                    <i data-lucide="shield-check" class="w-16 h-16 text-emerald-500 mx-auto md:mx-0 mb-4"></i>
+                    <h4 class="text-2xl font-bold">Confiance & Éthique</h4>
+                </div>
+                <div class="md:w-2/3 space-y-4">
+                    <p class="text-slate-400 font-medium leading-relaxed italic">
+                        "En tant qu'étudiant, ma valeur ajoutée est ma capacité à transmettre des concepts complexes de manière simple et moderne."
+                    </p>
+                    <div class="p-4 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500">
+                        Disclaimer : ACD Gestion & Conseil n'est pas CIF. Pas de conseil personnalisé d'investissement.
+                    </div>
+                </div>
+            </div>
         </div>
-      )}
-    </div>
-  );
-};
+    </section>
 
-export default App;
+    <!-- Contact -->
+    <section id="contact" class="py-32 bg-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 tracking-tight italic font-serif text-slate-900 text-center">Parlons de votre stratégie.</h2>
+            <div class="flex flex-col items-center space-y-6">
+                <a href="mailto:contact@acd-gestion.fr" class="text-2xl font-bold text-slate-900 hover:text-emerald-600 transition-colors border-b-2 border-slate-100 pb-2">
+                    contact@acd-gestion.fr
+                </a>
+                <p class="text-xs font-black uppercase tracking-[0.2em] text-slate-400">06 00 00 00 00</p>
+                <a href="mailto:contact@acd-gestion.fr" class="mt-8 px-12 py-5 bg-slate-900 text-white rounded-full font-black uppercase tracking-[0.2em] text-[10px] hover:bg-emerald-600 transition-all shadow-xl">
+                    Envoyer un Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-slate-100 bg-white text-center">
+        <div class="container mx-auto px-6">
+            <div class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
+                © 2024 ACD Gestion & Conseil — Étudiant en L1 Éco-Fi
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialisation des icônes
+        lucide.createIcons();
+
+        // Gestion du scroll pour la navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/90', 'backdrop-blur-lg', 'shadow-sm', 'py-3');
+                navbar.classList.remove('py-6');
+            } else {
+                navbar.classList.remove('bg-white/90', 'backdrop-blur-lg', 'shadow-sm', 'py-3');
+                navbar.classList.add('py-6');
+            }
+        });
+    </script>
+</body>
+</html>
