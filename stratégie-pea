@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stratégie PEA | ACD Gestion & Conseil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:italic,wght@700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .gradient-pea { background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%); }
+    </style>
+</head>
+<body class="text-slate-900">
+
+    <!-- Navigation -->
+    <nav class="py-6 px-6 border-b border-slate-100 bg-white sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center text-white font-bold text-xs">ACD</div>
+                <span class="text-xs font-black uppercase tracking-widest text-slate-700">Stratégie PEA</span>
+            </div>
+            <a href="index.html" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-900 transition-colors">Retour Accueil</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Investissement Long Terme</span>
+                <h1 class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                    Le PEA : Faire fructifier votre <span class="text-blue-800 italic font-serif">patrimoine</span> simplement.
+                </h1>
+                <p class="text-slate-500 text-lg mb-8 leading-relaxed">
+                    Apprenez à investir dans les plus grandes entreprises européennes et mondiales tout en bénéficiant d'un cadre fiscal privilégié.
+                </p>
+                <div class="flex space-x-4">
+                    <div class="flex items-center space-x-2 text-sm font-bold text-slate-700">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+                        <span>Fiscalité réduite</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm font-bold text-slate-700">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+                        <span>Effet boule de neige</span>
+                    </div>
+                </div>
+            </div>
+            <div class="gradient-pea p-8 rounded-[2.5rem] shadow-2xl text-white">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <i data-lucide="trending-up" class="w-6 h-6 mr-3"></i>
+                    Simulateur d'Intérêts Composés
+                </h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-blue-200 block mb-2">Versement Initial (€)</label>
+                        <input type="number" id="initialAmount" value="500" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 focus:ring-2 focus:ring-blue-400 outline-none font-bold text-white">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-blue-200 block mb-2">Versement Mensuel (€)</label>
+                        <input type="number" id="monthlyAmount" value="100" class="w-full bg-white/10 border border-white/20 rounded-xl p-3 focus:ring-2 focus:ring-blue-400 outline-none font-bold text-white">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-blue-200 block mb-2">Durée (Années)</label>
+                        <input type="range" id="years" min="1" max="40" value="20" class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between text-[10px] mt-2 font-bold text-blue-200 uppercase">
+                            <span>1 an</span>
+                            <span id="yearsLabel">20 ans</span>
+                            <span>40 ans</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-white/10">
+                        <p class="text-blue-200 text-xs uppercase font-black tracking-widest mb-1">Capital Estimé :</p>
+                        <p id="totalResult" class="text-4xl font-black text-white">45 600 €</p>
+                        <p id="interestEarned" class="text-xs text-green-400 mt-1 font-bold">+ 21 100 € d'intérêts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Les 3 Piliers -->
+    <section class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-2xl font-black mb-16 uppercase tracking-widest">Ma Stratégie Gagnante</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-800 mb-6">
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4 text-blue-900">1. Diversification Totale</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Ne pariez pas sur une seule entreprise. Utilisez des <strong>ETFs (Ex: MSCI World)</strong> pour investir dans des centaines de sociétés en un seul clic.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-800 mb-6">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4 text-blue-900">2. Discipline & Temps</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Le secret n'est pas de deviner le futur, mais de rester investi. Le temps est votre meilleur allié pour lisser les risques du marché.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-green-800 mb-6">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4 text-blue-900">3. Avantage Fiscal</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Après 5 ans, vos gains sont <strong>exonérés d'impôt sur le revenu</strong>. Seuls les prélèvements sociaux (17,2%) s'appliquent. C'est un bonus énorme !
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Graphique d'évolution -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto bg-slate-900 p-8 lg:p-12 rounded-[3rem] text-white">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-2">Projection de croissance</h3>
+                    <p class="text-slate-400 text-sm">Basé sur un rendement annuel moyen de 7% (historique moyen de la bourse).</p>
+                </div>
+                <div class="h-[350px]">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer class="py-12 border-t border-slate-100 text-center">
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Avertissement</p>
+        <p class="text-[10px] text-slate-400 max-w-2xl mx-auto px-6">
+            L'investissement en bourse comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures. Ce guide est purement informatif.
+        </p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        let growthChart;
+
+        function calculateGrowth() {
+            const initial = parseFloat(document.getElementById('initialAmount').value) || 0;
+            const monthly = parseFloat(document.getElementById('monthlyAmount').value) || 0;
+            const years = parseInt(document.getElementById('years').value);
+            const annualRate = 0.07;
+            const monthlyRate = annualRate / 12;
+
+            document.getElementById('yearsLabel').innerText = `${years} ans`;
+
+            let labels = [];
+            let dataTotal = [];
+            let currentBalance = initial;
+            let totalInvested = initial;
+
+            for (let i = 0; i <= years; i++) {
+                labels.push(`An ${i}`);
+                dataTotal.push(Math.round(currentBalance));
+                
+                for (let j = 0; j < 12; j++) {
+                    currentBalance = (currentBalance + monthly) * (1 + monthlyRate);
+                    totalInvested += monthly;
+                }
+            }
+
+            const total = dataTotal[dataTotal.length - 1];
+            const interest = total - totalInvested;
+
+            document.getElementById('totalResult').innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(total);
+            document.getElementById('interestEarned').innerText = `+ ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(interest)} d'intérêts`;
+
+            updateChart(labels, dataTotal);
+        }
+
+        function updateChart(labels, dataPoints) {
+            if (growthChart) {
+                growthChart.data.labels = labels;
+                growthChart.data.datasets[0].data = dataPoints;
+                growthChart.update();
+            } else {
+                growthChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Valeur du portefeuille',
+                            data: dataPoints,
+                            borderColor: '#3B82F6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94A3B8', font: { size: 10 } } },
+                            x: { grid: { display: false }, ticks: { color: '#94A3B8', font: { size: 10 } } }
+                        }
+                    }
+                });
+            }
+        }
+
+        document.querySelectorAll('input').forEach(el => el.addEventListener('input', calculateGrowth));
+        calculateGrowth();
+    </script>
+</body>
+</html>
