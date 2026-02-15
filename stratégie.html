@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stratégie | ACD Gestion & Conseil</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://acd0603.github.io/ACD-Gestion-Conseil/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -27,12 +29,6 @@
             background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%); 
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         /* Custom Range Slider */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -46,20 +42,21 @@
         }
 
         .nav-scrolled {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             padding-top: 1rem !important;
             padding-bottom: 1rem !important;
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
     </style>
 </head>
 <body class="text-slate-900">
 
-    <!-- Navigation -->
+    <!-- Navigation (Identique à l'index avec état actif) -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-3 group">
+            <a href="https://acd0603.github.io/ACD-Gestion-Conseil/index.html" class="flex items-center space-x-3 group" title="Retour à l'accueil">
                 <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
                     ACD
                 </div>
@@ -72,10 +69,11 @@
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Analyse du budget</a>
-                <a href="#" class="text-[11px] font-bold uppercase tracking-widest text-blue-900 transition-colors border-b-2 border-blue-900 pb-1">Stratégie</a>
-                <a href="#" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Pédagogie</a>
-                <a href="#" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Analyse du budget</a>
+                <!-- État Actif pour Stratégie -->
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-[11px] font-black uppercase tracking-widest text-blue-900 border-b-2 border-blue-900 pb-1">Stratégie d'investissement</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Pédagogie</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
                     Me contacter
                 </a>
             </div>
@@ -83,7 +81,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 overflow-hidden bg-white">
+    <section class="relative pt-40 pb-20 overflow-hidden bg-white">
         <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-blue-50 rounded-full blur-3xl opacity-50"></div>
         
         <div class="container mx-auto px-6 relative z-10">
@@ -253,20 +251,7 @@
         </div>
     </section>
 
-    <!-- CTA Footer -->
-    <section class="py-24 text-center">
-        <div class="container mx-auto px-6">
-            <div class="max-w-2xl mx-auto">
-                <h2 class="text-3xl font-black mb-6">Prêt à lancer votre stratégie ?</h2>
-                <p class="text-slate-500 mb-10">Une analyse personnalisée de 30 minutes offerte pour définir vos objectifs et votre profil de risque.</p>
-                <a href="#" class="inline-flex items-center bg-blue-700 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest hover:bg-blue-800 transition-all shadow-xl hover:scale-105">
-                    Prendre rendez-vous
-                    <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
+    <!-- Pied de page -->
     <footer class="py-12 border-t border-slate-100 text-center bg-slate-50">
         <div class="container mx-auto px-6">
             <div class="flex justify-center space-x-6 mb-8">
@@ -274,11 +259,11 @@
                 <a href="#" class="text-slate-400 hover:text-blue-900 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
             </div>
             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-4">Avertissement Légal</p>
-            <p class="text-[10px] text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-[10px] text-slate-400 max-w-2xl mx-auto leading-relaxed px-6">
                 L'investissement en bourse comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures. 
-                ACD Gestion & Conseil n'est pas un établissement bancaire. Ce contenu est fourni à titre éducatif et informatif.
-                © 2024 ACD Gestion & Conseil. Tous droits réservés.
+                Ce contenu est purement informatif et ne constitue pas un conseil en investissement personnalisé.
             </p>
+            <p class="text-[10px] text-slate-300 mt-6 italic">© 2024 ACD Gestion & Conseil. Lille & France.</p>
         </div>
     </footer>
 
@@ -304,7 +289,7 @@
             const initial = parseFloat(document.getElementById('initialAmount').value) || 0;
             const monthly = parseFloat(document.getElementById('monthlyAmount').value) || 0;
             const years = parseInt(document.getElementById('years').value);
-            const annualRate = 0.07; // 7% average market return
+            const annualRate = 0.07; 
             const monthlyRate = annualRate / 12;
 
             document.getElementById('yearsLabel').innerText = `${years} ans`;
@@ -320,7 +305,6 @@
                 dataTotal.push(Math.round(currentBalance));
                 dataInvested.push(Math.round(totalInvested));
                 
-                // Compound interest calculation monthly for accuracy
                 for (let j = 0; j < 12; j++) {
                     currentBalance = (currentBalance + monthly) * (1 + monthlyRate);
                     totalInvested += monthly;
@@ -351,7 +335,7 @@
                 growthChart.data.labels = labels;
                 growthChart.data.datasets[0].data = dataPoints;
                 growthChart.data.datasets[1].data = investedPoints;
-                growthChart.update('none'); // Update without animation for smoothness
+                growthChart.update('none');
             } else {
                 growthChart = new Chart(ctx, {
                     type: 'line',
@@ -423,12 +407,10 @@
             }
         }
 
-        // Event Listeners
         document.querySelectorAll('input').forEach(el => {
             el.addEventListener('input', calculateGrowth);
         });
 
-        // Start initial calculation
         window.onload = calculateGrowth;
     </script>
 </body>
