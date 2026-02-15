@@ -1,517 +1,999 @@
 <!DOCTYPE html>
+
 <html lang="fr" class="scroll-smooth">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ACD Gestion & Conseil | Accompagnement au pilotage & Pédagogie Financière</title>
+
     <meta name="description" content="Consultant indépendant en stratégie financière à Lille. Audit budgétaire, optimisation d'enveloppes fiscales (PEA, CTO, Assurance-vie) et pédagogie financière.">
+
     
-    <!-- Favicon Unifiée -->
+
+    <!-- Favicon -->
+
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
+
     
+
     <!-- Scripts & Styles -->
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     
+
     <style>
+
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:italic,wght@700&display=swap');
+
         
+
         :root {
+
             --brand-dark: #0F172A;
+
             --brand-blue: #1E3A8A;
+
             --brand-accent: #3B82F6;
+
         }
 
+
+
         body {
+
             font-family: 'Inter', sans-serif;
+
             -webkit-font-smoothing: antialiased;
+
         }
+
+
 
         .font-serif { font-family: 'Playfair Display', serif; }
 
+
+
         .hover-lift {
+
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-        }
-        .hover-lift:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
         }
 
-        /* Timeline custom logic */
+        .hover-lift:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        }
+
+
+
+        /* Timeline */
+
         .timeline-container { position: relative; max-width: 1000px; margin: 60px auto; }
+
         .timeline-container::after {
+
             content: '';
+
             position: absolute;
+
             width: 2px;
+
             background: linear-gradient(to bottom, transparent, #E2E8F0, transparent);
+
             top: 0; bottom: 0; left: 50%; margin-left: -1px;
+
         }
+
         .timeline-item { padding: 20px 50px; position: relative; width: 50%; }
+
         .timeline-item::after {
+
             content: '';
+
             position: absolute;
+
             width: 12px; height: 12px;
+
             right: -6px; background-color: white;
+
             border: 3px solid var(--brand-blue);
+
             top: 35px; border-radius: 50%; z-index: 1;
+
             transition: transform 0.3s ease;
+
         }
+
         .timeline-item:hover::after { transform: scale(1.5); background-color: var(--brand-blue); }
+
         .left { left: 0; text-align: right; }
+
         .right { left: 50%; text-align: left; }
+
         .right::after { left: -6px; }
 
+
+
         .glass-card {
+
             background: rgba(255, 255, 255, 0.8);
+
             backdrop-filter: blur(10px);
+
             border: 1px solid rgba(241, 245, 249, 1);
+
             border-radius: 2rem;
+
         }
+
+
 
         .contact-card-split {
+
             display: flex;
+
             overflow: hidden;
+
             border-radius: 2.5rem;
+
             background: white;
+
             box-shadow: 0 30px 60px -12px rgba(15, 23, 42, 0.12);
+
         }
+
         .contact-left { background: var(--brand-dark); color: white; width: 40%; padding: 80px 50px; }
+
         .contact-right { width: 60%; padding: 80px 60px; }
 
+
+
         .form-input {
+
             width: 100%; padding: 16px 20px; border-radius: 16px;
+
             border: 2px solid #F1F5F9; background: #F8FAFC; transition: all 0.2s ease;
+
         }
+
         .form-input:focus {
+
             outline: none; border-color: var(--brand-accent);
+
             background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+
         }
+
+
 
         @media (max-width: 1024px) {
+
             .contact-card-split { flex-direction: column; }
+
             .contact-left, .contact-right { width: 100%; padding: 50px 30px; }
+
             .timeline-container::after { left: 30px; }
+
             .timeline-item { width: 100%; padding-left: 60px; padding-right: 20px; text-align: left !important; }
+
             .timeline-item::after { left: 24px; }
+
             .right { left: 0; }
+
         }
 
-        /* Nav highlighting */
-        .nav-link {
-            position: relative;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #475569;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover { color: #1E3A8A; }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px; left: 0;
-            width: 0; height: 2px;
-            background: #1E3A8A;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
     </style>
+
 </head>
+
 <body class="bg-[#F8FAFC] text-slate-900 selection:bg-blue-100">
 
-    <!-- Navigation Unifiée -->
+
+
+    <!-- Navigation -->
+
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3 group">
+
+            <a href="#" class="flex items-center space-x-3 group" title="Retour en haut">
+
                 <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+
                     ACD
+
                 </div>
+
                 <div class="hidden sm:flex flex-col">
+
                     <span class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
+
                     <span class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center">
+
                         <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
+
                     </span>
+
                 </div>
+
             </a>
 
+
+
             <div class="hidden md:flex items-center space-x-8">
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="nav-link">Analyse du budget</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="nav-link">Stratégie d'investissement</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="nav-link">Pédagogie</a>
+
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Analyse du budget</a>
+
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Stratégie d'investissement</a>
+
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Pédagogie</a>
+
                 <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
+
                     Me contacter
+
                 </a>
+
             </div>
-            
-            <!-- Mobile Menu Toggle -->
-            <button class="md:hidden text-slate-900" id="mobile-menu-btn">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
+
         </div>
+
     </nav>
 
+
+
     <!-- Hero -->
+
     <header class="relative pt-40 pb-24 lg:pt-56 lg:pb-40 overflow-hidden bg-white">
+
         <div class="container mx-auto px-6 relative z-10 text-center">
+
             <div class="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full mb-10">
+
                 <span class="relative flex h-2 w-2">
+
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+
                 </span>
+
                 <span class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-900">
+
                     Accompagnement financier indépendant — Lille
+
                 </span>
+
             </div>
+
             <h1 class="text-5xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-10">
+
                 Propulsez votre <br/>
+
                 <span class="text-blue-800 italic font-serif font-medium">patrimoine</span> vers demain.
+
             </h1>
+
             <p class="text-lg lg:text-xl text-slate-500 mb-14 max-w-2xl mx-auto leading-relaxed font-medium">
+
                 J'accompagne les particuliers dans la maîtrise de leur budget et la compréhension des leviers financiers modernes.
+
             </p>
+
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="w-full sm:w-auto px-10 py-5 bg-blue-800 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-blue-900 transition-all shadow-2xl">
+
+                <a href="#contact" class="w-full sm:w-auto px-10 py-5 bg-blue-800 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-blue-900 transition-all shadow-2xl">
+
                     Démarrer mon audit
+
                 </a>
+
                 <a href="#services" class="group flex items-center space-x-3 text-slate-900 font-black uppercase tracking-widest text-xs">
+
                     <span>Découvrir mes services</span>
+
                     <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+
                 </a>
+
             </div>
+
         </div>
+
         <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-blue-50 rounded-full blur-[120px] opacity-50"></div>
+
     </header>
 
+
+
     <!-- Profil -->
+
     <section id="mon-parcours" class="py-32 bg-slate-50/50">
+
         <div class="container mx-auto px-6">
+
             <div class="grid lg:grid-cols-12 gap-16 items-start">
+
                 <div class="lg:col-span-5 lg:sticky lg:top-32">
+
                     <div class="relative group">
+
                         <div class="absolute -inset-4 bg-gradient-to-tr from-blue-100 to-transparent rounded-[4rem] -z-10 group-hover:scale-105 transition-transform duration-500"></div>
+
                         <div class="aspect-[4/5] bg-slate-200 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
+
                             <img src="https://acd0603.github.io/ACD-Gestion-Conseil/image-personelle.png" 
+
                                  alt="Czurczak-Delcampe - Accompagnement en gestion et conseil financier" 
+
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+
                             <div class="absolute bottom-10 left-10">
+
                                 <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mb-2">Conseiller & Fondateur</p>
+
                                 <p class="text-3xl font-bold text-white font-serif italic">Czurczak-Delcampe</p>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
+
 
                 <div class="lg:col-span-7 pt-8">
+
                     <h2 class="text-xs font-black text-blue-800 uppercase tracking-[0.4em] mb-6 flex items-center">
+
                         <span class="w-8 h-[2px] bg-blue-800 mr-4"></span> Profil Professionnel
+
                     </h2>
+
                     <h3 class="text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-10 tracking-tight">
+
                         Une vision <span class="text-slate-400 font-light">analytique</span>,<br/>
+
                         un accompagnement <span class="text-blue-800">humain</span>.
+
                     </h3>
+
                     
+
                     <div class="space-y-8 text-lg text-slate-600 font-medium leading-relaxed">
+
                         <p>Basé à <span class="text-slate-900 font-bold">Lille</span>, j'interviens partout en France pour aider mes clients à naviguer dans la complexité de l'économie moderne.</p>
+
                         <p>Mon parcours en Économie-Finance me permet d'allier les théories les plus solides à des stratégies de terrain concrètes et mesurables.</p>
+
                     </div>
+
+
 
                     <div class="timeline-container mt-20">
+
                         <div class="timeline-item left">
+
                             <div class="glass-card p-8 hover-lift">
+
                                 <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2023 • Commencement</span>
+
                                 <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">Fondations</h4>
+
                                 <p class="text-sm text-slate-500 mt-3 font-medium">Début de mes premiers investissements qui me font découvrir le monde de la finance.</p>
+
                             </div>
+
                         </div>
+
                         <div class="timeline-item right">
+
                             <div class="glass-card p-8 hover-lift border-l-4 border-blue-800">
+
                                 <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2024 • Marchés</span>
+
                                 <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">Pratique Réelle</h4>
+
                                 <p class="text-sm text-slate-500 mt-3 font-medium">Gestion active de portefeuilles (PEA/CTO) et optimisation fiscale personnelle.</p>
+
                             </div>
+
                         </div>
+
                         <div class="timeline-item left">
+
                             <div class="glass-card p-8 hover-lift">
+
                                 <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2025 • Entreprise</span>
+
                                 <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">ACD Conseil</h4>
+
                                 <p class="text-sm text-slate-500 mt-3 font-medium">Fondation de mon activité pour mettre mon expertise au service des particuliers.</p>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
+
+
 
     <!-- Services -->
+
     <section id="services" class="py-32 bg-white">
+
         <div class="container mx-auto px-6">
+
             <div class="text-center mb-24">
+
                 <h2 class="text-xs font-black text-blue-800 uppercase tracking-[0.4em] mb-4">Mes Expertises</h2>
+
                 <h3 class="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Structurer, Éduquer, Investir.</h3>
+
             </div>
+
+
 
             <div class="grid md:grid-cols-2 gap-10">
-                <!-- Service 1 -->
+
                 <div class="p-12 glass-card hover-lift border-b-8 border-blue-800 group transition-all">
+
                     <div class="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white mb-10 group-hover:bg-blue-800 transition-colors">
+
                         <i data-lucide="trending-up" class="w-8 h-8"></i>
+
                     </div>
+
                     <h4 class="text-2xl font-black mb-4 text-slate-900">Audit de l’existant & Analyse de frais</h4>
-                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Étude détaillée de vos supports actuels pour identifier les coûts cachés et évaluer la performance réelle de vos actifs.</p>
-                    <ul class="space-y-4 mb-10">
+
+                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Étude détaillée de vos supports actuels (PEA, CTO, Assurance-vie) pour identifier les coûts cachés et évaluer la performance réelle de vos actifs.</p>
+
+                    <ul class="space-y-4">
+
                         <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
+
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-800"></i>
+
                             <span>Audit des coûts et frais de gestion</span>
+
                         </li>
+
                         <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
+
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-800"></i>
-                            <span>Analyse de l'impact sur la performance</span>
+
+                            <span>Analyse de l'impact des frais sur la performance</span>
+
                         </li>
+
+                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
+
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-800"></i>
+
+                            <span>Diagnostic de transparence des frais</span>
+
+                        </li>
+
                     </ul>
-                    <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-xs font-black uppercase tracking-widest text-blue-800 hover:text-slate-900 flex items-center">
-                        En savoir plus <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-                    </a>
+
                 </div>
 
-                <!-- Service 2 -->
+
+
                 <div class="p-12 glass-card hover-lift border-b-8 border-slate-900 group transition-all">
+
                     <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-900 mb-10 group-hover:bg-blue-800 group-hover:text-white transition-colors">
+
                         <i data-lucide="pie-chart" class="w-8 h-8"></i>
+
                     </div>
-                    <h4 class="text-2xl font-black mb-4 text-slate-900">Structuration de l'épargne</h4>
-                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Définition et mise en place d'une réserve de précaution adaptée à vos besoins et vos projets de vie.</p>
-                    <ul class="space-y-4 mb-10">
+
+                    <h4 class="text-2xl font-black mb-4 text-slate-900">Structuration de l'épargne de sécurité</h4>
+
+                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Définition et mise en place d'une réserve de précaution adaptée à vos besoins.</p>
+
+                    <ul class="space-y-4">
+
                         <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
+
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-slate-400"></i>
+
                             <span>Planification de l'épargne de précaution</span>
+
                         </li>
+
                         <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
+
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-slate-400"></i>
+
                             <span>Optimisation fiscale de base</span>
+
                         </li>
+
+                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
+
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-slate-400"></i>
+
+                            <span>Analyse des leviers fiscaux de premier niveau</span>
+
+                        </li>
+
                     </ul>
-                    <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-xs font-black uppercase tracking-widest text-slate-900 hover:text-blue-800 flex items-center">
-                        En savoir plus <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-                    </a>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
+
+
 
     <!-- Analyse -->
+
     <section id="analyse" class="py-32 bg-slate-50">
+
         <div class="container mx-auto px-6">
+
             <div class="max-w-6xl mx-auto">
+
                 <div class="bg-white rounded-[3rem] p-10 lg:p-20 shadow-2xl relative overflow-hidden">
+
                     <div class="flex flex-col lg:flex-row justify-between items-start gap-12 relative z-10">
+
                         <div class="lg:w-1/3">
+
                             <h2 class="text-xs font-black text-blue-800 uppercase tracking-[0.4em] mb-6">Transparence</h2>
+
                             <h3 class="text-4xl font-extrabold text-slate-900 leading-[1.1] mb-8">Performance & Discipline.</h3>
+
                             <p class="text-slate-500 font-medium mb-10">Voici l'évolution d'un capital piloté par mes méthodes sur 24 mois. La régularité est le premier levier de la richesse.</p>
+
                             
+
                             <div class="p-8 bg-blue-50 rounded-3xl border border-blue-100">
+
                                 <div class="text-4xl font-black text-blue-800">17 596 €</div>
+
                                 <p class="text-[11px] font-black text-slate-500 uppercase tracking-widest mt-2">Valorisation au Fév. 2026</p>
+
                                 <div class="mt-4 flex items-center text-green-600 font-bold text-sm">
+
                                     <i data-lucide="arrow-up-right" class="w-4 h-4 mr-1"></i> +75.9% depuis le lancement
+
                                 </div>
+
                             </div>
+
                         </div>
+
+
 
                         <div class="lg:w-2/3 w-full">
+
                             <div class="h-[450px] w-full">
+
                                 <canvas id="performanceChart"></canvas>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Contact CTA -->
-    <section id="contact-cta" class="py-32 bg-white">
+
+
+    <!-- Contact -->
+
+    <section id="contact" class="py-32 bg-white">
+
         <div class="container mx-auto px-6">
+
             <div class="contact-card-split">
+
                 <div class="contact-left relative">
+
                     <h2 class="text-5xl font-black mb-8 leading-none">Parlons de <br><span class="text-blue-400">vos projets.</span></h2>
+
                     <p class="text-slate-400 mb-16 text-lg font-medium">Disponible pour des consultations à Lille ou en visioconférence.</p>
+
                     
+
                     <div class="space-y-10">
+
                         <div class="flex items-start space-x-6">
+
                             <div class="w-12 h-12 bg-blue-900/50 rounded-xl flex items-center justify-center border border-white/10">
+
                                 <i data-lucide="mail" class="w-5 h-5 text-blue-200"></i>
+
                             </div>
+
                             <div>
+
                                 <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Email direct</span>
+
                                 <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-base font-bold hover:text-blue-400 transition-colors">ACD_Gestion_Conseil@outlook.com</a>
+
                             </div>
+
                         </div>
+
                         <div class="flex items-start space-x-6">
+
                             <div class="w-12 h-12 bg-blue-900/50 rounded-xl flex items-center justify-center border border-white/10">
+
                                 <i data-lucide="phone" class="w-5 h-5 text-blue-200"></i>
+
                             </div>
+
                             <div>
+
                                 <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Téléphone</span>
+
                                 <p class="text-base font-bold">06 84 48 65 08</p>
+
                             </div>
+
                         </div>
+
+                        <div class="flex items-start space-x-6">
+
+                            <div class="w-12 h-12 bg-blue-900/50 rounded-xl flex items-center justify-center border border-white/10">
+
+                                <i data-lucide="map-pin" class="w-5 h-5 text-blue-200"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Localisation</span>
+
+                                <p class="text-base font-bold italic font-serif">Lille, Hauts-de-France</p>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
+
+
 
                 <div class="contact-right">
+
                     <form action="https://formspree.io/f/xvzbavqk" method="POST" class="space-y-8">
+
                         <div class="grid md:grid-cols-2 gap-8">
+
                             <div>
+
                                 <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Nom Complet</label>
+
                                 <input type="text" name="name" class="form-input" placeholder="Ex: Jean Dupont" required>
+
                             </div>
+
                             <div>
+
                                 <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Votre Email</label>
+
                                 <input type="email" name="email" class="form-input" placeholder="jean@email.fr" required>
+
                             </div>
+
                         </div>
+
                         <div>
+
                             <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Objet de la demande</label>
+
                             <select name="subject" class="form-input">
-                                <option>Audit de Patrimoine</option>
+
                                 <option>Optimisation Budgétaire</option>
-                                <option>Pédagogie Financière</option>
+
+                                <option>Conseil Investissement</option>
+
+                                <option>Formation / Pédagogie</option>
+
+                                <option>Autre demande</option>
+
                             </select>
+
                         </div>
+
                         <div>
+
                             <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Votre Message</label>
+
                             <textarea name="message" rows="4" class="form-input resize-none" placeholder="Comment puis-je vous aider ?" required></textarea>
+
                         </div>
+
                         <button type="submit" class="w-full py-5 bg-blue-800 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-900 transition-all shadow-xl flex items-center justify-center space-x-3 group">
+
                             <span>Envoyer la demande</span>
+
                             <i data-lucide="send" class="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+
                         </button>
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
+
     
-    <!-- Disclaimer -->
+
+    <!-- Disclaimer / Avertissement Légal -->
+
     <section class="py-12 bg-slate-50 border-t border-slate-200">
+
         <div class="container mx-auto px-6">
+
             <div class="max-w-4xl mx-auto bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+
                 <div class="flex items-center space-x-3 mb-4 text-slate-900">
+
                     <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-500"></i>
-                    <h4 class="text-xs font-black uppercase tracking-widest">Avertissement Légal</h4>
+
+                    <h4 class="text-xs font-black uppercase tracking-widest">Avertissement Légal important</h4>
+
                 </div>
+
                 <div class="text-[11px] leading-relaxed text-slate-500 space-y-3 font-medium">
-                    <p>ACD Gestion & Conseil propose exclusivement des services d'assistance et de pédagogie financière. <strong>Nous n'exerçons pas l'activité de Conseiller en Investissements Financiers (CIF).</strong></p>
-                    <p>L'investissement comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures.</p>
+
+                    <p>
+
+                        ACD Gestion & Conseil (EI Czurczak-Delcampe) propose exclusivement des services d'assistance, d'accompagnement au pilotage budgétaire et de pédagogie financière. 
+
+                        <strong>Nous n'exerçons pas l'activité de Conseiller en Investissements Financiers (CIF)</strong> au sens du Code monétaire et financier. 
+
+                    </p>
+
+                    <p>
+
+                        Les analyses, simulations et contenus présentés sur ce site ou lors de nos échanges sont fournis à titre purement informatif et pédagogique. Ils ne constituent en aucun cas une recommandation d'investissement, un conseil en placement, une sollicitation ou une offre d'achat/vente d'instruments financiers. 
+
+                    </p>
+
+                    <p>
+
+                        L'investissement sur les marchés financiers comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures. Chaque utilisateur est seul responsable de ses décisions d'investissement et de la gestion de son patrimoine.
+
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
+
     
-    <!-- Footer Unifié -->
+
+    <!-- Footer -->
+
     <footer class="py-20 bg-slate-900 text-white relative">
+
         <div class="container mx-auto px-6 relative z-10">
+
             <div class="grid lg:grid-cols-12 gap-16 mb-20">
+
                 <div class="lg:col-span-5">
+
                     <div class="flex items-center space-x-4 mb-8">
+
                         <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-slate-900 font-black">ACD</div>
+
                         <span class="text-xl font-black uppercase tracking-widest">ACD Gestion & Conseil</span>
+
                     </div>
-                    <p class="text-slate-400 max-w-sm font-medium">Le partenaire de votre croissance financière, alliant rigueur universitaire et vision moderne.</p>
+
+                    <p class="text-slate-400 max-w-sm font-medium">Le partenaire de votre croissance financière, alliant rigueur universitaire et vision moderne de l'investissement.</p>
+
                 </div>
+
                 
+
                 <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-10">
+
                     <div>
+
                         <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Expertise</h4>
+
                         <ul class="space-y-4 text-sm text-slate-300 font-semibold">
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="hover:text-white transition-colors">Budget</a></li>
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="hover:text-white transition-colors">Stratégie</a></li>
+
+                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
+
+                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
+
                             <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
+
                         </ul>
+
                     </div>
+
                     <div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Social</h4>
-                        <div class="flex space-x-4">
-                            <a href="https://www.linkedin.com/in/adrien-czurczak-delcampe/" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://instagram.com/acd_gestion_conseil" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all"><i class="fab fa-instagram"></i></a>
-                        </div>
+
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Entreprise</h4>
+
+                        <ul class="space-y-4 text-xs text-slate-400 leading-relaxed font-bold">
+
+                            <li>EI Czurczak-Delcampe</li>
+
+                            <li>SIREN : 938 126 956</li>
+
+                            <li>APE : 70.22Z</li>
+
+                        </ul>
+
                     </div>
+
+                    <div>
+
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Social</h4>
+
+                        <div class="flex space-x-4">
+
+                            <a href="https://www.linkedin.com/in/adrien-czurczak-delcampe/" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+
+                            <a href="https://instagram.com/acd_gestion_conseil?igsh=MWlzNTNrM3Jlb3p2Yg==" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
             
+
             <div class="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">© 2026 ACD GESTION & CONSEIL — LILLE, FRANCE</div>
-                <div class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
-                    <a href="https://acd0603.github.io/ACD-Gestion-Conseil/mentions-legales.html" class="hover:underline">Mentions Légales</a>
+
+                <div class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
+
+                    © 2026 ACD GESTION & CONSEIL — LILLE, FRANCE
+
                 </div>
+
+                <div class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
+
+                    Design by ACD • <a href="https://acd0603.github.io/ACD-Gestion-Conseil/mentions-legales.html" class="hover:underline">Mentions Légales</a>
+
+                </div>
+
             </div>
+
         </div>
+
     </footer>
 
+
+
     <script>
+
+        // Initialisation des icônes Lucide
+
         lucide.createIcons();
 
-        // Navbar scroll effect
+
+
+        // Gestion du scroll pour la Navbar
+
         window.addEventListener('scroll', () => {
+
             const navbar = document.getElementById('navbar');
+
             if (window.scrollY > 50) {
+
                 navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-xl', 'py-4');
+
                 navbar.classList.remove('py-6');
+
             } else {
+
                 navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-xl', 'py-4');
+
                 navbar.classList.add('py-6');
+
             }
+
         });
 
-        // Chart Init
+
+
+        // Initialisation du graphique Chart.js
+
         window.addEventListener('DOMContentLoaded', () => {
+
             const canvas = document.getElementById('performanceChart');
+
             if (!canvas) return;
+
             
+
             const ctx = canvas.getContext('2d');
+
             const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+
             gradient.addColorStop(0, 'rgba(30, 58, 138, 0.4)');
+
             gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
+
+
             new Chart(ctx, {
+
                 type: 'line',
+
                 data: {
+
                     labels: ['Mai 24', 'Juil 24', 'Sept 24', 'Nov 24', 'Fév 25', 'Avr 25', 'Juin 25', 'Août 25', 'Oct 25', 'Déc 25', 'Fév 26'],
+
                     datasets: [{
+
                         label: 'Valeur Patrimoniale',
+
                         data: [10000, 10500, 10200, 11800, 14200, 12500, 15500, 14200, 17200, 16500, 17596],
+
                         borderColor: '#1E3A8A',
-                        borderWidth: 4,
+
+                        borderWidth: 5,
+
                         fill: true,
+
                         backgroundColor: gradient,
+
                         tension: 0.4,
+
                         pointRadius: 0,
-                        pointHoverRadius: 6,
+
+                        pointHoverRadius: 8,
+
                         pointHoverBackgroundColor: '#1E3A8A',
-                        pointHoverBorderColor: 'white',
-                        pointHoverBorderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { display: false },
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { size: 10, weight: '700' }, color: '#94A3B8' }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+
+                        pointHoverBorde
