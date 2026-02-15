@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,124 +7,164 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:italic,wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:italic,wght@700&display=swap');
+        
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .concept-card:hover .icon-box { transform: scale(1.1) rotate(5deg); }
+        
+        .concept-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .concept-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+        .concept-card:hover .icon-box {
+            transform: scale(1.1) rotate(8deg);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-pattern {
+            background-image: radial-gradient(#e2e8f0 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
     </style>
 </head>
-<body class="text-slate-900">
+<body class="text-slate-900 selection:bg-blue-100">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <nav id="navbar" class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-4">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-3 group" title="Retour en haut">
-                <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg">
                     ACD
                 </div>
                 <div class="hidden sm:flex flex-col">
-                    <span class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
-                    <span class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center">
-                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
-                    </span>
+                    <span class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
                 </div>
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Analyse du budget</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Stratégie d'investissement</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Pédagogie</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-900 transition-colors">Analyse du budget</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-900 transition-colors">Stratégie</a>
+                <a href="#" class="text-[10px] font-black uppercase tracking-widest text-blue-800 border-b-2 border-blue-800 pb-1">Pédagogie</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-md">
                     Me contacter
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="py-16 bg-white">
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-white hero-pattern">
         <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl font-black mb-4">Comprendre l'argent sans <span class="text-indigo-600 italic font-serif">mal à la tête</span>.</h1>
-            <p class="text-slate-500 max-w-xl mx-auto">Parce que la finance ne devrait pas être une langue étrangère. Voici les concepts clés expliqués simplement.</p>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full mb-6">
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                <span class="text-[10px] font-black uppercase tracking-widest">Apprendre simplement</span>
+            </div>
+            <h1 class="text-4xl lg:text-6xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tighter">
+                Comprendre l'argent sans <br>
+                <span class="text-indigo-600 italic font-serif font-medium text-5xl lg:text-7xl">mal à la tête</span>.
+            </h1>
+            <p class="text-slate-500 max-w-xl mx-auto text-lg font-medium leading-relaxed">
+                La finance ne devrait pas être une langue étrangère réservée aux experts. Voici les concepts clés expliqués avec des mots de tous les jours.
+            </p>
         </div>
     </section>
 
     <!-- Grille de concepts -->
-    <section class="py-12">
+    <section class="py-20">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Concept 1 -->
-                <div class="concept-card bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 transition-all">
-                    <div class="icon-box w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 transition-transform">
-                        <i data-lucide="layers"></i>
+                <!-- Concept 1: ETF -->
+                <div class="concept-card bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="icon-box w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 transition-transform">
+                        <i data-lucide="layers" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">C'est quoi un ETF ?</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-4">
-                        Imagine un <strong>panier de courses</strong>. Au lieu d'acheter une seule pomme (une action Apple), tu achètes un panier qui contient déjà 500 fruits différents. Si une pomme est mauvaise, le reste du panier va bien !
+                    <h3 class="text-xl font-black mb-4 tracking-tight">C'est quoi un ETF ?</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                        Imagine un <strong>panier de courses</strong>. Au lieu d'acheter une seule pomme (une action Apple), tu achètes un panier qui contient déjà 500 fruits différents. Si une pomme est abîmée, le reste du panier garantit ton repas !
                     </p>
-                    <span class="text-[10px] font-black text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-full">Sécurité & Diversité</span>
+                    <div class="flex items-center text-[9px] font-black text-blue-600 uppercase tracking-widest bg-blue-50/50 w-fit px-4 py-1.5 rounded-full">
+                        <span class="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span> Sécurité & Diversité
+                    </div>
                 </div>
 
-                <!-- Concept 2 -->
-                <div class="concept-card bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 transition-all">
-                    <div class="icon-box w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6 transition-transform">
-                        <i data-lucide="sprout"></i>
+                <!-- Concept 2: Intérêts Composés -->
+                <div class="concept-card bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="icon-box w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-8 transition-transform">
+                        <i data-lucide="sprout" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Les Intérêts Composés</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-4">
-                        C'est l'effet "boule de neige". Ton argent gagne des petits, et ces petits gagnent à leur tour d'autres petits. Plus tu commences tôt, plus la boule de neige devient géante à la fin !
+                    <h3 class="text-xl font-black mb-4 tracking-tight">Les Intérêts Composés</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                        C'est l'effet <strong>"boule de neige"</strong>. Ton argent gagne des petits, et ces petits gagnent à leur tour d'autres petits. Plus tu commences tôt, plus ta boule de neige devient géante sans effort supplémentaire.
                     </p>
-                    <span class="text-[10px] font-black text-green-600 uppercase bg-green-50 px-3 py-1 rounded-full">La Magie du Temps</span>
+                    <div class="flex items-center text-[9px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50/50 w-fit px-4 py-1.5 rounded-full">
+                        <span class="w-1.5 h-1.5 bg-emerald-600 rounded-full mr-2"></span> La Magie du Temps
+                    </div>
                 </div>
 
-                <!-- Concept 3 -->
-                <div class="concept-card bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 transition-all">
-                    <div class="icon-box w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-6 transition-transform">
-                        <i data-lucide="pie-chart"></i>
+                <!-- Concept 3: Actions vs Obligations -->
+                <div class="concept-card bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="icon-box w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-8 transition-transform">
+                        <i data-lucide="pie-chart" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Action vs Obligation</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-4">
-                        Une <strong>Action</strong> : Tu possèdes un petit morceau d'une entreprise. 
-                        Une <strong>Obligation</strong> : Tu prêtes de l'argent à l'entreprise (ou l'État) et ils te promettent de te rendre avec un petit bonus.
+                    <h3 class="text-xl font-black mb-4 tracking-tight">Action vs Obligation</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                        Une <strong>Action</strong> : Tu es "copropriétaire" de l'entreprise. <br>
+                        Une <strong>Obligation</strong> : Tu es "banquier". Tu prêtes de l'argent à l'État ou à une entreprise qui te le rend avec un petit bonus (intérêt).
                     </p>
-                    <span class="text-[10px] font-black text-amber-600 uppercase bg-amber-50 px-3 py-1 rounded-full">Propriétaire vs Prêteur</span>
+                    <div class="flex items-center text-[9px] font-black text-amber-600 uppercase tracking-widest bg-amber-50/50 w-fit px-4 py-1.5 rounded-full">
+                        <span class="w-1.5 h-1.5 bg-amber-600 rounded-full mr-2"></span> Propriétaire vs Prêteur
+                    </div>
                 </div>
 
-                <!-- Concept 4 -->
-                <div class="concept-card bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 transition-all">
-                    <div class="icon-box w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6 transition-transform">
-                        <i data-lucide="piggy-bank"></i>
+                <!-- Concept 4: PEA -->
+                <div class="concept-card bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="icon-box w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-8 transition-transform">
+                        <i data-lucide="piggy-bank" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Le PEA (Plan Épargne Actions)</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-4">
-                        C'est une <strong>enveloppe fiscale</strong>. C'est comme un coffre-fort magique : tant que tu laisses ton argent dedans pour investir, l'État ne prend pas d'impôts sur tes gains (après 5 ans).
+                    <h3 class="text-xl font-black mb-4 tracking-tight">Le Plan Épargne Actions</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                        C'est une <strong>enveloppe fiscale</strong>. Imagine un coffre-fort magique : tant que tu laisses ton argent dedans pour l'investir, l'État ne prend aucun impôt sur tes bénéfices. Idéal pour le long terme.
                     </p>
-                    <span class="text-[10px] font-black text-purple-600 uppercase bg-purple-50 px-3 py-1 rounded-full">Fiscalité</span>
+                    <div class="flex items-center text-[9px] font-black text-purple-600 uppercase tracking-widest bg-purple-50/50 w-fit px-4 py-1.5 rounded-full">
+                        <span class="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2"></span> Fiscalité Optimisée
+                    </div>
                 </div>
 
-                <!-- Concept 5 -->
-                <div class="concept-card bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 transition-all">
-                    <div class="icon-box w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center mb-6 transition-transform">
-                        <i data-lucide="trending-down"></i>
+                <!-- Concept 5: Inflation -->
+                <div class="concept-card bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="icon-box w-14 h-14 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-8 transition-transform">
+                        <i data-lucide="trending-down" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">L'Inflation</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-4">
-                        C'est quand les prix montent. Si ton argent dort sous ton matelas, il "fond" car tu pourras acheter moins de bonbons avec 10€ dans 5 ans qu'aujourd'hui.
+                    <h3 class="text-xl font-black mb-4 tracking-tight">L'Inflation</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                        C'est quand les prix montent. Si ton argent reste immobile sous ton matelas, il <strong>"fond"</strong> car tu pourras acheter beaucoup moins de choses avec le même billet de 10€ dans quelques années.
                     </p>
-                    <span class="text-[10px] font-black text-rose-600 uppercase bg-rose-50 px-3 py-1 rounded-full">Perte de Pouvoir d'Achat</span>
+                    <div class="flex items-center text-[9px] font-black text-rose-600 uppercase tracking-widest bg-rose-50/50 w-fit px-4 py-1.5 rounded-full">
+                        <span class="w-1.5 h-1.5 bg-rose-600 rounded-full mr-2"></span> Pouvoir d'Achat
+                    </div>
                 </div>
 
-                <!-- Concept 6 -->
-                <div class="concept-card bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 transition-all">
-                    <div class="icon-box w-12 h-12 bg-cyan-100 text-cyan-600 rounded-xl flex items-center justify-center mb-6 transition-transform">
-                        <i data-lucide="award"></i>
+                <!-- Concept 6: Dividende -->
+                <div class="concept-card bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="icon-box w-14 h-14 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center mb-8 transition-transform">
+                        <i data-lucide="award" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Le Dividende</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-4">
-                        C'est une partie des bénéfices qu'une entreprise décide de redistribuer à ses actionnaires pour les remercier de leur confiance. Un "loyer" pour tes actions.
+                    <h3 class="text-xl font-black mb-4 tracking-tight">Le Dividende</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                        C'est le <strong>remerciement</strong> de l'entreprise. Elle partage une partie de ses bénéfices avec toi car tu as investi chez elle. C'est comme un loyer que tu toucherais sur tes investissements.
                     </p>
-                    <span class="text-[10px] font-black text-cyan-600 uppercase bg-cyan-50 px-3 py-1 rounded-full">Revenu Passif</span>
+                    <div class="flex items-center text-[9px] font-black text-cyan-600 uppercase tracking-widest bg-cyan-50/50 w-fit px-4 py-1.5 rounded-full">
+                        <span class="w-1.5 h-1.5 bg-cyan-600 rounded-full mr-2"></span> Revenu Passif
+                    </div>
                 </div>
 
             </div>
@@ -132,35 +172,77 @@
     </section>
 
     <!-- Quiz Express -->
-    <section class="py-20 bg-slate-900 text-white overflow-hidden relative">
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-2xl mx-auto text-center">
-                <h2 class="text-3xl font-bold mb-8">Vérifie tes connaissances !</h2>
-                <div id="quiz-container" class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/10">
-                    <p id="question" class="text-lg font-medium mb-6">Si j'investis dans un ETF Monde, je mise sur une seule entreprise ?</p>
-                    <div class="flex justify-center space-x-4">
-                        <button onclick="checkAnswer(false)" class="px-8 py-3 bg-rose-500 hover:bg-rose-600 rounded-full font-bold transition-colors">VRAI</button>
-                        <button onclick="checkAnswer(true)" class="px-8 py-3 bg-green-500 hover:bg-green-600 rounded-full font-bold transition-colors">FAUX</button>
+    <section class="py-24 bg-slate-950 relative overflow-hidden">
+        <!-- Décoration fond -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-600 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600 rounded-full blur-[120px]"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-3xl lg:text-5xl font-black text-white mb-12 tracking-tighter">Vérifie tes connaissances !</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div id="quiz-card" class="glass-dark p-12 rounded-[3rem] shadow-2xl">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-blue-400 mx-auto mb-8">
+                        <i data-lucide="help-circle" class="w-8 h-8"></i>
                     </div>
-                    <p id="feedback" class="mt-6 font-bold hidden"></p>
+                    
+                    <p id="question" class="text-xl lg:text-2xl font-bold text-white mb-10 leading-relaxed">
+                        Si j'investis dans un ETF Monde, je mise tout mon argent sur une seule entreprise ?
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button onclick="checkAnswer(false)" class="group px-10 py-4 bg-white/5 hover:bg-rose-500/20 border border-white/10 hover:border-rose-500/50 rounded-2xl text-white font-black uppercase tracking-widest text-[11px] transition-all flex items-center justify-center">
+                            <i data-lucide="x-circle" class="w-4 h-4 mr-2 text-rose-500"></i> VRAI
+                        </button>
+                        <button onclick="checkAnswer(true)" class="group px-10 py-4 bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/50 rounded-2xl text-white font-black uppercase tracking-widest text-[11px] transition-all flex items-center justify-center">
+                            <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-emerald-500"></i> FAUX
+                        </button>
+                    </div>
+
+                    <div id="feedback-container" class="mt-12 hidden animate-in fade-in slide-in-from-top-4 duration-500">
+                        <div id="feedback-box" class="p-6 rounded-2xl inline-block">
+                            <p id="feedback-text" class="font-bold text-lg"></p>
+                        </div>
+                        <button onclick="resetQuiz()" class="block mx-auto mt-6 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">
+                            Refaire le test
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="py-12 bg-white border-t border-slate-100 text-center">
+        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">© 2026 ACD GESTION & CONSEIL — ÉDUCATION</p>
+    </footer>
+
     <script>
         lucide.createIcons();
 
         function checkAnswer(isCorrect) {
-            const feedback = document.getElementById('feedback');
-            feedback.classList.remove('hidden');
+            const container = document.getElementById('feedback-container');
+            const box = document.getElementById('feedback-box');
+            const text = document.getElementById('feedback-text');
+            
+            container.classList.remove('hidden');
+            
             if(isCorrect) {
-                feedback.innerText = "Bravo ! Un ETF contient des centaines d'entreprises. 🚀";
-                feedback.className = "mt-6 font-bold text-green-400";
+                box.className = "p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 inline-block";
+                text.innerHTML = "Excellent ! ✨ Un ETF Monde contient des centaines d'entreprises. Ta prise de risque est donc très limitée.";
             } else {
-                feedback.innerText = "Oups ! C'est faux. Un ETF diversifie ton argent sur plein d'entreprises. 💡";
-                feedback.className = "mt-6 font-bold text-rose-400";
+                box.className = "p-6 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 inline-block";
+                text.innerHTML = "Pas tout à fait ! 💡 C'est justement l'avantage de l'ETF : il diversifie ton argent sur plein d'entreprises en un seul clic.";
             }
+            
+            // Scroll doux vers le feedback
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetQuiz() {
+            document.getElementById('feedback-container').classList.add('hidden');
         }
     </script>
 </body>
