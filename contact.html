@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | ACD Gestion & Conseil</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -223,15 +225,51 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 bg-white border-t border-slate-100 text-center">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center space-y-6">
-                <div class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 text-[10px] font-black">
-                    ACD
+    <footer class="py-20 bg-slate-900 text-white relative">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-16 mb-20">
+                <div class="lg:col-span-5">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-slate-900 font-black">ACD</div>
+                        <span class="text-xl font-black uppercase tracking-widest">ACD Gestion & Conseil</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm font-medium">Le partenaire de votre croissance financière, alliant rigueur universitaire et vision pédagogique de l'investissement.</p>
                 </div>
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">
+                
+                <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-10">
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Expertise</h4>
+                        <ul class="space-y-4 text-sm text-slate-300 font-semibold">
+                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
+                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
+                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagodie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Entreprise</h4>
+                        <ul class="space-y-4 text-xs text-slate-400 leading-relaxed font-bold">
+                            <li>EI Czurczak-Delcampe</li>
+                            <li>SIREN : 938 126 956</li>
+                            <li>APE : 70.22Z</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Social</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
                     © 2026 ACD GESTION & CONSEIL — LILLE, FRANCE
-                </p>
+                </div>
+                <div class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
+                    Design by ACD • <a href="https://acd0603.github.io/ACD-Gestion-Conseil/mentions-legales.html" class="hover:underline">Mentions Légales</a>
+                </div>
             </div>
         </div>
     </footer>
