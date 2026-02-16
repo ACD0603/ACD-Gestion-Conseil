@@ -26,6 +26,15 @@
             padding-bottom: 1rem !important;
         }
 
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: circle(0% at 90% 5%);
+        }
+        #mobile-menu.active {
+            clip-path: circle(150% at 90% 5%);
+        }
+
         /* Smooth Card Reveal */
         .reveal {
             opacity: 0;
@@ -72,20 +81,21 @@
 <body class="text-slate-900 selection:bg-blue-100">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8">
+    <nav id="navbar" class="fixed w-full z-[60] transition-all duration-500 py-8">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3 group">
+            <a href="index.html" class="flex items-center space-x-3 group relative z-[70]">
                 <div class="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black shadow-xl transition-all group-hover:rotate-12 group-hover:bg-blue-700">
                     ACD
                 </div>
                 <div class="hidden sm:flex flex-col">
-                    <span class="text-[13px] font-black uppercase tracking-[0.2em]">Gestion & Conseil</span>
-                    <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest flex items-center">
+                    <span id="logo-text" class="text-[13px] font-black uppercase tracking-[0.2em] transition-colors">Gestion & Conseil</span>
+                    <span id="logo-subtext" class="text-[10px] font-bold text-blue-600 uppercase tracking-widest flex items-center transition-colors">
                         <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-10">
                 <a href="budget.html" class="text-[13px] font-bold text-slate-500 hover:text-slate-900 transition-all">Analyse Budget</a>
                 <a href="stratégie.html" class="text-[13px] font-bold text-slate-500 hover:text-slate-900 transition-all">Stratégie</a>
@@ -96,11 +106,30 @@
             </div>
             
             <!-- Mobile Menu Toggle -->
-            <button class="md:hidden w-10 h-10 flex items-center justify-center bg-slate-100 rounded-xl">
-                <i data-lucide="menu" class="w-6 h-6"></i>
+            <button id="menu-toggle" class="md:hidden w-12 h-12 flex items-center justify-center bg-slate-100 rounded-xl relative z-[70] transition-all active:scale-90">
+                <i data-lucide="menu" id="menu-icon" class="w-6 h-6 text-slate-900 transition-transform"></i>
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-950 z-[55] flex flex-col justify-center items-center px-10 text-center pointer-events-none opacity-0 active:opacity-100 active:pointer-events-auto overflow-hidden">
+        <div class="space-y-8 flex flex-col items-center">
+            <a href="budget.html" class="text-3xl font-black text-white hover:text-blue-400 transition-colors tracking-tighter">Analyse Budget</a>
+            <a href="stratégie.html" class="text-3xl font-black text-white hover:text-blue-400 transition-colors tracking-tighter">Stratégie</a>
+            <a href="pédagogie.html" class="text-3xl font-black text-blue-500 tracking-tighter">Pédagogie</a>
+            <div class="w-12 h-px bg-white/20 my-4"></div>
+            <a href="contact.html" class="bg-blue-600 text-white px-10 py-5 rounded-2xl text-sm font-black uppercase tracking-[0.2em]">Consultation</a>
+        </div>
+        
+        <div class="absolute bottom-12 left-0 w-full flex flex-col items-center space-y-4 opacity-50">
+            <p class="text-[10px] font-bold text-white uppercase tracking-[0.3em]">Lille & France</p>
+            <div class="flex space-x-6">
+                <i data-lucide="linkedin" class="w-5 h-5 text-white"></i>
+                <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="relative pt-52 pb-32 overflow-hidden hero-pattern">
@@ -110,14 +139,14 @@
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                     <span class="text-[11px] font-black uppercase tracking-widest">Apprendre avec clarté</span>
                 </div>
-                <h1 class="text-6xl lg:text-8xl font-black text-slate-900 mb-10 leading-tight tracking-tighter">
+                <h1 class="text-5xl md:text-6xl lg:text-8xl font-black text-slate-900 mb-10 leading-tight tracking-tighter">
                     L'argent devient <br>
                     <span class="text-blue-700 italic font-serif font-medium relative">
                         une évidence.
                         <svg class="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 10C50 2 150 2 199 10" stroke="#1D4ED8" stroke-width="4" stroke-linecap="round"/></svg>
                     </span>
                 </h1>
-                <p class="text-slate-500 max-w-2xl mx-auto text-xl font-medium leading-relaxed opacity-80">
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed opacity-80">
                     Oubliez le jargon complexe. Nous utilisons des analogies du quotidien pour transformer la finance en un outil à votre service.
                 </p>
             </div>
@@ -132,7 +161,7 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 
                 <!-- Concept 1: ETF -->
-                <div class="reveal concept-card group bg-white p-12 rounded-[3rem] border border-slate-100 flex flex-col h-full">
+                <div class="reveal concept-card group bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-slate-100 flex flex-col h-full">
                     <div class="icon-box w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500">
                         <i data-lucide="layers" class="w-8 h-8"></i>
                     </div>
@@ -146,7 +175,7 @@
                 </div>
 
                 <!-- Concept 2: Intérêts Composés -->
-                <div class="reveal concept-card group bg-white p-12 rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 100ms;">
+                <div class="reveal concept-card group bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 100ms;">
                     <div class="icon-box w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500">
                         <i data-lucide="trending-up" class="w-8 h-8"></i>
                     </div>
@@ -160,7 +189,7 @@
                 </div>
 
                 <!-- Concept 3: Actions vs Obligations -->
-                <div class="reveal concept-card group bg-white p-12 rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 200ms;">
+                <div class="reveal concept-card group bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 200ms;">
                     <div class="icon-box w-16 h-16 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500">
                         <i data-lucide="briefcase" class="w-8 h-8"></i>
                     </div>
@@ -174,7 +203,7 @@
                 </div>
 
                 <!-- Concept 4: PEA -->
-                <div class="reveal concept-card group bg-white p-12 rounded-[3rem] border border-slate-100 flex flex-col h-full">
+                <div class="reveal concept-card group bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-slate-100 flex flex-col h-full">
                     <div class="icon-box w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500">
                         <i data-lucide="shield-check" class="w-8 h-8"></i>
                     </div>
@@ -188,7 +217,7 @@
                 </div>
 
                 <!-- Concept 5: Inflation -->
-                <div class="reveal concept-card group bg-white p-12 rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 100ms;">
+                <div class="reveal concept-card group bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 100ms;">
                     <div class="icon-box w-16 h-16 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500">
                         <i data-lucide="thermometer-snowflake" class="w-8 h-8"></i>
                     </div>
@@ -202,7 +231,7 @@
                 </div>
 
                 <!-- Concept 6: Dividende -->
-                <div class="reveal concept-card group bg-white p-12 rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 200ms;">
+                <div class="reveal concept-card group bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-slate-100 flex flex-col h-full" style="transition-delay: 200ms;">
                     <div class="icon-box w-16 h-16 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500">
                         <i data-lucide="coins" class="w-8 h-8"></i>
                     </div>
@@ -232,20 +261,20 @@
             </div>
             
             <div class="max-w-3xl mx-auto reveal">
-                <div id="quiz-card" class="glass-dark p-10 md:p-16 rounded-[4rem] shadow-2xl relative overflow-hidden">
-                    <div class="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-blue-400 mx-auto mb-10 border border-white/10">
-                        <i data-lucide="brain-circuit" class="w-10 h-10"></i>
+                <div id="quiz-card" class="glass-dark p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl relative overflow-hidden">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white/5 rounded-3xl flex items-center justify-center text-blue-400 mx-auto mb-10 border border-white/10">
+                        <i data-lucide="brain-circuit" class="w-8 h-8 md:w-10 md:h-10"></i>
                     </div>
                     
-                    <p id="question" class="text-2xl lg:text-3xl font-bold text-white mb-12 leading-relaxed">
+                    <p id="question" class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-12 leading-relaxed">
                         Si j'investis dans un ETF Monde, mon argent est-il placé sur une seule entreprise ?
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row justify-center gap-6">
-                        <button onclick="checkAnswer(false)" class="quiz-option group relative overflow-hidden px-12 py-5 bg-white/5 hover:bg-rose-500/20 border border-white/10 hover:border-rose-500/40 rounded-2xl text-white font-black uppercase tracking-[0.2em] text-[12px] transition-all duration-300">
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
+                        <button onclick="checkAnswer(false)" class="quiz-option group relative overflow-hidden px-10 md:px-12 py-5 bg-white/5 hover:bg-rose-500/20 border border-white/10 hover:border-rose-500/40 rounded-2xl text-white font-black uppercase tracking-[0.2em] text-[12px] transition-all duration-300">
                             OUI
                         </button>
-                        <button onclick="checkAnswer(true)" class="quiz-option group relative overflow-hidden px-12 py-5 bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/40 rounded-2xl text-white font-black uppercase tracking-[0.2em] text-[12px] transition-all duration-300">
+                        <button onclick="checkAnswer(true)" class="quiz-option group relative overflow-hidden px-10 md:px-12 py-5 bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/40 rounded-2xl text-white font-black uppercase tracking-[0.2em] text-[12px] transition-all duration-300">
                             NON
                         </button>
                     </div>
@@ -253,7 +282,7 @@
                     <div id="feedback-container" class="mt-16 hidden transition-all duration-700 opacity-0 transform translate-y-8">
                         <div id="feedback-box" class="p-8 rounded-3xl inline-block w-full max-w-2xl bg-white/5 border border-white/10">
                             <div id="status-icon" class="mb-4"></div>
-                            <p id="feedback-text" class="font-bold text-xl leading-relaxed"></p>
+                            <p id="feedback-text" class="font-bold text-lg md:text-xl leading-relaxed"></p>
                         </div>
                         <button onclick="resetQuiz()" class="mt-10 mx-auto group flex items-center space-x-3 text-slate-400 hover:text-white transition-all text-xs font-black uppercase tracking-widest">
                             <i data-lucide="refresh-cw" class="w-4 h-4 group-hover:rotate-180 transition-transform duration-500"></i>
@@ -291,7 +320,7 @@
                     </div>
                 </div>
             </div>
-            <div class="pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 text-center">
                 <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">© 2026 ACD GESTION & CONSEIL • TOUS DROITS RÉSERVÉS</p>
                 <div class="flex items-center space-x-6 text-[10px] font-bold uppercase tracking-widest text-slate-400">
                     <a href="mentions-legales.html" class="hover:text-slate-900 transition-colors">Mentions Légales</a>
@@ -305,6 +334,46 @@
     <script>
         // Init Lucide
         lucide.createIcons();
+
+        // Mobile Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const logoText = document.getElementById('logo-text');
+        const logoSubtext = document.getElementById('logo-subtext');
+        let isMenuOpen = false;
+
+        menuToggle.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.add('active', 'opacity-100', 'pointer-events-auto');
+                menuIcon.setAttribute('data-lucide', 'x');
+                logoText.classList.add('text-white');
+                logoSubtext.classList.add('text-blue-400');
+                document.body.style.overflow = 'hidden'; // Stop scroll
+            } else {
+                mobileMenu.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                logoText.classList.remove('text-white');
+                logoSubtext.classList.remove('text-blue-400');
+                document.body.style.overflow = ''; // Resume scroll
+            }
+            lucide.createIcons();
+        });
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                logoText.classList.remove('text-white');
+                logoSubtext.classList.remove('text-blue-400');
+                document.body.style.overflow = '';
+                lucide.createIcons();
+            });
+        });
 
         // Reveal Animation on Scroll
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
