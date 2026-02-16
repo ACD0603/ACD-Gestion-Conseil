@@ -56,22 +56,25 @@
 </head>
 <body class="text-slate-900 selection:bg-blue-100">
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="https://acd0603.github.io/ACD-Gestion-Conseil/index.html" class="flex items-center space-x-3 group">
+ <!-- Navigation Unifiée -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center relative">
+            <a href="index.html" class="flex items-center space-x-3 group">
                 <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
                     ACD
                 </div>
                 <div class="hidden sm:flex flex-col">
                     <span class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
+                    <span class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center">
+                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
+                    </span>
                 </div>
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Analyse du budget</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-[11px] font-black uppercase tracking-widest text-blue-900 border-b-2 border-blue-900 pb-1">Stratégie d'investissement</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-[11px] font-bold uppercase tracking-widest text-slate-600 hover:text-blue-900 transition-colors">Pédagogie</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
+                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
                 <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
                     Me contacter
                 </a>
