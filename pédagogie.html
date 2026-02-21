@@ -261,51 +261,53 @@
     </footer>
     
     <script>
-        // Init Lucide
+        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Mobile Menu Logic
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
-        const logoText = document.getElementById('logo-text');
-        const logoSubtext = document.getElementById('logo-subtext');
+        const navbar = document.getElementById('navbar');
         let isMenuOpen = false;
 
-        menuToggle.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            
-            if (isMenuOpen) {
-                mobileMenu.classList.add('active');
-                menuIcon.setAttribute('data-lucide', 'x');
-                logoText.classList.replace('text-slate-900', 'text-white');
-                logoSubtext.classList.replace('text-blue-800', 'text-blue-400');
-                document.body.style.overflow = 'hidden'; 
-            } else {
-                mobileMenu.classList.remove('active');
-                menuIcon.setAttribute('data-lucide', 'menu');
-                logoText.classList.replace('text-white', 'text-slate-900');
-                logoSubtext.classList.replace('text-blue-400', 'text-blue-800');
-                document.body.style.overflow = '';
-            }
+        function updateMenuIcon(name) {
+            // Important: Replace the tag content and re-init Lucide
+            menuToggle.innerHTML = `<i data-lucide="${name}" class="w-8 h-8"></i>`;
             lucide.createIcons();
+        }
+
+        function closeMenu() {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('active');
+            updateMenuIcon('menu');
+            document.body.style.overflow = '';
+            if (window.scrollY <= 40) navbar.classList.remove('nav-scrolled');
+        }
+
+        function openMenu() {
+            isMenuOpen = true;
+            mobileMenu.classList.add('active');
+            updateMenuIcon('x');
+            navbar.classList.add('nav-scrolled');
+            document.body.style.overflow = 'hidden';
+        }
+
+        menuToggle.addEventListener('click', () => {
+            if (isMenuOpen) closeMenu();
+            else openMenu();
         });
 
-        // Close menu on link click
+        // Close when clicking links
         mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                isMenuOpen = false;
-                mobileMenu.classList.remove('active');
-                menuIcon.setAttribute('data-lucide', 'menu');
-                logoText.classList.replace('text-white', 'text-slate-900');
-                logoSubtext.classList.replace('text-blue-400', 'text-blue-800');
-                document.body.style.overflow = '';
-                lucide.createIcons();
-            });
+            link.addEventListener('click', closeMenu);
         });
 
-        // Reveal Animation on Scroll
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        // REINITIALIZE ON BROWSER BACK/SHOW
+        window.addEventListener('pageshow', (event) => {
+            closeMenu();
+        });
+
+        // Reveal Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -313,55 +315,17 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Navbar Scroll
+        // Scroll Logic
         window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 40) {
-                nav.classList.add('nav-scrolled');
-            } else {
-                nav.classList.remove('nav-scrolled');
+            if (!isMenuOpen) {
+                if (window.scrollY > 40) navbar.classList.add('nav-scrolled');
+                else navbar.classList.remove('nav-scrolled');
             }
         });
-
-        // Quiz Logic
-        function checkAnswer(isCorrect) {
-            const container = document.getElementById('feedback-container');
-            const box = document.getElementById('feedback-box');
-            const text = document.getElementById('feedback-text');
-            const icon = document.getElementById('status-icon');
-            
-            container.classList.remove('hidden');
-            setTimeout(() => {
-                container.classList.add('opacity-100');
-                container.classList.remove('translate-y-8');
-            }, 50);
-            
-            if(isCorrect) {
-                box.className = "p-10 rounded-[2.5rem] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 w-full";
-                icon.innerHTML = '<i data-lucide="party-popper" class="w-12 h-12 mx-auto mb-4"></i>';
-                text.innerHTML = "Excellent ! ✨ Un ETF Monde contient des centaines d'entreprises. Votre risque est ainsi largement mutualisé : si une société fait faillite, l'impact sur votre capital est négligeable.";
-            } else {
-                box.className = "p-10 rounded-[2.5rem] bg-rose-500/10 border border-rose-500/30 text-rose-400 w-full";
-                icon.innerHTML = '<i data-lucide="info" class="w-12 h-12 mx-auto mb-4"></i>';
-                text.innerHTML = "Presque ! 💡 C'est justement la force de l'ETF : il diversifie instantanément votre argent sur des milliers d'entreprises. C'est le panier parfait pour ne pas mettre tous ses œufs dans le même panier.";
-            }
-            lucide.createIcons();
-            
-            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function resetQuiz() {
-            const container = document.getElementById('feedback-container');
-            container.classList.remove('opacity-100');
-            container.classList.add('translate-y-8');
-            setTimeout(() => {
-                container.classList.add('hidden');
-            }, 400);
-        }
     </script>
 </body>
 </html>
