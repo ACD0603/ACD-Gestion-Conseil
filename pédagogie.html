@@ -25,12 +25,24 @@
             padding-bottom: 0.75rem !important;
         }
 
+        /* Fixed Mobile Menu */
         #mobile-menu {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateY(-100%);
             opacity: 0;
             pointer-events: none;
             visibility: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         #mobile-menu.active {
             transform: translateY(0);
@@ -66,6 +78,7 @@
 </head>
 <body class="text-slate-900 selection:bg-blue-100">
 
+    <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-[70] transition-all duration-300 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center relative">
             <a href="index.html" class="flex items-center space-x-3 group z-10">
@@ -80,6 +93,7 @@
                 </div>
             </a>
 
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
                 <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
@@ -89,16 +103,28 @@
                 </a>
             </div>
 
+            <!-- Mobile Toggle -->
             <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[80] transition-colors focus:outline-none" aria-label="Menu">
                 <i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu">
+        <div class="flex flex-col items-center space-y-8">
+            <a href="budget.html" class="text-2xl font-black text-slate-900 hover:text-blue-700">Analyse du budget</a>
+            <a href="stratégie.html" class="text-2xl font-black text-slate-900 hover:text-blue-700">Stratégie</a>
+            <a href="pédagogie.html" class="text-2xl font-black text-blue-700">Pédagogie</a>
+            <a href="contact.html" class="text-2xl font-black text-slate-900 hover:text-blue-700 border-b-2 border-slate-900">Contact</a>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="relative pt-52 pb-32 overflow-hidden hero-pattern">
         <div class="container mx-auto px-6 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
-                <div class="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full mb-8 border border-blue-100 animate-bounce">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full mb-8 border border-blue-100 animate-pulse">
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                     <span class="text-[11px] font-black uppercase tracking-widest">Apprendre avec clarté</span>
                 </div>
@@ -226,9 +252,9 @@
                     <div>
                         <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Expertise</h4>
                         <ul class="space-y-4 text-sm text-slate-300 font-semibold">
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
+                            <li><a href="budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
+                            <li><a href="stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
+                            <li><a href="pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
                         </ul>
                     </div>
                     <div>
@@ -242,8 +268,12 @@
                     <div>
                         <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Social</h4>
                         <div class="flex space-x-4">
-                            <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="LinkedIn">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="Instagram">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -254,7 +284,7 @@
                     © 2026 ACD GESTION & CONSEIL — LILLE, FRANCE
                 </div>
                 <div class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
-                    Design by ACD • <a href="https://acd0603.github.io/ACD-Gestion-Conseil/mentions-legales.html" class="hover:underline">Mentions Légales</a>
+                    Design by ACD • <a href="mentions-legales.html" class="hover:underline">Mentions Légales</a>
                 </div>
             </div>
         </div>
@@ -266,12 +296,10 @@
 
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
         const navbar = document.getElementById('navbar');
         let isMenuOpen = false;
 
         function updateMenuIcon(name) {
-            // Important: Replace the tag content and re-init Lucide
             menuToggle.innerHTML = `<i data-lucide="${name}" class="w-8 h-8"></i>`;
             lucide.createIcons();
         }
@@ -297,17 +325,12 @@
             else openMenu();
         });
 
-        // Close when clicking links
+        // Close menu when clicking links
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeMenu);
         });
 
-        // REINITIALIZE ON BROWSER BACK/SHOW
-        window.addEventListener('pageshow', (event) => {
-            closeMenu();
-        });
-
-        // Reveal Animation
+        // Reveal Animation on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -319,11 +342,14 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Scroll Logic
+        // Navbar Scroll effect
         window.addEventListener('scroll', () => {
             if (!isMenuOpen) {
-                if (window.scrollY > 40) navbar.classList.add('nav-scrolled');
-                else navbar.classList.remove('nav-scrolled');
+                if (window.scrollY > 40) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
             }
         });
     </script>
