@@ -17,29 +17,28 @@
         }
         .font-serif { font-family: 'Playfair Display', serif; }
         
-        /* Navbar Glassmorphism */
         .nav-scrolled {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding-top: 1rem !important;
-            padding-bottom: 1rem !important;
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
         }
 
-        /* Mobile Menu Animation */
         #mobile-menu {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            clip-path: circle(0% at 90% 5%);
-            pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            transform: translateY(-100%);
             opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
         }
         #mobile-menu.active {
-            clip-path: circle(150% at 90% 5%);
-            pointer-events: auto;
+            transform: translateY(0);
             opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
         }
 
-        /* Smooth Card Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -50,7 +49,6 @@
             transform: translateY(0);
         }
 
-        /* Concept Cards Interaction */
         .concept-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -59,32 +57,22 @@
             box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
             border-color: rgba(30, 58, 138, 0.1);
         }
-        .concept-card:hover .icon-box {
-            transform: scale(1.1) rotate(5deg);
-        }
 
         .hero-pattern {
             background-image: radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
             background-size: 24px 24px;
         }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body class="text-slate-900 selection:bg-blue-100">
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-[60] transition-all duration-300 py-6">
+    <nav id="navbar" class="fixed w-full z-[70] transition-all duration-300 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center relative">
             <a href="index.html" class="flex items-center space-x-3 group z-10">
-                <div id="logo-bg" class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+                <div id="logo-square" class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
                     ACD
                 </div>
-                <div class="hidden sm:flex flex-col">
+                <div class="flex flex-col">
                     <span id="logo-text" class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900 transition-colors">Gestion & Conseil</span>
                     <span id="logo-subtext" class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center transition-colors">
                         <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
@@ -92,7 +80,6 @@
                 </div>
             </a>
 
-            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
                 <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
@@ -102,32 +89,11 @@
                 </a>
             </div>
 
-            <!-- Mobile Toggle -->
-            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-10 transition-colors focus:outline-none">
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[80] transition-colors focus:outline-none" aria-label="Menu">
                 <i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>
             </button>
         </div>
     </nav>
-
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-slate-950 z-[55] flex flex-col justify-center items-center px-10 text-center">
-        <div class="space-y-8 flex flex-col items-center">
-            <a href="budget.html" class="text-3xl font-black text-white hover:text-blue-400 transition-colors tracking-tighter">Analyse Budget</a>
-            <a href="stratégie.html" class="text-3xl font-black text-white hover:text-blue-400 transition-colors tracking-tighter">Stratégie</a>
-            <a href="pédagogie.html" class="text-3xl font-black text-blue-500 tracking-tighter">Pédagogie</a>
-            <div class="w-12 h-px bg-white/20 my-4"></div>
-            <a href="contact.html" class="bg-blue-600 text-white px-10 py-5 rounded-2xl text-sm font-black uppercase tracking-[0.2em]">Consultation</a>
-        </div>
-        
-        <div class="absolute bottom-12 left-0 w-full flex flex-col items-center space-y-4 opacity-50">
-            <p class="text-[10px] font-bold text-white uppercase tracking-[0.3em]">Lille & France</p>
-            <div class="flex space-x-6">
-                <i data-lucide="linkedin" class="w-5 h-5 text-white"></i>
-                <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
-            </div>
-        </div>
-    </div>
-
     <!-- Hero Section -->
     <section class="relative pt-52 pb-32 overflow-hidden hero-pattern">
         <div class="container mx-auto px-6 relative z-10">
