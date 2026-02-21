@@ -30,9 +30,13 @@
         #mobile-menu {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             clip-path: circle(0% at 90% 5%);
+            pointer-events: none;
+            opacity: 0;
         }
         #mobile-menu.active {
             clip-path: circle(150% at 90% 5%);
+            pointer-events: auto;
+            opacity: 1;
         }
 
         /* Smooth Card Reveal */
@@ -81,33 +85,39 @@
 <body class="text-slate-900 selection:bg-blue-100">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <nav id="navbar" class="fixed w-full z-[60] transition-all duration-300 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center relative">
-            <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+            <a href="index.html" class="flex items-center space-x-3 group z-10">
+                <div id="logo-bg" class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
                     ACD
                 </div>
                 <div class="hidden sm:flex flex-col">
-                    <span class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
-                    <span class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center">
+                    <span id="logo-text" class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900 transition-colors">Gestion & Conseil</span>
+                    <span id="logo-subtext" class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center transition-colors">
                         <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
                 <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
-                <a href="pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
+                <a href="pédagogie.html" class="text-sm font-bold text-blue-800">Pédagogie</a>
                 <a href="contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
                     Me contacter
                 </a>
             </div>
+
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-10 transition-colors">
+                <i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-slate-950 z-[55] flex flex-col justify-center items-center px-10 text-center pointer-events-none opacity-0 active:opacity-100 active:pointer-events-auto overflow-hidden">
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-950 z-[55] flex flex-col justify-center items-center px-10 text-center">
         <div class="space-y-8 flex flex-col items-center">
             <a href="budget.html" class="text-3xl font-black text-white hover:text-blue-400 transition-colors tracking-tighter">Analyse Budget</a>
             <a href="stratégie.html" class="text-3xl font-black text-white hover:text-blue-400 transition-colors tracking-tighter">Stratégie</a>
@@ -145,7 +155,6 @@
                 </p>
             </div>
         </div>
-        <!-- Abstract Shapes -->
         <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-blue-50 rounded-full blur-[120px] opacity-50 -z-10"></div>
     </section>
 
@@ -341,17 +350,17 @@
             isMenuOpen = !isMenuOpen;
             
             if (isMenuOpen) {
-                mobileMenu.classList.add('active', 'opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('active');
                 menuIcon.setAttribute('data-lucide', 'x');
-                logoText.classList.add('text-white');
-                logoSubtext.classList.add('text-blue-400');
-                document.body.style.overflow = 'hidden'; // Stop scroll
+                logoText.classList.replace('text-slate-900', 'text-white');
+                logoSubtext.classList.replace('text-blue-800', 'text-blue-400');
+                document.body.style.overflow = 'hidden'; 
             } else {
-                mobileMenu.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.remove('active');
                 menuIcon.setAttribute('data-lucide', 'menu');
-                logoText.classList.remove('text-white');
-                logoSubtext.classList.remove('text-blue-400');
-                document.body.style.overflow = ''; // Resume scroll
+                logoText.classList.replace('text-white', 'text-slate-900');
+                logoSubtext.classList.replace('text-blue-400', 'text-blue-800');
+                document.body.style.overflow = '';
             }
             lucide.createIcons();
         });
@@ -360,10 +369,10 @@
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 isMenuOpen = false;
-                mobileMenu.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.remove('active');
                 menuIcon.setAttribute('data-lucide', 'menu');
-                logoText.classList.remove('text-white');
-                logoSubtext.classList.remove('text-blue-400');
+                logoText.classList.replace('text-white', 'text-slate-900');
+                logoSubtext.classList.replace('text-blue-400', 'text-blue-800');
                 document.body.style.overflow = '';
                 lucide.createIcons();
             });
@@ -416,7 +425,6 @@
             }
             lucide.createIcons();
             
-            // Focus scroll
             container.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
