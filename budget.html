@@ -485,5 +485,69 @@
 
         window.addEventListener('load', updateChart);
     </script>
+        
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('navbar');
+        let isMenuOpen = false;
+
+        function updateMenuIcon(name) {
+            menuToggle.innerHTML = `<i data-lucide="${name}" class="w-8 h-8"></i>`;
+            lucide.createIcons();
+        }
+
+        function closeMenu() {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('active');
+            updateMenuIcon('menu');
+            document.body.style.overflow = '';
+            if (window.scrollY <= 40) navbar.classList.remove('nav-scrolled');
+        }
+
+        function openMenu() {
+            isMenuOpen = true;
+            mobileMenu.classList.add('active');
+            updateMenuIcon('x');
+            navbar.classList.add('nav-scrolled');
+            document.body.style.overflow = 'hidden';
+        }
+
+        menuToggle.addEventListener('click', () => {
+            if (isMenuOpen) closeMenu();
+            else openMenu();
+        });
+
+        // Close menu when clicking links
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Reveal Animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar Scroll effect
+        window.addEventListener('scroll', () => {
+            if (!isMenuOpen) {
+                if (window.scrollY > 40) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
