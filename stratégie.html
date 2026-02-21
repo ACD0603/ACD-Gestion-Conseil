@@ -589,5 +589,52 @@
 
         window.onload = calculateGrowth;
     </script>
+        <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('navbar');
+        const menuIcon = document.getElementById('menu-icon');
+        let isMenuOpen = false;
+
+        function updateMenuIcon(name) {
+            menuToggle.innerHTML = `<i data-lucide="${name}" class="w-8 h-8"></i>`;
+            lucide.createIcons();
+        }
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.add('active');
+                updateMenuIcon('x');
+                document.body.style.overflow = 'hidden'; // Stop scroll
+            } else {
+                mobileMenu.classList.remove('active');
+                updateMenuIcon('menu');
+                document.body.style.overflow = ''; // Resume scroll
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // Close on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMenu();
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
