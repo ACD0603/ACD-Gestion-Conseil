@@ -101,7 +101,7 @@
 </head>
 <body class="bg-[#F8FAFC] text-slate-900 selection:bg-blue-100">
 
-    <!-- Navigation Unifiée -->
+    <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center relative">
             <a href="index.html" class="flex items-center space-x-3 group">
@@ -117,10 +117,10 @@
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
+                <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
+                <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
+                <a href="pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
                     Me contacter
                 </a>
             </div>
@@ -280,7 +280,7 @@
         </div>
     </section>
 
-    <!-- Analyse -->
+    <!-- Analyse / Chart -->
     <section id="analyse" class="py-32 bg-slate-50">
         <div class="container mx-auto px-6">
             <div class="max-w-6xl mx-auto">
@@ -386,7 +386,7 @@
         </div>
     </section>
 
-    <!-- Disclaimer / Avertissement Légal -->
+    <!-- Disclaimer -->
     <section class="py-12 bg-slate-50 border-t border-slate-200">
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
@@ -426,9 +426,9 @@
                     <div>
                         <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Expertise</h4>
                         <ul class="space-y-4 text-sm text-slate-300 font-semibold">
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
+                            <li><a href="budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
+                            <li><a href="stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
+                            <li><a href="pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
                         </ul>
                     </div>
                     <div>
@@ -454,7 +454,7 @@
                     © 2026 ACD GESTION & CONSEIL — LILLE, FRANCE
                 </div>
                 <div class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
-                    Design by ACD • <a href="https://acd0603.github.io/ACD-Gestion-Conseil/mentions-legales.html" class="hover:underline">Mentions Légales</a>
+                    Design by ACD • <a href="mentions-legales.html" class="hover:underline">Mentions Légales</a>
                 </div>
             </div>
         </div>
@@ -494,47 +494,35 @@
                         label: 'Valeur Patrimoniale',
                         data: [10000, 10500, 10200, 11800, 14200, 12500, 15500, 14200, 17200, 16500, 17596],
                         borderColor: '#1E3A8A',
-                        borderWidth: 5,
+                        borderWidth: 4,
                         fill: true,
                         backgroundColor: gradient,
                         tension: 0.4,
-                        pointRadius: 0,
-                        pointHoverRadius: 8,
-                        pointHoverBackgroundColor: '#1E3A8A',
-                        pointHoverBorderColor: '#ffffff',
-                        pointHoverBorderWidth: 4
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#1E3A8A',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: { intersect: false, mode: 'index' },
                     plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#0F172A',
-                            padding: 20,
-                            titleFont: { size: 12, weight: 'bold' },
-                            bodyFont: { size: 16, weight: '900' },
-                            cornerRadius: 15,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(context) { return context.parsed.y.toLocaleString() + ' €'; }
-                            }
-                        }
+                        legend: { display: false }
                     },
                     scales: {
                         y: {
-                            grid: { color: '#F1F5F9', drawBorder: false },
+                            beginAtZero: false,
+                            grid: { color: 'rgba(0,0,0,0.05)' },
                             ticks: { 
-                                color: '#94A3B8',
-                                font: { size: 11, weight: '600' },
-                                callback: val => val / 1000 + 'k'
+                                font: { weight: 'bold' },
+                                callback: value => value + ' €'
                             }
                         },
                         x: {
                             grid: { display: false },
-                            ticks: { color: '#94A3B8', font: { size: 11, weight: '600' } }
+                            ticks: { font: { weight: 'bold' } }
                         }
                     }
                 }
