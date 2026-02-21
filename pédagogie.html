@@ -81,34 +81,28 @@
 <body class="text-slate-900 selection:bg-blue-100">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-[60] transition-all duration-500 py-8">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3 group relative z-[70]">
-                <div class="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black shadow-xl transition-all group-hover:rotate-12 group-hover:bg-blue-700">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center relative">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
                     ACD
                 </div>
                 <div class="hidden sm:flex flex-col">
-                    <span id="logo-text" class="text-[13px] font-black uppercase tracking-[0.2em] transition-colors">Gestion & Conseil</span>
-                    <span id="logo-subtext" class="text-[10px] font-bold text-blue-600 uppercase tracking-widest flex items-center transition-colors">
-                        <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> Lille & France
+                    <span class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
+                    <span class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center">
+                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-10">
-                <a href="budget.html" class="text-[13px] font-bold text-slate-500 hover:text-slate-900 transition-all">Analyse Budget</a>
-                <a href="stratégie.html" class="text-[13px] font-bold text-slate-500 hover:text-slate-900 transition-all">Stratégie</a>
-                <a href="pédagogie.html" class="text-[13px] font-black text-blue-700">Pédagogie</a>
-                <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-blue-800 transition-all shadow-lg hover:shadow-blue-200 hover:scale-105 active:scale-95">
-                    Consultation
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
+                <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
+                <a href="pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
+                    Me contacter
                 </a>
             </div>
-            
-            <!-- Mobile Menu Toggle -->
-            <button id="menu-toggle" class="md:hidden w-12 h-12 flex items-center justify-center bg-slate-100 rounded-xl relative z-[70] transition-all active:scale-90">
-                <i data-lucide="menu" id="menu-icon" class="w-6 h-6 text-slate-900 transition-transform"></i>
-            </button>
         </div>
     </nav>
 
