@@ -181,7 +181,7 @@
                         <p>En tant qu'étudiant, j'ai appliqué mes propres stratégies pour bâtir mon patrimoine. Ce graphique n'est pas qu'une courbe, c'est la preuve qu'avec de la méthode, les objectifs deviennent réalité.</p>
                     </div>
 
-                    <!-- GRAPHIQUE INTERACTIF -->
+                    <!-- GRAPHIQUE INTERACTIF AVEC TEMPS ET VALEUR -->
                     <div class="finary-card group/chart">
                         <div class="mb-10">
                             <div id="dynamic-date" class="current-date-display">Aujourd'hui</div>
@@ -293,8 +293,9 @@
         const initialValue = "17 624 €";
         const initialDate = "Aujourd'hui";
 
+        // Génération de dates historiques
         const generateDates = (count) => {
-            const start = new Date(2024, 5, 23);
+            const start = new Date(2024, 5, 23); // Juin 2024
             const dates = [];
             for(let i = 0; i < count; i++) {
                 const current = new Date(start);
@@ -334,7 +335,9 @@
                     pointRadius: 0,
                     pointHitRadius: 20,
                     hoverRadius: 6,
-                    hoverBackgroundColor: '#BF996B'
+                    hoverBackgroundColor: '#BF996B',
+                    hoverBorderColor: '#fff',
+                    hoverBorderWidth: 2
                 }]
             },
             options: {
@@ -360,8 +363,11 @@
                 onHover: (event, activeElements) => {
                     if (activeElements.length > 0) {
                         const index = activeElements[0].index;
-                        valueDisplay.innerText = chartData[index].toLocaleString('fr-FR') + ' €';
-                        dateDisplay.innerText = labels[index];
+                        const val = chartData[index];
+                        const date = labels[index];
+                        
+                        valueDisplay.innerText = val.toLocaleString('fr-FR') + ' €';
+                        dateDisplay.innerText = date;
                         dateDisplay.style.color = '#BF996B';
                     } else {
                         valueDisplay.innerText = initialValue;
@@ -369,8 +375,31 @@
                         dateDisplay.style.color = '#64748b';
                     }
                 },
-                interaction: { intersect: false, mode: 'index' }
-            }
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                }
+            },
+            plugins: [{
+                // Dessine une ligne verticale au survol
+                id: 'verticalLine',
+                afterDraw: (chart) => {
+                    if (chart.tooltip?._active?.length) {
+                        const x = chart.tooltip._active[0].element.x;
+                        const yAxis = chart.scales.y;
+                        const ctx = chart.ctx;
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(x, yAxis.top);
+                        ctx.lineTo(x, yAxis.bottom);
+                        ctx.lineWidth = 1;
+                        ctx.strokeStyle = 'rgba(191, 153, 107, 0.3)';
+                        ctx.setLineDash([5, 5]);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+            }]
         });
     </script>
 </body>
