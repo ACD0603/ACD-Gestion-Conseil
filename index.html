@@ -37,13 +37,12 @@
             border: 1px solid #f1f5f9;
         }
 
-        /* Navbar style on scroll */
-        .nav-scrolled {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding-top: 0.75rem !important;
-            padding-bottom: 0.75rem !important;
+        .hover-lift {
+            transition: transform 0.3s ease, shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
         }
 
         /* Enhanced Mobile Menu */
@@ -92,11 +91,70 @@
         #mobile-menu.active .mobile-link:nth-child(3) { transition-delay: 0.3s; }
         #mobile-menu.active .mobile-link:nth-child(4) { transition-delay: 0.4s; }
 
-        .chart-container {
-            position: relative;
+        /* Contact Section Styling */
+        .contact-card-split {
+            display: grid;
+            grid-template-columns: 1fr;
+            background: #0F172A;
+            border-radius: 3rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        @media (min-width: 1024px) {
+            .contact-card-split {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .contact-left {
+            padding: 4rem;
+            background: #1E3A8A;
+            color: white;
+        }
+
+        .contact-right {
+            padding: 4rem;
+            background: white;
+        }
+
+        .form-input {
             width: 100%;
-            max-width: 450px;
-            height: 450px;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid #E2E8F0;
+            background: #F8FAFC;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #1E3A8A;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+        }
+
+        /* Timeline enhancements */
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid #E2E8F0;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-2rem - 6px);
+            top: 10px;
+            width: 12px;
+            height: 12px;
+            background: #1E3A8A;
+            border-radius: 50%;
+            border: 2px solid white;
         }
     </style>
 </head>
@@ -117,7 +175,7 @@
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="budget.html" class="text-sm font-bold text-blue-800 transition-colors">Analyse du budget</a>
+                <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
                 <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
                 <a href="pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
                 <a href="contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
@@ -228,21 +286,21 @@
                     </div>
 
                     <div class="timeline-container mt-20">
-                        <div class="timeline-item left">
+                        <div class="timeline-item">
                             <div class="glass-card p-8 hover-lift">
                                 <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2023 • Académique</span>
                                 <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">Fondations</h4>
                                 <p class="text-sm text-slate-500 mt-3 font-medium">Acquisition des outils d'analyse macro-économique et de gestion d'entreprise.</p>
                             </div>
                         </div>
-                        <div class="timeline-item right">
+                        <div class="timeline-item">
                             <div class="glass-card p-8 hover-lift border-l-4 border-blue-800">
                                 <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2024 • Marchés</span>
                                 <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">Pratique Réelle</h4>
                                 <p class="text-sm text-slate-500 mt-3 font-medium">Gestion active de portefeuilles (PEA/CTO) et optimisation fiscale personnelle.</p>
                             </div>
                         </div>
-                        <div class="timeline-item left">
+                        <div class="timeline-item">
                             <div class="glass-card p-8 hover-lift">
                                 <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2025 • Entreprise</span>
                                 <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">ACD Conseil</h4>
@@ -351,21 +409,21 @@
             <div class="contact-card-split">
                 <div class="contact-left relative">
                     <h2 class="text-5xl font-black mb-8 leading-none">Parlons de <br><span class="text-blue-400">vos projets.</span></h2>
-                    <p class="text-slate-400 mb-16 text-lg font-medium">Disponible pour des consultations à Lille ou en visioconférence.</p>
+                    <p class="text-blue-100 mb-16 text-lg font-medium opacity-80">Disponible pour des consultations à Lille ou en visioconférence.</p>
                     
                     <div class="space-y-10">
                         <div class="flex items-start space-x-6">
-                            <div class="w-12 h-12 bg-blue-900/50 rounded-xl flex items-center justify-center border border-white/10">
-                                <i data-lucide="mail" class="w-5 h-5 text-blue-200"></i>
+                            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/10">
+                                <i data-lucide="mail" class="w-5 h-5 text-white"></i>
                             </div>
                             <div>
                                 <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Email direct</span>
-                                <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-base font-bold hover:text-blue-400 transition-colors">ACD_Gestion_Conseil@outlook.com</a>
+                                <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-base font-bold hover:text-blue-300 transition-colors">ACD_Gestion_Conseil@outlook.com</a>
                             </div>
                         </div>
                         <div class="flex items-start space-x-6">
-                            <div class="w-12 h-12 bg-blue-900/50 rounded-xl flex items-center justify-center border border-white/10">
-                                <i data-lucide="phone" class="w-5 h-5 text-blue-200"></i>
+                            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/10">
+                                <i data-lucide="phone" class="w-5 h-5 text-white"></i>
                             </div>
                             <div>
                                 <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Téléphone</span>
@@ -373,8 +431,8 @@
                             </div>
                         </div>
                         <div class="flex items-start space-x-6">
-                            <div class="w-12 h-12 bg-blue-900/50 rounded-xl flex items-center justify-center border border-white/10">
-                                <i data-lucide="map-pin" class="w-5 h-5 text-blue-200"></i>
+                            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/10">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
                             </div>
                             <div>
                                 <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Localisation</span>
@@ -460,9 +518,9 @@
                     <div>
                         <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Expertise</h4>
                         <ul class="space-y-4 text-sm text-slate-300 font-semibold">
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
-                            <li><a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
+                            <li><a href="budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
+                            <li><a href="stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
+                            <li><a href="pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
                         </ul>
                     </div>
                     <div>
@@ -488,7 +546,7 @@
                     © 2026 ACD GESTION & CONSEIL — LILLE, FRANCE
                 </div>
                 <div class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
-                    Design by ACD • <a href="https://acd0603.github.io/ACD-Gestion-Conseil/mentions-legales.html" class="hover:underline">Mentions Légales</a>
+                    Design by ACD • <a href="mentions-legales.html" class="hover:underline">Mentions Légales</a>
                 </div>
             </div>
         </div>
@@ -498,7 +556,36 @@
         // Initialisation des icônes Lucide
         lucide.createIcons();
 
-        // Gestion du scroll pour la Navbar
+        // Menu Mobile Toggle Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuToggle.addEventListener('click', () => {
+            const isActive = mobileMenu.classList.toggle('active');
+            
+            // Toggle icon between menu and x
+            if (isActive) {
+                menuIcon.setAttribute('data-lucide', 'x');
+                document.body.style.overflow = 'hidden'; // Empêcher le scroll
+            } else {
+                menuIcon.setAttribute('data-lucide', 'menu');
+                document.body.style.overflow = ''; // Réactiver le scroll
+            }
+            lucide.createIcons(); // Rafraîchir les icônes
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                document.body.style.overflow = '';
+                lucide.createIcons();
+            });
+        });
+
+        // Scroll listener for navbar style
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -510,7 +597,7 @@
             }
         });
 
-        // Initialisation du graphique Chart.js
+        // Chart.js Performance Graph
         window.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('performanceChart');
             if (!canvas) return;
