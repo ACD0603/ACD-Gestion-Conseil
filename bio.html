@@ -48,36 +48,9 @@
         .finary-card {
             background: #0A0A0A;
             border-radius: 1.5rem;
-            padding: 1.5rem;
+            padding: 2rem;
             color: white;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .finary-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .filter-chip {
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .filter-chip.active {
-            background: #1A1A1A;
-            color: #DDD;
-        }
-
-        .filter-chip.selected {
-            background: #222;
-            color: white;
         }
 
         .patrimoine-value {
@@ -204,32 +177,11 @@
                         <p>En tant qu'étudiant, j'ai appliqué mes propres stratégies pour bâtir mon patrimoine. Ce graphique n'est pas qu'une courbe, c'est la preuve qu'avec de la méthode, les objectifs deviennent réalité.</p>
                     </div>
 
-                    <!-- GRAPHIQUE IDENTIQUE À L'IMAGE -->
+                    <!-- GRAPHIQUE ÉPURÉ -->
                     <div class="finary-card">
-                        <!-- Navigation du graphique -->
-                        <div class="finary-header">
-                            <div class="flex items-center space-x-2">
-                                <span class="text-sm font-bold">Patrimoine brut</span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500"></i>
-                            </div>
-                            <div class="bg-[#1A1A1A] rounded-full px-4 py-1.5 flex items-center space-x-2">
-                                <span class="text-[10px] font-bold text-slate-300">Toutes les catégories</span>
-                                <i data-lucide="chevron-down" class="w-3 h-3 text-slate-500"></i>
-                            </div>
-                            <div class="flex space-x-2">
-                                <span class="filter-chip">1J</span>
-                                <span class="filter-chip">7J</span>
-                                <span class="filter-chip">1M</span>
-                                <span class="filter-chip">3M</span>
-                                <span class="filter-chip">YTD</span>
-                                <span class="filter-chip">1A</span>
-                                <span class="filter-chip selected bg-[#222]">TOUT</span>
-                            </div>
-                        </div>
-
                         <!-- Valeur Actuelle -->
                         <div class="mb-8">
-                            <p class="text-[11px] text-slate-500 font-bold">22 Févr. 2026</p>
+                            <p class="text-[11px] text-slate-500 font-bold uppercase tracking-wider">22 Févr. 2026</p>
                             <div class="patrimoine-value">17 624 €</div>
                         </div>
 
@@ -239,7 +191,7 @@
                         </div>
 
                         <!-- Dates en bas -->
-                        <div class="mt-4 flex justify-between text-[10px] text-slate-600 font-bold overflow-hidden">
+                        <div class="mt-4 flex justify-between text-[10px] text-slate-600 font-bold overflow-hidden uppercase tracking-widest">
                             <span>23/06/2024</span>
                             <span class="hidden sm:inline">21/08/2024</span>
                             <span class="hidden md:inline">19/10/2024</span>
@@ -332,13 +284,12 @@
             document.body.style.overflow = isActive ? 'hidden' : '';
         });
 
-        // CHART SCRIPT - REPRODUCTION IDENTIQUE
+        // CHART SCRIPT
         const ctx = document.getElementById('perfChart').getContext('2d');
         const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(191, 153, 107, 0.25)'); // Doré transparent
-        gradient.addColorStop(1, 'rgba(10, 10, 10, 0)'); // Noir total
+        gradient.addColorStop(0, 'rgba(191, 153, 107, 0.25)'); // Doré
+        gradient.addColorStop(1, 'rgba(10, 10, 10, 0)'); // Noir
 
-        // Données simulant les variations de l'image
         const chartData = [
             10000, 10200, 10100, 10400, 10300, 10200, 10350, 10150, 10300, 10400,
             10450, 10600, 10550, 10700, 11000, 11200, 11100, 11500, 11800, 12200,
@@ -358,7 +309,7 @@
                     borderWidth: 1.5,
                     fill: true,
                     backgroundColor: gradient,
-                    tension: 0.1, // Moins de lissage pour l'aspect "scintillé" de l'image
+                    tension: 0.1,
                     pointRadius: 0,
                     pointHitRadius: 10
                 }]
