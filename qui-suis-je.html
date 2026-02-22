@@ -33,6 +33,33 @@
 
         .font-serif { font-family: 'Playfair Display', serif; }
         
+        /* Navigation Styles */
+        .nav-link { 
+            position: relative; 
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-blue);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Highlight Active Page */
+        .nav-link-active {
+            color: var(--brand-blue) !important;
+        }
+        .nav-link-active::after {
+            width: 100% !important;
+            background-color: var(--brand-blue);
+        }
+
+        /* Finary-style Chart Card */
         .finary-card {
             background: #ffffff;
             border: 1px solid #f1f5f9;
@@ -62,19 +89,6 @@
             box-shadow: 0 40px 80px -15px rgba(15, 23, 42, 0.08);
             border-color: rgba(59, 130, 246, 0.2);
         }
-
-        .nav-link { position: relative; }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--brand-blue);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
 
         #mobile-menu {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -111,8 +125,11 @@
                 </div>
             </a>
 
+            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-10">
-                <a href="qui-suis-je.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Qui suis-je ?</a>
+                <!-- Lien Actif mis en surbrillance -->
+                <a href="qui-suis-je.html" class="nav-link nav-link-active text-[13px] font-bold text-slate-600 uppercase tracking-wider">Qui suis-je ?</a>
+                
                 <a href="objectif.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Objectif</a>
                 <a href="simulation.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Simulation</a>
                 <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg">
@@ -129,10 +146,10 @@
     <!-- Menu Mobile Content -->
     <div id="mobile-menu" class="flex items-center justify-center">
         <div class="flex flex-col space-y-10 text-center">
-            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-slate-900">Qui suis-je ?</a>
+            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-blue-700">Qui suis-je ?</a>
             <a href="objectif.html" class="text-4xl font-extrabold text-slate-900">Objectif</a>
             <a href="simulation.html" class="text-4xl font-extrabold text-slate-900">Simulation</a>
-            <a href="contact.html" class="text-4xl font-extrabold text-blue-700 underline">Me contacter</a>
+            <a href="contact.html" class="text-4xl font-extrabold text-slate-900 underline">Me contacter</a>
         </div>
     </div>
 
@@ -146,7 +163,7 @@
                         <div class="absolute -inset-4 bg-blue-50 rounded-[4rem] -z-10 rotate-3"></div>
                         <div class="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white bg-slate-100">
                             <img src="https://acd0603.github.io/ACD-Gestion-Conseil/image-personelle.png" 
-                                 alt="Portrait" 
+                                 alt="Portrait de l'expert financier" 
                                  class="w-full h-full object-cover"
                                  onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800'">
                         </div>
@@ -253,7 +270,7 @@
     </footer>
 
     <script>
-        // Initialisation
+        // Initialisation Lucide
         lucide.createIcons();
 
         // Navbar Scroll & Mobile Menu
