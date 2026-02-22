@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objectif | ACD Gestion & Conseil</title>
-    <meta name="description" content="Définissez vos objectifs patrimoniaux et profitez d'un accompagnement sur mesure à Lille.">
+    <title>ACD Gestion & Conseil | Pilotage Budgétaire & Pédagogie Financière</title>
+    <meta name="description" content="Expertise en stratégie financière et accompagnement budgétaire à Lille. Optimisez votre patrimoine avec une approche pédagogique et indépendante.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
@@ -29,16 +29,25 @@
             color: #1e293b;
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #0F172A 0%, #1E40AF 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(241, 245, 249, 1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Nav Link Custom */
-        .nav-link { 
-            position: relative; 
-            transition: color 0.3s ease;
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px -15px rgba(15, 23, 42, 0.08);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Nav underline effect */
+        .nav-link {
+            position: relative;
         }
         .nav-link::after {
             content: '';
@@ -50,98 +59,85 @@
             background-color: var(--brand-blue);
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after { width: 100%; }
-        .nav-link-active { color: var(--brand-blue) !important; }
-        .nav-link-active::after { width: 100% !important; }
-
-        /* Quiz & Cards Styles */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .glass-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1);
+        .nav-link:hover::after {
+            width: 100%;
         }
 
-        .step-container {
-            display: none;
-            animation: slideIn 0.4s ease-out;
+        /* Menu Mobile */
+        #mobile-menu {
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(1.05);
+            opacity: 0;
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 90;
         }
-        .step-container.active {
-            display: block;
+        
+        #mobile-menu.active {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .animate-reveal { animation: reveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
-        .hidden-page { display: none; }
-        
-        /* Mobile Menu Overlay */
-        #mobile-menu {
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            clip-path: circle(0% at 90% 5%);
-        }
-        #mobile-menu.active {
-            clip-path: circle(150% at 90% 5%);
-        }
-
-        .progress-bar {
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .blob {
+            filter: blur(80px);
+            position: absolute;
+            z-index: -1;
+            border-radius: 50%;
+            opacity: 0.4;
         }
     </style>
 </head>
 <body class="selection:bg-blue-100 selection:text-blue-900">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6 border-b border-transparent">
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-extrabold shadow-lg transition-transform group-hover:rotate-6">
+                <div id="logo-square" class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-extrabold shadow-xl transition-all duration-500 group-hover:rotate-[10deg] group-hover:bg-blue-700 group-hover:scale-110">
                     ACD
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xs font-extrabold uppercase tracking-widest text-slate-900 leading-none">Gestion & Conseil</span>
-                    <span class="text-[9px] font-semibold text-blue-600 uppercase tracking-tighter flex items-center mt-1">
-                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
+                    <span class="text-sm font-extrabold uppercase tracking-widest text-slate-900">Gestion & Conseil</span>
+                    <span class="text-[10px] font-semibold text-blue-600 uppercase tracking-tighter flex items-center">
+                        <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="qui-suis-je.html" class="nav-link text-[12px] font-bold text-slate-600 uppercase tracking-wider">Qui suis-je ?</a>
-                <a href="objectif.html" class="nav-link nav-link-active text-[12px] font-bold text-slate-600 uppercase tracking-wider">Objectif</a>
-                <a href="simulation.html" class="nav-link text-[12px] font-bold text-slate-600 uppercase tracking-wider">Simulation</a>
-                <a href="contact.html" class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-slate-200 hover:shadow-blue-200">
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="qui-suis-je.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Qui suis-je ?</a>
+                <a href="objectif.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Objectif</a>
+                <a href="simulation.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Simulation</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5 active:scale-95">
                     Consultation
                 </a>
             </div>
 
-            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 relative z-[110]">
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[110]" aria-label="Menu">
                 <i data-lucide="menu" class="w-8 h-8"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Content -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-[105] flex items-center justify-center md:hidden overflow-hidden">
+    <!-- Menu Mobile Content -->
+    <div id="mobile-menu" class="flex items-center justify-center">
         <div class="flex flex-col space-y-10 text-center">
-            <a href="qui-suis-je.html" class="text-3xl font-black text-slate-900 uppercase tracking-tighter hover:text-blue-600 transition-colors">Qui suis-je ?</a>
-            <a href="objectif.html" class="text-3xl font-black text-blue-700 uppercase tracking-tighter">Objectif</a>
-            <a href="simulation.html" class="text-3xl font-black text-slate-900 uppercase tracking-tighter hover:text-blue-600 transition-colors">Simulation</a>
-            <div class="pt-6">
-                <a href="contact.html" class="bg-slate-900 text-white px-10 py-5 rounded-full text-lg font-bold uppercase tracking-widest shadow-xl">
-                    Consultation
-                </a>
-            </div>
+            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Qui suis-je ?</a>
+            <a href="budget.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Audit Budget</a>
+            <a href="stratégie.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Stratégie</a>
+            <a href="contact.html" class="text-4xl font-extrabold text-blue-700 underline underline-offset-8">Me contacter</a>
         </div>
     </div>
+
     
     <!-- PAGE ACCUEIL (Choix des objectifs) -->
     <main id="home-page" class="pt-40 pb-20 max-w-6xl mx-auto px-6">
