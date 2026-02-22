@@ -561,25 +561,34 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
 
+        // Fonction pour mettre à jour l'icône de manière propre
+        function updateMenuIcon(iconName) {
+            // On remplace le contenu actuel par un nouvel élément i
+            menuIcon.parentElement.innerHTML = `<i id="menu-icon" data-lucide="${iconName}" class="w-8 h-8"></i>`;
+            // On rafraîchit Lucide pour transformer l'élément i en SVG
+            lucide.createIcons();
+        }
+
         menuToggle.addEventListener('click', () => {
             const isActive = mobileMenu.classList.toggle('active');
             
-            // Toggle icon between menu and x
             if (isActive) {
-                menuIcon.setAttribute('data-lucide', 'x');
-                document.body.style.overflow = 'hidden'; // Empêcher le scroll
+                // Si on ouvre, on met la croix
+                menuToggle.innerHTML = `<i id="menu-icon" data-lucide="x" class="w-8 h-8"></i>`;
+                document.body.style.overflow = 'hidden';
             } else {
-                menuIcon.setAttribute('data-lucide', 'menu');
-                document.body.style.overflow = ''; // Réactiver le scroll
+                // Si on ferme, on remet le burger
+                menuToggle.innerHTML = `<i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>`;
+                document.body.style.overflow = '';
             }
-            lucide.createIcons(); // Rafraîchir les icônes
+            lucide.createIcons();
         });
 
-        // Close menu on link click
+        // Fermeture propre au clic sur un lien
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
-                menuIcon.setAttribute('data-lucide', 'menu');
+                menuToggle.innerHTML = `<i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>`;
                 document.body.style.overflow = '';
                 lucide.createIcons();
             });
