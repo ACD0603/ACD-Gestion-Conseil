@@ -12,6 +12,7 @@
     <!-- Scripts & Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -21,6 +22,7 @@
             --brand-dark: #0F172A;
             --brand-blue: #1E40AF;
             --brand-accent: #3B82F6;
+            --chart-gold: #BF996B;
         }
 
         body { 
@@ -31,12 +33,28 @@
 
         .font-serif { font-family: 'Playfair Display', serif; }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(241, 245, 249, 1);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        .finary-card {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            padding: 2.5rem;
+            border-radius: 2rem;
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03);
+        }
+
+        .current-date-display {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .patrimoine-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.02em;
         }
 
         .hover-lift:hover {
@@ -45,10 +63,7 @@
             border-color: rgba(59, 130, 246, 0.2);
         }
 
-        /* Nav underline effect */
-        .nav-link {
-            position: relative;
-        }
+        .nav-link { position: relative; }
         .nav-link::after {
             content: '';
             position: absolute;
@@ -59,14 +74,11 @@
             background-color: var(--brand-blue);
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after {
-            width: 100%;
-        }
+        .nav-link:hover::after { width: 100%; }
 
-        /* Menu Mobile */
         #mobile-menu {
-            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: scale(1.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(-10px);
             opacity: 0;
             pointer-events: none;
             position: fixed;
@@ -76,23 +88,9 @@
         }
         
         #mobile-menu.active {
-            transform: scale(1);
+            transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
-        }
-
-        @keyframes reveal {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-reveal { animation: reveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-
-        .blob {
-            filter: blur(80px);
-            position: absolute;
-            z-index: -1;
-            border-radius: 50%;
-            opacity: 0.4;
         }
     </style>
 </head>
@@ -102,7 +100,7 @@
     <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div id="logo-square" class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-extrabold shadow-xl transition-all duration-500 group-hover:rotate-[10deg] group-hover:bg-blue-700 group-hover:scale-110">
+                <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-extrabold shadow-xl transition-all duration-500 group-hover:rotate-[10deg] group-hover:bg-blue-700 group-hover:scale-110">
                     ACD
                 </div>
                 <div class="flex flex-col">
@@ -117,12 +115,12 @@
                 <a href="qui-suis-je.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Qui suis-je ?</a>
                 <a href="objectif.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Objectif</a>
                 <a href="simulation.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Simulation</a>
-                <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5 active:scale-95">
+                <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg">
                     Consultation
                 </a>
             </div>
 
-            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[110]" aria-label="Menu">
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[110]">
                 <i data-lucide="menu" class="w-8 h-8"></i>
             </button>
         </div>
@@ -131,26 +129,26 @@
     <!-- Menu Mobile Content -->
     <div id="mobile-menu" class="flex items-center justify-center">
         <div class="flex flex-col space-y-10 text-center">
-            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Qui suis-je ?</a>
-            <a href="budget.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Audit Budget</a>
-            <a href="stratégie.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Stratégie</a>
-            <a href="contact.html" class="text-4xl font-extrabold text-blue-700 underline underline-offset-8">Me contacter</a>
+            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-slate-900">Qui suis-je ?</a>
+            <a href="objectif.html" class="text-4xl font-extrabold text-slate-900">Objectif</a>
+            <a href="simulation.html" class="text-4xl font-extrabold text-slate-900">Simulation</a>
+            <a href="contact.html" class="text-4xl font-extrabold text-blue-700 underline">Me contacter</a>
         </div>
     </div>
 
     <!-- Portrait & Histoire -->
-    <section class="py-24 bg-white">
+    <section class="pt-40 pb-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-12 gap-16 items-start">
-                
                 <!-- Colonne Gauche : Portrait -->
-                <div class="lg:col-span-5 sticky top-32">
+                <div class="lg:col-span-5 lg:sticky lg:top-32">
                     <div class="relative">
                         <div class="absolute -inset-4 bg-blue-50 rounded-[4rem] -z-10 rotate-3"></div>
-                        <div class="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white">
+                        <div class="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white bg-slate-100">
                             <img src="https://acd0603.github.io/ACD-Gestion-Conseil/image-personelle.png" 
                                  alt="Portrait" 
-                                 class="w-full h-full object-cover">
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800'">
                         </div>
                         <div class="absolute -bottom-6 -right-6 bg-slate-900 text-white p-8 rounded-3xl shadow-2xl max-w-[240px]">
                             <i data-lucide="quote" class="w-8 h-8 text-blue-400 mb-4"></i>
@@ -176,7 +174,7 @@
                         <p>En tant qu'étudiant, j'ai appliqué mes propres stratégies pour bâtir mon patrimoine. Ce graphique n'est pas qu'une courbe, c'est la preuve qu'avec de la méthode, les objectifs deviennent réalité.</p>
                     </div>
 
-                    <!-- GRAPHIQUE INTERACTIF AVEC TEMPS ET VALEUR -->
+                    <!-- GRAPHIQUE INTERACTIF -->
                     <div class="finary-card group/chart">
                         <div class="mb-10">
                             <div id="dynamic-date" class="current-date-display">Aujourd'hui</div>
@@ -187,11 +185,8 @@
                             <canvas id="perfChart"></canvas>
                         </div>
 
-                        <div class="mt-4 flex justify-between text-[10px] text-slate-600 font-bold overflow-hidden uppercase tracking-widest">
+                        <div class="mt-4 flex justify-between text-[10px] text-slate-600 font-bold uppercase tracking-widest">
                             <span>Juin 2024</span>
-                            <span class="hidden sm:inline">Oct. 2024</span>
-                            <span class="hidden md:inline">Févr. 2025</span>
-                            <span class="hidden lg:inline">Oct. 2025</span>
                             <span>Aujourd'hui</span>
                         </div>
                     </div>
@@ -258,151 +253,16 @@
     </footer>
 
     <script>
+        // Initialisation
         lucide.createIcons();
 
-        // Navbar logic
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-xl', 'py-4');
-                navbar.classList.remove('py-6');
-            } else {
-                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-xl', 'py-4');
-                navbar.classList.add('py-6');
-            }
-        });
-
-        // Mobile Menu
-        const menuToggle = document.getElementById('menu-toggle');
+        // Navbar Scroll & Mobile Menu
+        const nav = document.getElementById('navbar');
+        const menuBtn = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        menuToggle.addEventListener('click', () => {
-            const isActive = mobileMenu.classList.toggle('active');
-            document.body.style.overflow = isActive ? 'hidden' : '';
-        });
+        let isMenuOpen = false;
 
-        // Graphique logic
-        const ctx = document.getElementById('perfChart').getContext('2d');
-        const valueDisplay = document.getElementById('dynamic-value');
-        const dateDisplay = document.getElementById('dynamic-date');
-        
-        const initialValue = "17 624 €";
-        const initialDate = "Aujourd'hui";
-
-        // Génération de dates historiques
-        const generateDates = (count) => {
-            const start = new Date(2024, 5, 23); // Juin 2024
-            const dates = [];
-            for(let i = 0; i < count; i++) {
-                const current = new Date(start);
-                current.setDate(start.getDate() + (i * 12));
-                dates.push(current.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }));
-            }
-            return dates;
-        };
-
-        const chartData = [
-            10000, 10200, 10100, 10400, 10300, 10200, 10350, 10150, 10300, 10400,
-            10450, 10600, 10550, 10700, 11000, 11200, 11100, 11500, 11800, 12200,
-            12500, 13100, 13500, 13400, 14200, 14500, 14100, 13200, 12400, 12800,
-            13500, 14800, 15200, 14800, 14400, 14200, 13800, 14100, 14600, 15100,
-            15800, 16400, 16900, 17200, 17800, 18100, 17900, 17100, 16800, 17200,
-            17500, 17624
-        ];
-        
-        const labels = generateDates(chartData.length);
-        labels[labels.length - 1] = "Aujourd'hui";
-
-        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(191, 153, 107, 0.25)');
-        gradient.addColorStop(1, 'rgba(10, 10, 10, 0)');
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: chartData,
-                    borderColor: '#BF996B',
-                    borderWidth: 2,
-                    fill: true,
-                    backgroundColor: gradient,
-                    tension: 0.1,
-                    pointRadius: 0,
-                    pointHitRadius: 20,
-                    hoverRadius: 6,
-                    hoverBackgroundColor: '#BF996B',
-                    hoverBorderColor: '#fff',
-                    hoverBorderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { 
-                    legend: { display: false },
-                    tooltip: { enabled: false }
-                },
-                scales: {
-                    x: { display: false },
-                    y: {
-                        position: 'left',
-                        grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false },
-                        ticks: {
-                            color: '#444',
-                            font: { size: 10, weight: 'bold' },
-                            callback: (v) => (v / 1000) + 'k€'
-                        },
-                        min: 9000, max: 19000
-                    }
-                },
-                onHover: (event, activeElements) => {
-                    if (activeElements.length > 0) {
-                        const index = activeElements[0].index;
-                        const val = chartData[index];
-                        const date = labels[index];
-                        
-                        valueDisplay.innerText = val.toLocaleString('fr-FR') + ' €';
-                        dateDisplay.innerText = date;
-                        dateDisplay.style.color = '#BF996B';
-                    } else {
-                        valueDisplay.innerText = initialValue;
-                        dateDisplay.innerText = initialDate;
-                        dateDisplay.style.color = '#64748b';
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                }
-            },
-            plugins: [{
-                // Dessine une ligne verticale au survol
-                id: 'verticalLine',
-                afterDraw: (chart) => {
-                    if (chart.tooltip?._active?.length) {
-                        const x = chart.tooltip._active[0].element.x;
-                        const yAxis = chart.scales.y;
-                        const ctx = chart.ctx;
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.moveTo(x, yAxis.top);
-                        ctx.lineTo(x, yAxis.bottom);
-                        ctx.lineWidth = 1;
-                        ctx.strokeStyle = 'rgba(191, 153, 107, 0.3)';
-                        ctx.setLineDash([5, 5]);
-                        ctx.stroke();
-                        ctx.restore();
-                    }
-                }
-            }]
-        });
-    </script>
-     <script>
-        lucide.createIcons();
-
-        // Navbar Scroll Logic
         window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
             if(window.scrollY > 40) {
                 nav.classList.add('bg-white/80', 'backdrop-blur-xl', 'py-4', 'shadow-sm');
                 nav.classList.remove('py-6');
@@ -412,11 +272,6 @@
             }
         });
 
-        // Mobile Menu Logic
-        const menuBtn = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-
         menuBtn.addEventListener('click', () => {
             isMenuOpen = !isMenuOpen;
             mobileMenu.classList.toggle('active');
@@ -424,8 +279,91 @@
             lucide.createIcons();
             document.body.style.overflow = isMenuOpen ? 'hidden' : '';
         });
+
+        // Graphique Chart.js
+        const canvas = document.getElementById('perfChart');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            const valueDisplay = document.getElementById('dynamic-value');
+            const dateDisplay = document.getElementById('dynamic-date');
+            
+            const initialValue = "17 624 €";
+            const initialDate = "Aujourd'hui";
+
+            const chartData = [
+                10000, 10200, 10100, 10400, 10300, 10200, 10350, 10150, 10300, 10400,
+                10450, 10600, 10550, 10700, 11000, 11200, 11100, 11500, 11800, 12200,
+                12500, 13100, 13500, 13400, 14200, 14500, 14100, 13200, 12400, 12800,
+                13500, 14800, 15200, 14800, 14400, 14200, 13800, 14100, 14600, 15100,
+                15800, 16400, 16900, 17200, 17800, 18100, 17900, 17100, 16800, 17200,
+                17500, 17624
+            ];
+
+            const generateDates = (count) => {
+                const start = new Date(2024, 5, 23);
+                const dates = [];
+                for(let i = 0; i < count; i++) {
+                    const current = new Date(start);
+                    current.setDate(start.getDate() + (i * 12));
+                    dates.push(current.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }));
+                }
+                return dates;
+            };
+
+            const labels = generateDates(chartData.length);
+            labels[labels.length - 1] = "Aujourd'hui";
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(191, 153, 107, 0.2)');
+            gradient.addColorStop(1, 'rgba(191, 153, 107, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: chartData,
+                        borderColor: '#BF996B',
+                        borderWidth: 3,
+                        fill: true,
+                        backgroundColor: gradient,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHitRadius: 30
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: {
+                        x: { display: false },
+                        y: { 
+                            display: true,
+                            grid: { display: false },
+                            ticks: {
+                                color: '#94a3b8',
+                                font: { size: 10, weight: 'bold' },
+                                callback: (v) => (v / 1000) + 'k'
+                            }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const index = activeElements[0].index;
+                            valueDisplay.innerText = chartData[index].toLocaleString('fr-FR') + ' €';
+                            dateDisplay.innerText = labels[index];
+                            dateDisplay.style.color = '#BF996B';
+                        } else {
+                            valueDisplay.innerText = initialValue;
+                            dateDisplay.innerText = initialDate;
+                            dateDisplay.style.color = '#64748b';
+                        }
+                    },
+                    interaction: { intersect: false, mode: 'index' }
+                }
+            });
+        }
     </script>
-</body>
-</html>
 </body>
 </html>
