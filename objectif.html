@@ -65,6 +65,10 @@
             transition: width 0.3s ease;
         }
         .nav-link:hover::after { width: 100%; }
+        
+        /* Highlight for active page */
+        .nav-active { color: var(--brand-blue) !important; }
+        .nav-active::after { width: 100% !important; }
 
         /* Page Management */
         .hidden-page { display: none !important; }
@@ -120,9 +124,9 @@
             </a>
 
             <div class="hidden md:flex items-center space-x-10">
-                <a href="#" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Qui suis-je ?</a>
-                <a href="#" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Objectif</a>
-                <a href="#" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Simulation</a>
+                <a href="#" id="link-qui" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Qui suis-je ?</a>
+                <a href="#" id="link-home" class="nav-link nav-active text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider" onclick="showPage('home')">Objectifs</a>
+                <a href="#" id="link-simulation" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Simulation</a>
                 <a href="#" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5">
                     Consultation
                 </a>
@@ -138,7 +142,7 @@
     <div id="mobile-menu">
         <div class="flex flex-col space-y-10 text-center">
             <a href="#" onclick="toggleMenu();" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700">Qui suis-je ?</a>
-            <a href="#" onclick="toggleMenu();" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700">Audit Budget</a>
+            <a href="#" onclick="toggleMenu(); showPage('home');" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700">Audit Budget</a>
             <a href="#" onclick="toggleMenu();" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700">Stratégie</a>
             <a href="#" onclick="toggleMenu();" class="text-4xl font-extrabold text-blue-700 underline underline-offset-8">Me contacter</a>
         </div>
@@ -374,10 +378,15 @@
         function showPage(pageId) {
             const home = document.getElementById('home-page');
             const detail = document.getElementById('detail-page');
+            
+            // Highlight Logic
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(l => l.classList.remove('nav-active'));
 
             if (pageId === 'home') {
                 detail.classList.add('hidden-page');
                 home.classList.remove('hidden-page');
+                document.getElementById('link-home').classList.add('nav-active');
             } else {
                 const data = projectsData[pageId];
                 currentQuestions = data.questions;
@@ -393,6 +402,9 @@
                 home.classList.add('hidden-page');
                 detail.classList.remove('hidden-page');
                 updateStepVisibility();
+                
+                // On considère que le questionnaire fait partie de la section "Simulation" ou "Objectifs"
+                document.getElementById('link-simulation').classList.add('nav-active');
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
