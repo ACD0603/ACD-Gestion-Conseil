@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qui suis-je ? | ACD Gestion & Conseil</title>
-    <meta name="description" content="Découvrez le parcours et la philosophie d'ACD Gestion & Conseil. Expertise en stratégie financière, pédagogie et accompagnement indépendant à Lille.">
+    <title>Objectif | ACD Gestion & Conseil</title>
+    <meta name="description" content="Expertise en stratégie financière et accompagnement budgétaire à Lille. Optimisez votre patrimoine avec une approche pédagogique et indépendante.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
@@ -16,132 +16,143 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:italic,wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:italic,wght@600;700&display=swap');
         
         :root {
             --brand-dark: #0F172A;
-            --brand-gold: #BF996B;
+            --brand-blue: #1E40AF;
+            --brand-accent: #3B82F6;
+            --chart-gold: #BF996B;
         }
 
-         body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #FDFDFD;
-            overflow-x: hidden;
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #ffffff;
+            color: #1e293b;
         }
+
         .font-serif { font-family: 'Playfair Display', serif; }
         
-        .hover-lift {
-            transition: transform 0.3s ease, shadow 0.3s ease;
+        /* Navigation Styles */
+        .nav-link { 
+            position: relative; 
+            transition: color 0.3s ease;
         }
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-blue);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Highlight Active Page */
+        .nav-link-active {
+            color: var(--brand-blue) !important;
+        }
+        .nav-link-active::after {
+            width: 100% !important;
+            background-color: var(--brand-blue);
         }
 
-        /* Style du graphique type Finary */
+        /* Finary-style Chart Card */
         .finary-card {
-            background: #0A0A0A;
-            border-radius: 1.5rem;
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
             padding: 2.5rem;
-            color: white;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 2rem;
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03);
+        }
+
+        .current-date-display {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #64748b;
+            margin-bottom: 0.5rem;
         }
 
         .patrimoine-value {
             font-size: 2.5rem;
             font-weight: 800;
-            letter-spacing: -1px;
-            transition: all 0.2s ease;
+            color: #0f172a;
+            letter-spacing: -0.02em;
         }
 
-        .current-date-display {
-            font-size: 11px;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 4px;
-            height: 16px;
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px -15px rgba(15, 23, 42, 0.08);
+            border-color: rgba(59, 130, 246, 0.2);
         }
 
         #mobile-menu {
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(-10px);
             opacity: 0;
             pointer-events: none;
-            visibility: hidden;
             position: fixed;
             inset: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
+            background: white;
             z-index: 90;
-            display: flex;
-            flex-direction: column;
-            padding: 100px 40px;
         }
         
         #mobile-menu.active {
-            transform: translateX(0);
+            transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
-            visibility: visible;
         }
     </style>
 </head>
-<body class="text-slate-900 selection:bg-blue-100">
+<body class="selection:bg-blue-100 selection:text-blue-900">
 
-    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-300 py-6">
-        <div class="container mx-auto px-6 flex justify-between items-center relative">
-            <a href="index.html" class="flex items-center space-x-3 group z-10">
-                <div id="logo-square" class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-extrabold shadow-xl transition-all duration-500 group-hover:rotate-[10deg] group-hover:bg-blue-700 group-hover:scale-110">
                     ACD
                 </div>
                 <div class="flex flex-col">
-                    <span id="logo-text" class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900 transition-colors">Gestion & Conseil</span>
-                    <span id="logo-subtext" class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center transition-colors">
-                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
+                    <span class="text-sm font-extrabold uppercase tracking-widest text-slate-900">Gestion & Conseil</span>
+                    <span class="text-[10px] font-semibold text-blue-600 uppercase tracking-tighter flex items-center">
+                        <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Accueil</a>
-                <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Budget</a>
-                <a href="pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
-                <a href="contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105">
-                    Me contacter
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-10">
+                <!-- Lien Actif mis en surbrillance -->
+                <a href="qui-suis-je.html" class="nav-link nav-link-active text-[13px] font-bold text-slate-600 uppercase tracking-wider">Qui suis-je ?</a>
+                
+                <a href="objectif.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Objectif</a>
+                <a href="simulation.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Simulation</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg">
+                    Consultation
                 </a>
             </div>
 
-            <button id="menu-toggle" class="md:hidden p-3 text-slate-900 z-[110] focus:outline-none" aria-label="Menu">
-                <i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[110]">
+                <i data-lucide="menu" class="w-8 h-8"></i>
             </button>
         </div>
     </nav>
 
-    <div id="mobile-menu">
-        <div class="flex flex-col space-y-10">
-            <a href="index.html" class="text-3xl font-black text-slate-900">Accueil</a>
-            <a href="budget.html" class="text-3xl font-black text-slate-900">Budget</a>
-            <a href="qui-suis-je.html" class="text-3xl font-black text-blue-800">Qui suis-je ?</a>
-            <a href="contact.html" class="text-3xl font-black text-slate-900">Contact</a>
+    <!-- Menu Mobile Content -->
+    <div id="mobile-menu" class="flex items-center justify-center">
+        <div class="flex flex-col space-y-10 text-center">
+            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-blue-700">Qui suis-je ?</a>
+            <a href="objectif.html" class="text-4xl font-extrabold text-slate-900">Objectif</a>
+            <a href="simulation.html" class="text-4xl font-extrabold text-slate-900">Simulation</a>
+            <a href="contact.html" class="text-4xl font-extrabold text-slate-900 underline">Me contacter</a>
         </div>
     </div>
-
-    <!-- Hero -->
-    <section class="relative pt-40 pb-20 lg:pt-56 lg:pb-32 overflow-hidden bg-white">
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-5xl lg:text-7xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-8">
-                    L'expertise au service de <br/>
-                    <span class="text-blue-800 italic font-serif font-medium">votre sérénité</span>.
-                </h1>
-                <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium">
-                    Découvrez mon parcours et comment ma propre gestion financière est devenue la base de ma méthode de conseil.
-                </p>
-            </div>
-        </div>
-    </section>
+    
     <!-- PAGE ACCUEIL -->
     <main id="home-page" class="max-w-6xl mx-auto px-6 py-12 page-transition">
         <header class="text-center mb-16">
