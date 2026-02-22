@@ -26,7 +26,7 @@
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f8fafc;
+            background-color: #ffffff;
             color: #1e293b;
         }
 
@@ -41,9 +41,9 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .nav-link { 
-            position: relative; 
-            transition: color 0.3s ease;
+        /* Nav underline effect - Same as Index */
+        .nav-link {
+            position: relative;
         }
         .nav-link::after {
             content: '';
@@ -55,20 +55,21 @@
             background-color: var(--brand-blue);
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover::after, .nav-link-active::after {
+            width: 100%;
+        }
         .nav-link-active { color: var(--brand-blue) !important; }
-        .nav-link-active::after { width: 100% !important; }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+            border: 1px solid rgba(241, 245, 249, 1);
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .glass-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
         }
 
         .page-transition {
@@ -87,9 +88,10 @@
             transform: translateY(0);
         }
 
+        /* Mobile Menu - Same as Index */
         #mobile-menu {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: translateY(-20px);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(1.05);
             opacity: 0;
             pointer-events: none;
             position: fixed;
@@ -98,7 +100,7 @@
             z-index: 90;
         }
         #mobile-menu.active {
-            transform: translateY(0);
+            transform: scale(1);
             opacity: 1;
             pointer-events: auto;
         }
@@ -125,130 +127,129 @@
 </head>
 <body class="selection:bg-blue-100 selection:text-blue-900">
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-[100] bg-white/80 backdrop-blur-md py-4 border-b border-slate-100">
+    <!-- Navigation (Identical to Index) -->
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-extrabold shadow-lg transition-transform group-hover:rotate-6">
+                <div id="logo-square" class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-extrabold shadow-xl transition-all duration-500 group-hover:rotate-[10deg] group-hover:bg-blue-700 group-hover:scale-110">
                     ACD
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-xs font-extrabold uppercase tracking-widest text-slate-900 leading-none">Gestion & Conseil</span>
-                    <span class="text-[9px] font-semibold text-blue-600 uppercase tracking-tighter flex items-center mt-1">
-                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
+                    <span class="text-sm font-extrabold uppercase tracking-widest text-slate-900">Gestion & Conseil</span>
+                    <span class="text-[10px] font-semibold text-blue-600 uppercase tracking-tighter flex items-center">
+                        <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="qui-suis-je.html" class="nav-link text-[12px] font-bold text-slate-600 uppercase tracking-wider">Qui suis-je ?</a>
-                <a href="objectif.html" class="nav-link text-[12px] font-bold text-slate-600 uppercase tracking-wider">Objectif</a>
-                <a href="simulation.html" class="nav-link nav-link-active text-[12px] font-bold text-slate-600 uppercase tracking-wider">Simulation</a>
-                <a href="contact.html" class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-blue-700 transition-all">
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="qui-suis-je.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Qui suis-je ?</a>
+                <a href="objectif.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Objectif</a>
+                <a href="simulation.html" class="nav-link nav-link-active text-[13px] font-bold text-slate-900 transition-colors uppercase tracking-wider">Simulation</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5 active:scale-95">
                     Consultation
                 </a>
             </div>
 
-            <button id="menu-toggle" class="md:hidden p-2 text-slate-900">
-                <i data-lucide="menu"></i>
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[110]" aria-label="Menu">
+                <i data-lucide="menu" class="w-8 h-8"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Menu Mobile Content -->
+    <!-- Menu Mobile Content (Identical to Index) -->
     <div id="mobile-menu" class="flex items-center justify-center">
-        <div class="flex flex-col space-y-8 text-center">
-            <a href="qui-suis-je.html" class="text-3xl font-extrabold text-slate-900">Qui suis-je ?</a>
-            <a href="objectif.html" class="text-3xl font-extrabold text-slate-900">Objectif</a>
-            <a href="simulation.html" class="text-3xl font-extrabold text-blue-700">Simulation</a>
-            <a href="contact.html" class="text-3xl font-extrabold text-slate-900 underline underline-offset-8">Consultation</a>
+        <div class="flex flex-col space-y-10 text-center">
+            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Qui suis-je ?</a>
+            <a href="objectif.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Objectif</a>
+            <a href="simulation.html" class="text-4xl font-extrabold text-blue-700">Simulation</a>
+            <a href="contact.html" class="text-4xl font-extrabold text-blue-700 underline underline-offset-8">Me contacter</a>
         </div>
     </div>
 
-    <main class="pt-24 pb-12">
+    <main class="pt-32 pb-12 min-h-screen">
         <!-- PAGE 1: MENU DE SÉLECTION -->
         <div id="page-home" class="page-transition visible-page max-w-6xl mx-auto px-6 py-12 md:py-16">
             <section class="text-center mb-16">
-                <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 gradient-text">
-                    Espace <span class="font-serif-italic">Décisionnel</span>
+                <h1 class="text-6xl md:text-8xl font-black tracking-tight mb-6 text-slate-900">
+                    Espace <span class="text-blue-700 italic font-serif-italic">Décisionnel</span>
                 </h1>
-                <p class="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl">
-                    Sélectionnez le module d'analyse souhaité pour simuler vos perspectives financières.
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
+                    Sélectionnez le module d'analyse souhaité pour simuler vos perspectives financières avec clarté.
                 </p>
             </section>
 
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <!-- Carte Croissance -->
-                <div onclick="showPage('strategy')" class="glass-card p-10 rounded-[2.5rem] cursor-pointer group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                        <i data-lucide="trending-up" class="w-32 h-32 text-slate-900"></i>
+                <div onclick="showPage('strategy')" class="glass-card p-12 rounded-[2.5rem] cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+                        <i data-lucide="trending-up" class="w-48 h-48 text-slate-900"></i>
                     </div>
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i data-lucide="trending-up" class="w-7 h-7"></i>
+                    <div class="w-16 h-16 bg-blue-700 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg shadow-blue-100">
+                        <i data-lucide="trending-up" class="w-8 h-8"></i>
                     </div>
-                    <h2 class="text-3xl font-black mb-4">Stratégie de Croissance</h2>
-                    <p class="text-slate-500 mb-8 leading-relaxed">Simulez l'évolution de votre capital et vos investissements sur le long terme avec des intérêts composés.</p>
-                    <div class="flex items-center text-sm font-black uppercase tracking-widest text-blue-600">
-                        Lancer le simulateur <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    <h2 class="text-3xl font-extrabold mb-4 text-slate-900">Stratégie de Croissance</h2>
+                    <p class="text-slate-500 mb-8 leading-relaxed font-medium">Simulez l'évolution de votre capital et vos investissements sur le long terme avec des intérêts composés.</p>
+                    <div class="flex items-center text-xs font-bold uppercase tracking-widest text-blue-700 group-hover:translate-x-2 transition-transform">
+                        Lancer le simulateur <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
                     </div>
                 </div>
 
                 <!-- Carte Budget -->
-                <div onclick="showPage('budget')" class="glass-card p-10 rounded-[2.5rem] cursor-pointer group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                        <i data-lucide="pie-chart" class="w-32 h-32 text-slate-900"></i>
+                <div onclick="showPage('budget')" class="glass-card p-12 rounded-[2.5rem] cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+                        <i data-lucide="calculator" class="w-48 h-48 text-slate-900"></i>
                     </div>
-                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i data-lucide="calculator" class="w-7 h-7"></i>
+                    <div class="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg">
+                        <i data-lucide="calculator" class="w-8 h-8"></i>
                     </div>
-                    <h2 class="text-3xl font-black mb-4">Analyse de Budget</h2>
-                    <p class="text-slate-500 mb-8 leading-relaxed">Analysez la rentabilité de votre activité mensuelle en répartissant vos charges et votre CA.</p>
-                    <div class="flex items-center text-sm font-black uppercase tracking-widest text-purple-600">
-                        Lancer le simulateur <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    <h2 class="text-3xl font-extrabold mb-4 text-slate-900">Analyse de Budget</h2>
+                    <p class="text-slate-500 mb-8 leading-relaxed font-medium">Analysez la rentabilité de votre activité mensuelle en répartissant vos charges et votre CA.</p>
+                    <div class="flex items-center text-xs font-bold uppercase tracking-widest text-blue-700 group-hover:translate-x-2 transition-transform">
+                        Lancer le simulateur <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 2: MODULE STRATÉGIE -->
+        <!-- PAGE 2: MODULE STRATÉGIE (Contenu Technique inchangé mais stylisé) -->
         <div id="page-strategy" class="page-transition hidden-page max-w-6xl mx-auto px-6">
-            <button onclick="goToHome()" class="mb-8 flex items-center text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">
+            <button onclick="goToHome()" class="mb-8 flex items-center text-[11px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">
                 <i data-lucide="chevron-left" class="w-4 h-4 mr-1"></i> Retour au menu
             </button>
             
             <div class="grid lg:grid-cols-12 gap-12 items-start">
                 <div class="lg:col-span-5 space-y-8">
-                    <div class="glass-card p-8 rounded-[2rem] shadow-sm">
-                        <h2 class="text-xl font-black mb-8 flex items-center gap-2 text-blue-600">
+                    <div class="glass-card p-10 rounded-[2.5rem]">
+                        <h2 class="text-xl font-extrabold mb-10 flex items-center gap-2 text-blue-700">
                             Paramètres de Croissance
                         </h2>
-                        <div class="space-y-10">
+                        <div class="space-y-12">
                             <div class="space-y-4">
-                                <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Investissement Initial</label><span id="initialValue" class="text-xl font-black">50 000 €</span></div>
+                                <div class="flex justify-between items-end"><label class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Investissement Initial</label><span id="initialValue" class="text-2xl font-black text-slate-900">50 000 €</span></div>
                                 <input type="range" id="initial" min="1000" max="500000" step="5000" value="50000" oninput="calculateGrowth()">
                             </div>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Apport Mensuel</label><span id="monthlyValue" class="text-xl font-black">1 000 €</span></div>
+                                <div class="flex justify-between items-end"><label class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Apport Mensuel</label><span id="monthlyValue" class="text-2xl font-black text-slate-900">1 000 €</span></div>
                                 <input type="range" id="monthly" min="0" max="10000" step="100" value="1000" oninput="calculateGrowth()">
                             </div>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Taux Annuel (%)</label><span id="rateValue" class="text-xl font-black text-blue-600">7 %</span></div>
+                                <div class="flex justify-between items-end"><label class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Taux Annuel (%)</label><span id="rateValue" class="text-2xl font-black text-blue-700">7 %</span></div>
                                 <input type="range" id="annualRate" min="1" max="15" step="0.5" value="7" oninput="calculateGrowth()">
                             </div>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Durée (Ans)</label><span id="yearsValue" class="text-xl font-black">10 ans</span></div>
+                                <div class="flex justify-between items-end"><label class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Durée (Ans)</label><span id="yearsValue" class="text-2xl font-black text-slate-900">10 ans</span></div>
                                 <input type="range" id="years" min="1" max="35" step="1" value="10" oninput="calculateGrowth()">
                             </div>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="glass-card p-6 rounded-3xl"><p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Total Projeté</p><p id="totalResult" class="text-2xl font-black text-slate-900">0 €</p></div>
-                        <div class="glass-card p-6 rounded-3xl border-l-4 border-l-emerald-500"><p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Intérêts</p><p id="interestEarned" class="text-2xl font-black text-emerald-600">0 €</p></div>
+                        <div class="glass-card p-8 rounded-3xl"><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Projeté</p><p id="totalResult" class="text-2xl font-black text-slate-900">0 €</p></div>
+                        <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-600"><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Intérêts</p><p id="interestEarned" class="text-2xl font-black text-blue-700">0 €</p></div>
                     </div>
                 </div>
                 <div class="lg:col-span-7">
-                    <div class="glass-card p-8 rounded-[2.5rem] h-[500px]">
+                    <div class="glass-card p-8 rounded-[2.5rem] h-[550px]">
                         <canvas id="growthChart"></canvas>
                     </div>
                 </div>
@@ -257,45 +258,45 @@
 
         <!-- PAGE 3: MODULE BUDGET -->
         <div id="page-budget" class="page-transition hidden-page max-w-6xl mx-auto px-6">
-            <button onclick="goToHome()" class="mb-8 flex items-center text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">
+            <button onclick="goToHome()" class="mb-8 flex items-center text-[11px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">
                 <i data-lucide="chevron-left" class="w-4 h-4 mr-1"></i> Retour au menu
             </button>
 
             <div class="grid lg:grid-cols-12 gap-12 items-start">
                 <div class="lg:col-span-5 space-y-6">
-                    <div class="glass-card p-8 rounded-[2rem] shadow-sm">
-                        <h2 class="text-xl font-black mb-8 text-purple-600">Structure des Charges</h2>
-                        <div class="space-y-6">
+                    <div class="glass-card p-10 rounded-[2.5rem]">
+                        <h2 class="text-xl font-extrabold mb-10 text-slate-900">Structure des Charges</h2>
+                        <div class="space-y-8">
                             <div>
-                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2">CA Mensuel Estimé</label>
-                                <input type="number" id="ca_mensuel" value="15000" class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 font-bold focus:border-slate-900 outline-none transition-all">
+                                <label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-3">CA Mensuel Estimé</label>
+                                <input type="number" id="ca_mensuel" value="15000" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-bold focus:border-blue-700 outline-none transition-all text-xl">
                             </div>
-                            <div class="p-6 bg-slate-50 rounded-2xl space-y-4">
+                            <div class="space-y-5">
                                 <div>
-                                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Charges Fixes</label>
-                                    <input type="number" id="fixes" value="3000" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 font-bold outline-none">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Charges Fixes</label>
+                                    <input type="number" id="fixes" value="3000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 font-bold outline-none focus:border-slate-900">
                                 </div>
                                 <div>
-                                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Masse Salariale</label>
-                                    <input type="number" id="salaires" value="5000" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 font-bold outline-none">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Masse Salariale</label>
+                                    <input type="number" id="salaires" value="5000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 font-bold outline-none focus:border-slate-900">
                                 </div>
                                 <div>
-                                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Marketing</label>
-                                    <input type="number" id="marketing" value="2000" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 font-bold outline-none">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Marketing</label>
+                                    <input type="number" id="marketing" value="2000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 font-bold outline-none focus:border-slate-900">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="glass-card p-6 rounded-3xl bg-slate-900 text-white flex justify-between items-center">
+                    <div class="glass-card p-8 rounded-3xl bg-slate-900 text-white flex justify-between items-center shadow-2xl">
                         <div>
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Marge Nette</p>
-                            <p id="margeValeur" class="text-3xl font-black">0 €</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Marge Nette</p>
+                            <p id="margeValeur" class="text-4xl font-black">0 €</p>
                         </div>
-                        <span id="margePercent" class="bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full font-black text-sm">0%</span>
+                        <span id="margePercent" class="bg-blue-500/20 text-blue-400 px-6 py-3 rounded-full font-black text-lg">0%</span>
                     </div>
                 </div>
                 <div class="lg:col-span-7">
-                    <div class="glass-card p-8 rounded-[2.5rem] h-[500px] flex items-center justify-center">
+                    <div class="glass-card p-8 rounded-[2.5rem] h-[550px] flex items-center justify-center">
                         <canvas id="budgetChart"></canvas>
                     </div>
                 </div>
@@ -303,23 +304,86 @@
         </div>
     </main>
 
-    <footer class="py-12 text-center text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
-        &copy; 2024 ACD Gestion & Conseil
+    <!-- Footer (Identical to Index) -->
+    <footer id="contact" class="pt-24 pb-12 bg-white border-t border-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-16 text-center md:text-left">
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-4 mb-8 justify-center md:justify-start">
+                        <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-[10px]">ACD</div>
+                        <span class="font-bold uppercase tracking-widest text-sm text-slate-900">ACD Gestion</span>
+                    </div>
+                    <p class="text-slate-400 text-sm font-medium leading-relaxed">Conseil financier indépendant & accompagnement pédagogique à Lille.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-[11px] font-extrabold uppercase tracking-[0.3em] text-slate-900 mb-8">Navigation</h4>
+                    <ul class="space-y-4 text-sm font-semibold text-slate-500">
+                        <li><a href="qui-suis-je.html" class="hover:text-blue-700">Le cabinet</a></li>
+                        <li><a href="objectif.html" class="hover:text-blue-700">Objectif</a></li>
+                        <li><a href="simulation.html" class="text-blue-700">Simulation</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[11px] font-extrabold uppercase tracking-[0.3em] text-slate-900 mb-8">Contact</h4>
+                    <p class="text-slate-700 font-bold text-sm mb-3">ACD_Gestion_Conseil@outlook.com</p>
+                    <p class="text-slate-700 font-bold text-sm">06 84 48 65 08</p>
+                </div>
+
+                <div>
+                    <h4 class="text-[11px] font-extrabold uppercase tracking-[0.3em] text-slate-900 mb-8">Réseaux</h4>
+                    <div class="flex space-x-5 justify-center md:justify-start">
+                        <a href="#" class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all"><i class="fab fa-linkedin-in text-lg"></i></a>
+                        <a href="#" class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all"><i class="fab fa-instagram text-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-20 text-center">
+                <p class="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-300">© 2026 ACD GESTION & CONSEIL • DESIGN ÉPURÉ</p>
+            </div>
+        </div>
     </footer>
 
     <script>
+        // INIT LUCIDE
+        lucide.createIcons();
+
+        // NAVBAR SCROLL LOGIC (Same as index)
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 40) {
+                nav.classList.add('bg-white/80', 'backdrop-blur-xl', 'py-4', 'shadow-sm');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('bg-white/80', 'backdrop-blur-xl', 'py-4', 'shadow-sm');
+                nav.classList.add('py-6');
+            }
+        });
+
+        // MOBILE MENU LOGIC (Same as index)
+        const menuBtn = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+            menuBtn.innerHTML = isMenuOpen ? `<i data-lucide="x" class="w-8 h-8"></i>` : `<i data-lucide="menu" class="w-8 h-8"></i>`;
+            lucide.createIcons();
+            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        });
+
+        // --- SIMULATION ENGINE ---
         let growthChartInstance = null;
         let budgetChartInstance = null;
 
-        // --- NAVIGATION INTER-PAGES ---
         function showPage(pageId) {
             document.getElementById('page-home').classList.add('hidden-page');
             document.getElementById('page-home').classList.remove('visible-page');
             
             document.getElementById('page-strategy').classList.add('hidden-page');
             document.getElementById('page-budget').classList.add('hidden-page');
-            document.getElementById('page-strategy').classList.remove('visible-page');
-            document.getElementById('page-budget').classList.remove('visible-page');
 
             const activePage = document.getElementById('page-' + pageId);
             activePage.classList.remove('hidden-page');
@@ -333,16 +397,12 @@
         function goToHome() {
             document.getElementById('page-strategy').classList.add('hidden-page');
             document.getElementById('page-budget').classList.add('hidden-page');
-            document.getElementById('page-strategy').classList.remove('visible-page');
-            document.getElementById('page-budget').classList.remove('visible-page');
-
             const home = document.getElementById('page-home');
             home.classList.remove('hidden-page');
             setTimeout(() => home.classList.add('visible-page'), 50);
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // --- LOGIQUE CROISSANCE ---
         function calculateGrowth() {
             const initial = parseFloat(document.getElementById('initial').value);
             const monthly = parseFloat(document.getElementById('monthly').value);
@@ -360,8 +420,10 @@
             let totalInvested = initial;
 
             for (let i = 0; i <= years * 12; i++) {
-                if (i % 12 === 0) labels.push("An " + (i / 12));
-                if (i % 12 === 0) dataPoints.push(Math.round(currentBalance));
+                if (i % 12 === 0) {
+                    labels.push("An " + (i / 12));
+                    dataPoints.push(Math.round(currentBalance));
+                }
                 currentBalance = (currentBalance + monthly) * (1 + rate);
                 totalInvested += monthly;
             }
@@ -379,13 +441,16 @@
                         label: 'Capital Projeté',
                         data: dataPoints,
                         borderColor: '#1E40AF',
-                        backgroundColor: 'rgba(30, 64, 175, 0.1)',
-                        borderWidth: 3,
+                        backgroundColor: 'rgba(30, 64, 175, 0.05)',
+                        borderWidth: 4,
                         fill: true,
                         tension: 0.4,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#1E40AF'
+                        pointRadius: 0,
+                        pointHitRadius: 20,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#1E40AF',
+                        pointHoverBorderColor: '#fff',
+                        pointHoverBorderWidth: 3
                     }]
                 },
                 options: { 
@@ -394,23 +459,27 @@
                     plugins: { 
                         legend: { display: false },
                         tooltip: {
+                            backgroundColor: '#0F172A',
+                            padding: 15,
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 13 },
+                            displayColors: false,
                             callbacks: {
-                                label: (context) => context.raw.toLocaleString('fr-FR') + " €"
+                                label: (context) => "Total : " + context.raw.toLocaleString('fr-FR') + " €"
                             }
                         }
                     },
                     scales: {
-                        y: {
-                            ticks: {
-                                callback: (value) => value.toLocaleString('fr-FR') + " €"
-                            }
-                        }
+                        y: { 
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { weight: '600' }, callback: (value) => value.toLocaleString('fr-FR') + " €" }
+                        },
+                        x: { grid: { display: false }, ticks: { font: { weight: '600' } } }
                     }
                 }
             });
         }
 
-        // --- LOGIQUE BUDGET ---
         function updateBudget() {
             const ca = parseFloat(document.getElementById('ca_mensuel').value) || 0;
             const fixes = parseFloat(document.getElementById('fixes').value) || 0;
@@ -434,19 +503,21 @@
                         data: [fixes, salaires, marketing, Math.max(0, marge)],
                         backgroundColor: ['#94A3B8', '#475569', '#1E40AF', '#10B981'],
                         hoverOffset: 20,
-                        borderWidth: 0
+                        borderWidth: 0,
+                        borderRadius: 5
                     }]
                 },
                 options: { 
                     responsive: true, 
                     maintainAspectRatio: false, 
-                    cutout: '75%',
+                    cutout: '80%',
                     plugins: {
                         legend: {
                             position: 'bottom',
                             labels: {
-                                padding: 20,
-                                font: { size: 10, weight: 'bold' }
+                                padding: 30,
+                                font: { size: 12, weight: '700', family: 'Plus Jakarta Sans' },
+                                usePointStyle: true
                             }
                         }
                     }
@@ -454,29 +525,8 @@
             });
         }
 
-        // --- INIT & EVENTS ---
-        window.onload = () => {
-            lucide.createIcons();
-            
-            // Toggle menu mobile
-            const btn = document.getElementById('menu-toggle');
-            const menu = document.getElementById('mobile-menu');
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('active');
-                const icon = btn.querySelector('i');
-                const isMenu = icon.getAttribute('data-lucide') === 'menu';
-                icon.setAttribute('data-lucide', isMenu ? 'x' : 'menu');
-                lucide.createIcons();
-            });
-
-            // Listeners pour le budget
-            document.querySelectorAll('#page-budget input').forEach(i => {
-                i.addEventListener('input', updateBudget);
-            });
-
-            // Simulation par défaut au chargement
-            calculateGrowth();
-        };
+        // Setup listeners
+        document.querySelectorAll('#page-budget input').forEach(i => i.addEventListener('input', updateBudget));
     </script>
 </body>
 </html>
