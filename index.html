@@ -403,74 +403,86 @@
         </div>
     </section>
 
-    <!-- Contact -->
+<!-- Contact -->
 <section id="contact" class="py-32 bg-white">
     <div class="container mx-auto px-6">
-        <div class="contact-card-split flex flex-col lg:flex-row overflow-hidden rounded-3xl shadow-2xl">
-            <!-- Partie Gauche : Informations (Bleu Foncé) -->
-            <div class="contact-left relative bg-blue-900 text-white p-12 lg:w-2/5">
-                <h2 class="text-5xl font-black mb-8 leading-none">
-                    Parlons de <br>
-                    <span class="text-blue-400">vos projets.</span>
-                </h2>
-                <p class="text-blue-100 mb-16 text-lg font-medium opacity-80">
-                    Disponible pour des consultations à Lille ou en visioconférence.
-                </p>
-                
-                <div class="space-y-10">
-                    <!-- Email -->
-                    <div class="flex items-start space-x-6">
-                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/10">
-                            <i data-lucide="mail" class="w-5 h-5 text-white"></i>
+        <!-- Conteneur principal avec un bleu nuit très profond personnalisé -->
+        <div class="flex flex-col lg:flex-row overflow-hidden rounded-[2.5rem] shadow-2xl border border-slate-100">
+            
+            <!-- Partie Gauche : Informations (Bleu Nuit Profond) -->
+            <div class="relative text-white p-12 lg:p-16 lg:w-2/5 flex flex-col justify-between" style="background-color: #0A1128;">
+                <div>
+                    <h2 class="text-5xl font-black mb-8 leading-[1.1] tracking-tighter">
+                        Parlons de <br>
+                        <span class="text-blue-400">vos projets.</span>
+                    </h2>
+                    <p class="text-slate-400 mb-16 text-lg font-medium leading-relaxed">
+                        Disponible pour des consultations personnalisées à Lille ou en visioconférence.
+                    </p>
+                    
+                    <div class="space-y-10">
+                        <!-- Email -->
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-blue-600 transition-colors">
+                                <i data-lucide="mail" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Email direct</span>
+                                <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-base font-bold hover:text-blue-400 transition-colors">
+                                    ACD_Gestion_Conseil@outlook.com
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Email direct</span>
-                            <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-base font-bold hover:text-blue-300 transition-colors">
-                                ACD_Gestion_Conseil@outlook.com
-                            </a>
+                        
+                        <!-- Téléphone -->
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-blue-600 transition-colors">
+                                <i data-lucide="phone" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Téléphone</span>
+                                <p class="text-base font-bold">06 84 48 65 08</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Localisation -->
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-blue-600 transition-colors">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Localisation</span>
+                                <p class="text-base font-bold italic font-serif">Lille, Hauts-de-France</p>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- Téléphone -->
-                    <div class="flex items-start space-x-6">
-                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/10">
-                            <i data-lucide="phone" class="w-5 h-5 text-white"></i>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Téléphone</span>
-                            <p class="text-base font-bold">06 84 48 65 08</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Localisation -->
-                    <div class="flex items-start space-x-6">
-                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center border border-white/10">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1">Localisation</span>
-                            <p class="text-base font-bold italic font-serif">Lille, Hauts-de-France</p>
-                        </div>
+                </div>
+
+                <!-- Petit badge de rappel en bas -->
+                <div class="mt-16 pt-8 border-t border-white/5">
+                    <div class="flex items-center space-x-3 opacity-50">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-[10px] font-black uppercase tracking-widest">Réponse sous 24h</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Partie Droite : Formulaire -->
-            <div class="contact-right bg-slate-50 p-12 lg:w-3/5">
+            <!-- Partie Droite : Formulaire (Fond très clair) -->
+            <div class="bg-slate-50 p-12 lg:p-16 lg:w-3/5">
                 <form action="https://formspree.io/f/xvzbavqk" method="POST" class="space-y-8">
                     <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Nom Complet</label>
-                            <input type="text" name="name" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" placeholder="Ex: Jean Dupont" required>
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Nom Complet</label>
+                            <input type="text" name="name" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 focus:ring-4 focus:ring-blue-900/5 outline-none transition-all bg-white font-semibold" placeholder="Ex: Jean Dupont" required>
                         </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Votre Email</label>
-                            <input type="email" name="email" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all" placeholder="jean@email.fr" required>
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Votre Email</label>
+                            <input type="email" name="email" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 focus:ring-4 focus:ring-blue-900/5 outline-none transition-all bg-white font-semibold" placeholder="jean@email.fr" required>
                         </div>
                     </div>
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Objet de la demande</label>
-                        <select name="subject" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 outline-none bg-white">
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Objet de la demande</label>
+                        <select name="subject" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 outline-none bg-white font-semibold appearance-none cursor-pointer">
                             <option>Optimisation Budgétaire</option>
                             <option>Aide à la décision / Éducation</option>
                             <option>Audit de supports existants</option>
@@ -478,11 +490,11 @@
                             <option>Autre demande</option>
                         </select>
                     </div>
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 block">Votre Message</label>
-                        <textarea name="message" rows="4" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all resize-none" placeholder="Comment puis-je vous aider ?" required></textarea>
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Votre Message</label>
+                        <textarea name="message" rows="4" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 focus:ring-4 focus:ring-blue-900/5 outline-none transition-all bg-white font-semibold resize-none" placeholder="Comment puis-je vous aider ?" required></textarea>
                     </div>
-                    <button type="submit" class="w-full py-5 bg-blue-900 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-900 transition-all shadow-xl flex items-center justify-center space-x-3 group">
+                    <button type="submit" class="w-full py-5 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-900 transition-all shadow-xl flex items-center justify-center space-x-3 group" style="background-color: #0A1128;">
                         <span>Envoyer la demande</span>
                         <i data-lucide="send" class="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
                     </button>
