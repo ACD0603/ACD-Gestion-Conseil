@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACD Gestion & Conseil | Accompagnement au pilotage & Pédagogie Financière</title>
-    <meta name="description" content="Consultant indépendant en stratégie financière à Lille. Audit budgétaire, optimisation d'enveloppes fiscales (PEA, CTO, Assurance-vie) et pédagogie financière.">
+    <title>ACD Gestion & Conseil | Pilotage Budgétaire & Pédagogie Financière</title>
+    <meta name="description" content="Expertise en stratégie financière et accompagnement budgétaire à Lille. Optimisez votre patrimoine avec une approche pédagogique et indépendante.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
@@ -12,689 +12,342 @@
     <!-- Scripts & Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:italic,wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:italic,wght@600;700&display=swap');
         
         :root {
             --brand-dark: #0F172A;
-            --brand-blue: #1E3A8A;
+            --brand-blue: #1E40AF;
             --brand-accent: #3B82F6;
         }
 
-         body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #FDFDFD;
-            overflow-x: hidden;
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #ffffff;
+            color: #1e293b;
         }
+
         .font-serif { font-family: 'Playfair Display', serif; }
         
         .glass-card {
-            background: white;
-            border-radius: 2rem;
-            border: 1px solid #f1f5f9;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(241, 245, 249, 1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .hover-lift {
-            transition: transform 0.3s ease, shadow 0.3s ease;
-        }
         .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px -15px rgba(15, 23, 42, 0.08);
+            border-color: rgba(59, 130, 246, 0.2);
         }
 
-        /* Enhanced Mobile Menu */
+        /* Nav underline effect */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-blue);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Menu Mobile */
         #mobile-menu {
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: translateX(100%);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(1.05);
             opacity: 0;
             pointer-events: none;
-            visibility: hidden;
             position: fixed;
             inset: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
+            background: white;
             z-index: 90;
-            display: flex;
-            flex-direction: column;
-            padding: 100px 40px;
         }
         
         #mobile-menu.active {
-            transform: translateX(0);
+            transform: scale(1);
             opacity: 1;
             pointer-events: auto;
-            visibility: visible;
         }
 
-        .mobile-link {
-            font-size: 1.875rem;
-            font-weight: 900;
-            color: #0f172a;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        .animate-reveal { animation: reveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
-        #mobile-menu.active .mobile-link {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #mobile-menu.active .mobile-link:nth-child(1) { transition-delay: 0.1s; }
-        #mobile-menu.active .mobile-link:nth-child(2) { transition-delay: 0.2s; }
-        #mobile-menu.active .mobile-link:nth-child(3) { transition-delay: 0.3s; }
-        #mobile-menu.active .mobile-link:nth-child(4) { transition-delay: 0.4s; }
-
-        /* Contact Section Styling */
-        .contact-card-split {
-            display: grid;
-            grid-template-columns: 1fr;
-            background: #0F172A;
-            border-radius: 3rem;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-        
-        @media (min-width: 1024px) {
-            .contact-card-split {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .contact-left {
-            padding: 4rem;
-            background: #1E3A8A;
-            color: white;
-        }
-
-        .contact-right {
-            padding: 4rem;
-            background: white;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border-radius: 1rem;
-            border: 1px solid #E2E8F0;
-            background: #F8FAFC;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #1E3A8A;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
-        }
-
-        /* Timeline enhancements */
-        .timeline-container {
-            position: relative;
-            padding-left: 2rem;
-            border-left: 2px solid #E2E8F0;
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-        }
-        .timeline-item::before {
-            content: '';
+        .blob {
+            filter: blur(80px);
             position: absolute;
-            left: calc(-2rem - 6px);
-            top: 10px;
-            width: 12px;
-            height: 12px;
-            background: #1E3A8A;
+            z-index: -1;
             border-radius: 50%;
-            border: 2px solid white;
+            opacity: 0.4;
         }
     </style>
 </head>
-<body class="text-slate-900 selection:bg-blue-100">
+<body class="selection:bg-blue-100 selection:text-blue-900">
 
-    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-300 py-6">
-        <div class="container mx-auto px-6 flex justify-between items-center relative">
-            <a href="index.html" class="flex items-center space-x-3 group z-10">
-                <div id="logo-square" class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div id="logo-square" class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-extrabold shadow-xl transition-all duration-500 group-hover:rotate-[10deg] group-hover:bg-blue-700 group-hover:scale-110">
                     ACD
                 </div>
                 <div class="flex flex-col">
-                    <span id="logo-text" class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900 transition-colors">Gestion & Conseil</span>
-                    <span id="logo-subtext" class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center transition-colors">
-                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
+                    <span class="text-sm font-extrabold uppercase tracking-widest text-slate-900">Gestion & Conseil</span>
+                    <span class="text-[10px] font-semibold text-blue-600 uppercase tracking-tighter flex items-center">
+                        <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
-                <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
-                <a href="pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
-                <a href="contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
-                    Me contacter
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="qui-suis-je.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Qui suis-je ?</a>
+                <a href="budget.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Budget</a>
+                <a href="stratégie.html" class="nav-link text-[13px] font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase tracking-wider">Stratégie</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5 active:scale-95">
+                    Consultation
                 </a>
             </div>
 
-            <button id="menu-toggle" class="md:hidden p-3 text-slate-900 z-[110] transition-all hover:bg-slate-100 rounded-full focus:outline-none" aria-label="Menu">
-                <i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900 z-[110]" aria-label="Menu">
+                <i data-lucide="menu" class="w-8 h-8"></i>
             </button>
         </div>
     </nav>
 
-    <div id="mobile-menu">
-        <div class="flex flex-col space-y-10">
-            <a href="budget.html" class="mobile-link group">
-                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="pie-chart" class="w-8 h-8 text-blue-600"></i></span>
-                Analyse budget
-            </a>
-            <a href="stratégie.html" class="mobile-link group">
-                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="trending-up" class="w-8 h-8 text-blue-600"></i></span>
-                Stratégie
-            </a>
-            <a href="pédagogie.html" class="mobile-link group">
-                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="graduation-cap" class="w-8 h-8 text-blue-600"></i></span>
-                Pédagogie
-            </a>
-            <a href="contact.html" class="mobile-link group">
-                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="mail" class="w-8 h-8 text-blue-600"></i></span>
-                Contact
-            </a>
-        </div>
-        
-        <div class="mt-auto border-t border-slate-100 pt-10">
-            <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Lille & France</p>
-            <div class="flex space-x-4">
-                <a href="#" class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                <a href="#" class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-900 flex items-center justify-center"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-            </div>
+    <!-- Menu Mobile Content -->
+    <div id="mobile-menu" class="flex items-center justify-center">
+        <div class="flex flex-col space-y-10 text-center">
+            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Qui suis-je ?</a>
+            <a href="budget.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Audit Budget</a>
+            <a href="stratégie.html" class="text-4xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Stratégie</a>
+            <a href="contact.html" class="text-4xl font-extrabold text-blue-700 underline underline-offset-8">Me contacter</a>
         </div>
     </div>
 
-
-    <!-- Hero -->
-    <header class="relative pt-40 pb-24 lg:pt-56 lg:pb-40 overflow-hidden bg-white">
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            <div class="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full mb-10">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-                </span>
-                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-900">
-                    Accompagnement financier indépendant — Lille
-                </span>
-            </div>
-            <h1 class="text-5xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-10">
-                Propulsez votre <br/>
-                <span class="text-blue-800 italic font-serif font-medium">patrimoine</span> vers demain.
-            </h1>
-            <p class="text-lg lg:text-xl text-slate-500 mb-14 max-w-2xl mx-auto leading-relaxed font-medium">
-                J'accompagne les particuliers dans la maîtrise de leur budget et la compréhension des leviers financiers modernes à travers une approche pédagogique.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a href="#contact" class="w-full sm:w-auto px-10 py-5 bg-blue-800 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-blue-900 transition-all shadow-2xl">
-                    Démarrer mon audit
-                </a>
-                <a href="#services" class="group flex items-center space-x-3 text-slate-900 font-black uppercase tracking-widest text-xs">
-                    <span>Découvrir mes services</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
-                </a>
+    <!-- Hero Section -->
+    <header class="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-5xl mx-auto text-center">
+                <div class="inline-flex items-center space-x-2 px-5 py-2.5 bg-blue-50 text-blue-700 rounded-full mb-10 animate-reveal" style="animation-delay: 0.1s">
+                    <span class="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
+                    <span class="text-[11px] font-bold uppercase tracking-[0.2em]">Expertise financière indépendante</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-extrabold text-slate-900 leading-[0.85] tracking-tight mb-10 animate-reveal" style="animation-delay: 0.2s">
+                    Pilotez votre <br>
+                    <span class="text-blue-700 italic font-serif font-semibold">liberté financière.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-500 mb-14 max-w-2xl mx-auto leading-relaxed font-medium animate-reveal" style="animation-delay: 0.3s">
+                    De l'audit budgétaire à la stratégie d'investissement, je vous apporte la clarté et la méthode pour faire fructifier votre patrimoine sans intermédiaires intéressés.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-8 animate-reveal" style="animation-delay: 0.4s">
+                    <a href="#contact" class="group w-full sm:w-auto px-14 py-6 bg-slate-900 text-white rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-blue-700 transition-all shadow-2xl hover:shadow-blue-200">
+                        Réserver un diagnostic
+                        <i data-lucide="arrow-right" class="inline-block ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                    <a href="#expertises" class="group flex items-center space-x-4 text-slate-900 font-bold uppercase tracking-widest text-xs">
+                        <span>Explorer les expertises</span>
+                        <div class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-50 transition-all">
+                            <i data-lucide="chevron-down" class="w-5 h-5 animate-bounce"></i>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-blue-50 rounded-full blur-[120px] opacity-50"></div>
+        
+        <!-- Animated Background Blobs -->
+        <div class="blob w-[500px] h-[500px] bg-blue-100 top-[-10%] right-[-10%]"></div>
+        <div class="blob w-[400px] h-[400px] bg-slate-100 bottom-[-5%] left-[-5%]"></div>
     </header>
 
-    <!-- Profil -->
-    <section id="mon-parcours" class="py-32 bg-slate-50/50">
+    <!-- Approach Section -->
+    <section class="py-32 bg-white">
         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-12 gap-16 items-start">
-                <div class="lg:col-span-5 lg:sticky lg:top-32">
-                    <div class="relative group">
-                        <div class="absolute -inset-4 bg-gradient-to-tr from-blue-100 to-transparent rounded-[4rem] -z-10 group-hover:scale-105 transition-transform duration-500"></div>
-                        <div class="aspect-[4/5] bg-slate-200 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
-                            <img src="https://acd0603.github.io/ACD-Gestion-Conseil/image-personelle.png" 
-                                 alt="Czurczak-Delcampe - Accompagnement en gestion et conseil financier" 
-                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                            <div class="absolute bottom-10 left-10">
-                                <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mb-2">Expert & Fondateur</p>
-                                <p class="text-3xl font-bold text-white font-serif italic">Czurczak-Delcampe</p>
-                            </div>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-24 items-center">
+                    <div class="relative">
+                        <div class="aspect-[4/5] bg-slate-100 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                            <img src="https://acd0603.github.io/ACD-Gestion-Conseil/image-personelle.png" alt="Czurczak-Delcampe" class="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-1000">
+                        </div>
+                        <div class="absolute -bottom-10 -right-10 bg-white p-8 rounded-3xl shadow-2xl hidden md:block border border-slate-50">
+                            <p class="text-5xl font-black text-blue-700 mb-1">100%</p>
+                            <p class="text-[11px] font-extrabold uppercase tracking-widest text-slate-400">Objectivité & Indépendance</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="lg:col-span-7 pt-8">
-                    <h2 class="text-xs font-black text-blue-800 uppercase tracking-[0.4em] mb-6 flex items-center">
-                        <span class="w-8 h-[2px] bg-blue-800 mr-4"></span> Profil Professionnel
-                    </h2>
-                    <h3 class="text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-10 tracking-tight">
-                        Une vision <span class="text-slate-400 font-light">analytique</span>,<br/>
-                        un accompagnement <span class="text-blue-800">humain</span>.
-                    </h3>
-                    
-                    <div class="space-y-8 text-lg text-slate-600 font-medium leading-relaxed">
-                        <p>Basé à <span class="text-slate-900 font-bold">Lille</span>, j'interviens partout en France pour aider mes clients à naviguer dans la complexité de l'économie moderne.</p>
-                        <p>Mon parcours en Économie-Finance me permet d'allier les théories les plus solides à des stratégies de terrain concrètes et mesurables, sans jamais perdre de vue la dimension pédagogique.</p>
-                    </div>
-
-                    <div class="timeline-container mt-20">
-                        <div class="timeline-item">
-                            <div class="glass-card p-8 hover-lift">
-                                <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2023 • Académique</span>
-                                <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">Fondations</h4>
-                                <p class="text-sm text-slate-500 mt-3 font-medium">Acquisition des outils d'analyse macro-économique et de gestion d'entreprise.</p>
+                    <div>
+                        <div class="w-12 h-1 bg-blue-700 mb-8"></div>
+                        <h2 class="text-xs font-bold text-blue-700 uppercase tracking-[0.4em] mb-6">L'approche ACD</h2>
+                        <h3 class="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-8">Reprenez le contrôle total.</h3>
+                        <p class="text-xl text-slate-600 mb-10 leading-relaxed">
+                            Oubliez les conseils dictés par des commissions. Ici, la valeur ajoutée réside dans la <span class="text-slate-900 font-bold underline decoration-blue-300 decoration-4">neutralité</span>. Mon rôle est de vous rendre autonome par la pédagogie et l'analyse brute de vos chiffres.
+                        </p>
+                        <a href="qui-suis-je.html" class="inline-flex items-center space-x-5 text-slate-900 font-extrabold uppercase tracking-widest text-xs group">
+                            <span>Découvrir ma méthode</span>
+                            <div class="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-blue-700 group-hover:text-white transition-all shadow-sm">
+                                <i data-lucide="arrow-right" class="w-6 h-6"></i>
                             </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="glass-card p-8 hover-lift border-l-4 border-blue-800">
-                                <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2024 • Marchés</span>
-                                <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">Pratique Réelle</h4>
-                                <p class="text-sm text-slate-500 mt-3 font-medium">Gestion active de portefeuilles (PEA/CTO) et optimisation fiscale personnelle.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="glass-card p-8 hover-lift">
-                                <span class="text-[10px] font-black text-blue-800 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">2025 • Entreprise</span>
-                                <h4 class="text-xl font-bold text-slate-900 mt-4 italic font-serif">ACD Conseil</h4>
-                                <p class="text-sm text-slate-500 mt-3 font-medium">Fondation de mon activité pour mettre mon expertise au service des particuliers.</p>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
-    <section id="services" class="py-32 bg-white">
+    <!-- Expertises Grid -->
+    <section id="expertises" class="py-32 bg-slate-50/60">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-24">
-                <h2 class="text-xs font-black text-blue-800 uppercase tracking-[0.4em] mb-4">Mes Expertises</h2>
-                <h3 class="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Analyse, Éducation, Pilotage.</h3>
-                <p class="mt-6 text-slate-500 font-medium max-w-2xl mx-auto italic">
-                    Note : Mon activité relève de l'assistance et de la pédagogie financière. Je ne fournis pas de conseil en investissement au sens de l'article L321-1 du Code monétaire et financier (CIF).
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-24 gap-10">
+                <div class="max-w-2xl">
+                    <h2 class="text-xs font-bold text-blue-700 uppercase tracking-[0.4em] mb-6">Services</h2>
+                    <h3 class="text-5xl lg:text-7xl font-extrabold text-slate-900 tracking-tight">Trois piliers <br>stratégiques.</h3>
+                </div>
+                <p class="text-slate-500 font-medium lg:max-w-sm text-lg leading-relaxed border-l-2 border-blue-200 pl-6">
+                    Un accompagnement sur-mesure à Lille, conçu pour ceux qui exigent transparence et performance.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10">
-                <div class="p-12 glass-card hover-lift border-b-8 border-blue-800 group transition-all">
-                    <div class="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white mb-10 group-hover:bg-blue-800 transition-colors">
-                        <i data-lucide="trending-up" class="w-8 h-8"></i>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Audit -->
+                <div class="glass-card p-12 hover-lift group">
+                    <div class="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white mb-10 group-hover:bg-blue-700 transition-all shadow-lg">
+                        <i data-lucide="calculator" class="w-7 h-7"></i>
                     </div>
-                    <h4 class="text-2xl font-black mb-4 text-slate-900">Audit de l’existant & Analyse de frais</h4>
-                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Étude détaillée de vos supports actuels (PEA, CTO, Assurance-vie) pour identifier les coûts cachés et évaluer la performance réelle de vos actifs.</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-800"></i>
-                            <span>Audit des coûts et frais de gestion</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-800"></i>
-                            <span>Analyse de l'impact des frais sur la performance</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-800"></i>
-                            <span>Diagnostic de transparence des frais</span>
-                        </li>
-                    </ul>
+                    <h4 class="text-2xl font-extrabold mb-6">Audit Budgétaire</h4>
+                    <p class="text-slate-500 mb-12 font-medium leading-relaxed">Une radiographie précise de vos revenus et dépenses pour libérer un potentiel d'épargne insoupçonné.</p>
+                    <a href="budget.html" class="group/link text-[11px] font-extrabold uppercase tracking-widest text-blue-700 flex items-center">
+                        Explorer le pilotage <i data-lucide="arrow-right" class="w-4 h-4 ml-2 transition-transform group-hover/link:translate-x-2"></i>
+                    </a>
                 </div>
 
-                <div class="p-12 glass-card hover-lift border-b-8 border-slate-900 group transition-all">
-                    <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-900 mb-10 group-hover:bg-blue-800 group-hover:text-white transition-colors">
-                        <i data-lucide="pie-chart" class="w-8 h-8"></i>
+                <!-- Strategie -->
+                <div class="glass-card p-12 hover-lift group border-blue-100 bg-blue-50/30">
+                    <div class="w-16 h-16 bg-blue-700 rounded-2xl flex items-center justify-center text-white mb-10 shadow-lg shadow-blue-100">
+                        <i data-lucide="trending-up" class="w-7 h-7"></i>
                     </div>
-                    <h4 class="text-2xl font-black mb-4 text-slate-900">Pédagogie & Épargne de sécurité</h4>
-                    <p class="text-slate-500 mb-8 font-medium leading-relaxed">Compréhension des marchés et définition d'une réserve de précaution adaptée à vos besoins réels.</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-slate-400"></i>
-                            <span>Éducation financière et mécanismes de marché</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-slate-400"></i>
-                            <span>Planification de l'épargne de précaution</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-sm font-bold text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-slate-400"></i>
-                            <span>Aide à la décision et lecture de supports financiers</span>
-                        </li>
-                    </ul>
+                    <h4 class="text-2xl font-extrabold mb-6">Stratégie d’Actifs</h4>
+                    <p class="text-slate-500 mb-12 font-medium leading-relaxed">Rationalisation de vos enveloppes (PEA, AV, PER) et chasse impitoyable aux frais de gestion inutiles.</p>
+                    <a href="stratégie.html" class="group/link text-[11px] font-extrabold uppercase tracking-widest text-blue-700 flex items-center">
+                        Optimiser mes actifs <i data-lucide="arrow-right" class="w-4 h-4 ml-2 transition-transform group-hover/link:translate-x-2"></i>
+                    </a>
+                </div>
+
+                <!-- Pedagogie -->
+                <div class="glass-card p-12 hover-lift group">
+                    <div class="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white mb-10 group-hover:bg-blue-700 transition-all shadow-lg">
+                        <i data-lucide="graduation-cap" class="w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-2xl font-extrabold mb-6">Pédagogie</h4>
+                    <p class="text-slate-500 mb-12 font-medium leading-relaxed">Décryptez les mécanismes de l'économie réelle pour prendre des décisions rationnelles et sereines.</p>
+                    <a href="pédagogie.html" class="group/link text-[11px] font-extrabold uppercase tracking-widest text-blue-700 flex items-center">
+                        Me former <i data-lucide="arrow-right" class="w-4 h-4 ml-2 transition-transform group-hover/link:translate-x-2"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Analyse -->
-    <section id="analyse" class="py-32 bg-slate-50">
+    <!-- CTA & Footer -->
+    <footer id="contact" class="pt-40 pb-20 bg-white">
         <div class="container mx-auto px-6">
-            <div class="max-w-6xl mx-auto">
-                <div class="bg-white rounded-[3rem] p-10 lg:p-20 shadow-2xl relative overflow-hidden">
-                    <div class="flex flex-col lg:flex-row justify-between items-start gap-12 relative z-10">
-                        <div class="lg:w-1/3">
-                            <h2 class="text-xs font-black text-blue-800 uppercase tracking-[0.4em] mb-6">Transparence</h2>
-                            <h3 class="text-4xl font-extrabold text-slate-900 leading-[1.1] mb-8">Performance & Discipline.</h3>
-                            <p class="text-slate-500 font-medium mb-10">Voici l'évolution d'un capital piloté par mes méthodes sur 24 mois. La régularité est le premier levier de la richesse.</p>
-                            
-                            <div class="p-8 bg-blue-50 rounded-3xl border border-blue-100">
-                                <div class="text-4xl font-black text-blue-800">17 596 €</div>
-                                <p class="text-[11px] font-black text-slate-500 uppercase tracking-widest mt-2">Valorisation au Fév. 2026</p>
-                                <div class="mt-4 flex items-center text-green-600 font-bold text-sm">
-                                    <i data-lucide="arrow-up-right" class="w-4 h-4 mr-1"></i> +75.9% depuis le lancement
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="lg:w-2/3 w-full">
-                            <div class="h-[450px] w-full">
-                                <canvas id="performanceChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="max-w-5xl mx-auto text-center mb-32">
+                <h2 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-10 leading-[0.9]">Transformez vos ambitions en réalité.</h2>
+                <p class="text-xl text-slate-500 font-medium mb-16 max-w-xl mx-auto">Le premier échange est une étape cruciale pour définir vos besoins. Séance de 30 min offerte.</p>
+                <a href="contact.html" class="inline-flex items-center space-x-8 px-16 py-7 bg-slate-900 text-white rounded-[2rem] font-bold uppercase tracking-[0.2em] text-xs hover:bg-blue-700 transition-all shadow-3xl hover:shadow-blue-200">
+                    <span>Prendre rendez-vous</span>
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                </a>
             </div>
-        </div>
-    </section>
 
-<!-- Contact -->
-<section id="contact" class="py-32 bg-white">
-    <div class="container mx-auto px-6">
-        <!-- Conteneur principal avec un bleu nuit très profond personnalisé -->
-        <div class="flex flex-col lg:flex-row overflow-hidden rounded-[2.5rem] shadow-2xl border border-slate-100">
-            
-            <!-- Partie Gauche : Informations (Bleu Nuit Profond) -->
-            <div class="relative text-white p-12 lg:p-16 lg:w-2/5 flex flex-col justify-between" style="background-color: #0A1128;">
-                <div>
-                    <h2 class="text-5xl font-black mb-8 leading-[1.1] tracking-tighter">
-                        Parlons de <br>
-                        <span class="text-blue-400">vos projets.</span>
-                    </h2>
-                    <p class="text-slate-400 mb-16 text-lg font-medium leading-relaxed">
-                        Disponible pour des consultations personnalisées à Lille ou en visioconférence.
-                    </p>
+            <div class="border-t border-slate-100 pt-24">
+                <div class="grid md:grid-cols-4 gap-16 text-center md:text-left">
+                    <div class="md:col-span-1">
+                        <div class="flex items-center space-x-4 mb-8 justify-center md:justify-start">
+                            <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-[10px]">ACD</div>
+                            <span class="font-bold uppercase tracking-widest text-sm text-slate-900">ACD Gestion</span>
+                        </div>
+                        <p class="text-slate-400 text-sm font-medium leading-relaxed">Conseil financier indépendant & accompagnement pédagogique à Lille.</p>
+                    </div>
                     
-                    <div class="space-y-10">
-                        <!-- Email -->
-                        <div class="flex items-start space-x-6 group">
-                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-blue-600 transition-colors">
-                                <i data-lucide="mail" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <div>
-                                <span class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Email direct</span>
-                                <a href="mailto:ACD_Gestion_Conseil@outlook.com" class="text-base font-bold hover:text-blue-400 transition-colors">
-                                    ACD_Gestion_Conseil@outlook.com
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Téléphone -->
-                        <div class="flex items-start space-x-6 group">
-                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-blue-600 transition-colors">
-                                <i data-lucide="phone" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <div>
-                                <span class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Téléphone</span>
-                                <p class="text-base font-bold">06 84 48 65 08</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Localisation -->
-                        <div class="flex items-start space-x-6 group">
-                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-blue-600 transition-colors">
-                                <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <div>
-                                <span class="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Localisation</span>
-                                <p class="text-base font-bold italic font-serif">Lille, Hauts-de-France</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Petit badge de rappel en bas -->
-                <div class="mt-16 pt-8 border-t border-white/5">
-                    <div class="flex items-center space-x-3 opacity-50">
-                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span class="text-[10px] font-black uppercase tracking-widest">Réponse sous 24h</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Partie Droite : Formulaire (Fond très clair) -->
-            <div class="bg-slate-50 p-12 lg:p-16 lg:w-3/5">
-                <form action="https://formspree.io/f/xvzbavqk" method="POST" class="space-y-8">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="space-y-3">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Nom Complet</label>
-                            <input type="text" name="name" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 focus:ring-4 focus:ring-blue-900/5 outline-none transition-all bg-white font-semibold" placeholder="Ex: Jean Dupont" required>
-                        </div>
-                        <div class="space-y-3">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Votre Email</label>
-                            <input type="email" name="email" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 focus:ring-4 focus:ring-blue-900/5 outline-none transition-all bg-white font-semibold" placeholder="jean@email.fr" required>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Objet de la demande</label>
-                        <select name="subject" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 outline-none bg-white font-semibold appearance-none cursor-pointer">
-                            <option>Optimisation Budgétaire</option>
-                            <option>Aide à la décision / Éducation</option>
-                            <option>Audit de supports existants</option>
-                            <option>Formation / Pédagogie</option>
-                            <option>Autre demande</option>
-                        </select>
-                    </div>
-                    <div class="space-y-3">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block ml-1">Votre Message</label>
-                        <textarea name="message" rows="4" class="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-900 focus:ring-4 focus:ring-blue-900/5 outline-none transition-all bg-white font-semibold resize-none" placeholder="Comment puis-je vous aider ?" required></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-5 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-900 transition-all shadow-xl flex items-center justify-center space-x-3 group" style="background-color: #0A1128;">
-                        <span>Envoyer la demande</span>
-                        <i data-lucide="send" class="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Disclaimer / Avertissement Légal -->
-    <section class="py-12 bg-slate-50 border-t border-slate-200">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                <div class="flex items-center space-x-3 mb-4 text-slate-900">
-                    <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-500"></i>
-                    <h4 class="text-xs font-black uppercase tracking-widest">Avertissement Légal important</h4>
-                </div>
-                <div class="text-[11px] leading-relaxed text-slate-500 space-y-3 font-medium">
-                    <p>
-                        ACD Gestion & Conseil (EI Czurczak-Delcampe) propose exclusivement des services d'assistance, d'accompagnement au pilotage budgétaire et de pédagogie financière. 
-                        <strong>Nous n'exerçons pas l'activité de Conseiller en Investissements Financiers (CIF)</strong> au sens du Code monétaire et financier. 
-                    </p>
-                    <p>
-                        Les analyses, simulations et contenus présentés sur ce site ou lors de nos échanges sont fournis à titre purement informatif et pédagogique. Ils ne constituent en aucun cas une recommandation d'investissement, un conseil en placement, une sollicitation ou une offre d'achat/vente d'instruments financiers. 
-                    </p>
-                    <p>
-                        L'investissement sur les marchés financiers comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures. Chaque utilisateur est seul responsable de ses décisions d'investissement et de la gestion de son patrimoine.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-20 bg-slate-900 text-white relative">
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="grid lg:grid-cols-12 gap-16 mb-20">
-                <div class="lg:col-span-5">
-                    <div class="flex items-center space-x-4 mb-8">
-                        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-slate-900 font-black">ACD</div>
-                        <span class="text-xl font-black uppercase tracking-widest">ACD Gestion & Conseil</span>
-                    </div>
-                    <p class="text-slate-400 max-w-sm font-medium">Le partenaire de votre croissance financière, alliant rigueur universitaire et vision pédagogique de l'investissement.</p>
-                </div>
-                
-                <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-10">
                     <div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Expertise</h4>
-                        <ul class="space-y-4 text-sm text-slate-300 font-semibold">
-                            <li><a href="budget.html" class="hover:text-white transition-colors">Analyse du budget</a></li>
-                            <li><a href="stratégie.html" class="hover:text-white transition-colors">Stratégie d'investissement</a></li>
-                            <li><a href="pédagogie.html" class="hover:text-white transition-colors">Pédagogie</a></li>
+                        <h4 class="text-[11px] font-extrabold uppercase tracking-[0.3em] text-slate-900 mb-8">Navigation</h4>
+                        <ul class="space-y-4 text-sm font-semibold text-slate-500">
+                            <li><a href="qui-suis-je.html" class="hover:text-blue-700">Le cabinet</a></li>
+                            <li><a href="budget.html" class="hover:text-blue-700">Audit Budget</a></li>
+                            <li><a href="stratégie.html" class="hover:text-blue-700">Stratégie</a></li>
                         </ul>
                     </div>
+
                     <div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Entreprise</h4>
-                        <ul class="space-y-4 text-xs text-slate-400 leading-relaxed font-bold">
-                            <li>EI Czurczak-Delcampe</li>
-                            <li>SIREN : 938 126 956</li>
-                            <li>APE : 70.22Z</li>
-                        </ul>
+                        <h4 class="text-[11px] font-extrabold uppercase tracking-[0.3em] text-slate-900 mb-8">Contact</h4>
+                        <p class="text-slate-700 font-bold text-sm mb-3">ACD_Gestion_Conseil@outlook.com</p>
+                        <p class="text-slate-700 font-bold text-sm">06 84 48 65 08</p>
                     </div>
+
                     <div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-6">Social</h4>
-                        <div class="flex space-x-4">
-                            <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <h4 class="text-[11px] font-extrabold uppercase tracking-[0.3em] text-slate-900 mb-8">Réseaux</h4>
+                        <div class="flex space-x-5 justify-center md:justify-start">
+                            <a href="#" class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all"><i class="fab fa-linkedin-in text-lg"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all"><i class="fab fa-instagram text-lg"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
-                    © 2026 ACD GESTION & CONSEIL — LILLE, FRANCE
-                </div>
-                <div class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
-                    Design by ACD • <a href="mentions-legales.html" class="hover:underline">Mentions Légales</a>
-                </div>
+
+            <div class="mt-32 text-center">
+                <p class="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-300">© 2026 ACD GESTION & CONSEIL • DESIGN ÉPURÉ</p>
             </div>
         </div>
     </footer>
 
+    <!-- Legal Notice -->
+    <div class="bg-white text-slate-400 py-8 px-6 text-[9px] font-bold text-center border-t border-slate-50">
+        <div class="max-w-3xl mx-auto opacity-70 leading-loose">
+            ACD GESTION & CONSEIL N'EXERCE PAS L'ACTIVITÉ DE CONSEILLER EN INVESTISSEMENTS FINANCIERS (CIF) RÉGLEMENTÉE. LES ANALYSES SONT FOURNIES À TITRE PÉDAGOGIQUE. L'INVESTISSEMENT COMPORTE DES RISQUES DE PERTE EN CAPITAL.
+        </div>
+    </div>
+
     <script>
-        // Initialisation des icônes Lucide
         lucide.createIcons();
 
-        // Menu Mobile Toggle Logic
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        // Fonction pour mettre à jour l'icône de manière propre
-        function updateMenuIcon(iconName) {
-            // On remplace le contenu actuel par un nouvel élément i
-            menuIcon.parentElement.innerHTML = `<i id="menu-icon" data-lucide="${iconName}" class="w-8 h-8"></i>`;
-            // On rafraîchit Lucide pour transformer l'élément i en SVG
-            lucide.createIcons();
-        }
-
-        menuToggle.addEventListener('click', () => {
-            const isActive = mobileMenu.classList.toggle('active');
-            
-            if (isActive) {
-                // Si on ouvre, on met la croix
-                menuToggle.innerHTML = `<i id="menu-icon" data-lucide="x" class="w-8 h-8"></i>`;
-                document.body.style.overflow = 'hidden';
-            } else {
-                // Si on ferme, on remet le burger
-                menuToggle.innerHTML = `<i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>`;
-                document.body.style.overflow = '';
-            }
-            lucide.createIcons();
-        });
-
-        // Fermeture propre au clic sur un lien
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                menuToggle.innerHTML = `<i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>`;
-                document.body.style.overflow = '';
-                lucide.createIcons();
-            });
-        });
-
-        // Scroll listener for navbar style
+        // Navbar Scroll Logic
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-xl', 'py-4');
-                navbar.classList.remove('py-6');
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 40) {
+                nav.classList.add('bg-white/80', 'backdrop-blur-xl', 'py-4', 'shadow-sm');
+                nav.classList.remove('py-6');
             } else {
-                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-xl', 'py-4');
-                navbar.classList.add('py-6');
+                nav.classList.remove('bg-white/80', 'backdrop-blur-xl', 'py-4', 'shadow-sm');
+                nav.classList.add('py-6');
             }
         });
 
-        // Chart.js Performance Graph
-        window.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('performanceChart');
-            if (!canvas) return;
-            
-            const ctx = canvas.getContext('2d');
-            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(30, 58, 138, 0.4)');
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
 
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Mai 24', 'Juil 24', 'Sept 24', 'Nov 24', 'Fév 25', 'Avr 25', 'Juin 25', 'Août 25', 'Oct 25', 'Déc 25', 'Fév 26'],
-                    datasets: [{
-                        label: 'Valeur Patrimoniale',
-                        data: [10000, 10500, 10200, 11800, 14200, 12500, 15500, 14200, 17200, 16500, 17596],
-                        borderColor: '#1E3A8A',
-                        borderWidth: 5,
-                        fill: true,
-                        backgroundColor: gradient,
-                        tension: 0.4,
-                        pointRadius: 0,
-                        pointHoverRadius: 8,
-                        pointHoverBackgroundColor: '#1E3A8A',
-                        pointHoverBorderColor: '#ffffff',
-                        pointHoverBorderWidth: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#0F172A',
-                            padding: 20,
-                            titleFont: { size: 12, weight: 'bold' },
-                            bodyFont: { size: 16, weight: '900' },
-                            cornerRadius: 15,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(context) { return context.parsed.y.toLocaleString() + ' €'; }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            grid: { color: '#F1F5F9', drawBorder: false },
-                            ticks: { 
-                                color: '#94A3B8',
-                                font: { size: 11, weight: '600' },
-                                callback: val => val / 1000 + 'k'
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#94A3B8', font: { size: 11, weight: '600' } }
-                        }
-                    }
-                }
-            });
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+            menuBtn.innerHTML = isMenuOpen ? `<i data-lucide="x" class="w-8 h-8"></i>` : `<i data-lucide="menu" class="w-8 h-8"></i>`;
+            lucide.createIcons();
+            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
         });
     </script>
 </body>
