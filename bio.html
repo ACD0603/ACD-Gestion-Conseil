@@ -30,12 +30,6 @@
         }
         .font-serif { font-family: 'Playfair Display', serif; }
         
-        .glass-card {
-            background: white;
-            border-radius: 2rem;
-            border: 1px solid #f1f5f9;
-        }
-
         .hover-lift {
             transition: transform 0.3s ease, shadow 0.3s ease;
         }
@@ -57,6 +51,17 @@
             font-size: 2.5rem;
             font-weight: 800;
             letter-spacing: -1px;
+            transition: all 0.2s ease;
+        }
+
+        .current-date-display {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+            height: 16px;
         }
 
         #mobile-menu {
@@ -149,7 +154,7 @@
                         <div class="absolute -inset-4 bg-blue-50 rounded-[4rem] -z-10 rotate-3"></div>
                         <div class="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white">
                             <img src="https://acd0603.github.io/ACD-Gestion-Conseil/image-personelle.png" 
-                                 alt="Czurczak-Delcampe" 
+                                 alt="Portrait" 
                                  class="w-full h-full object-cover">
                         </div>
                         <div class="absolute -bottom-6 -right-6 bg-slate-900 text-white p-8 rounded-3xl shadow-2xl max-w-[240px]">
@@ -176,24 +181,22 @@
                         <p>En tant qu'étudiant, j'ai appliqué mes propres stratégies pour bâtir mon patrimoine. Ce graphique n'est pas qu'une courbe, c'est la preuve qu'avec de la méthode, les objectifs deviennent réalité.</p>
                     </div>
 
-                    <!-- GRAPHIQUE ÉPURÉ SANS DATE -->
-                    <div class="finary-card">
-                        <!-- Valeur Actuelle -->
+                    <!-- GRAPHIQUE INTERACTIF -->
+                    <div class="finary-card group/chart">
                         <div class="mb-10">
-                            <div class="patrimoine-value">17 624 €</div>
+                            <div id="dynamic-date" class="current-date-display">Aujourd'hui</div>
+                            <div id="dynamic-value" class="patrimoine-value">17 624 €</div>
                         </div>
 
-                        <!-- Canvas -->
-                        <div class="relative h-[300px] w-full">
+                        <div class="relative h-[300px] w-full cursor-crosshair">
                             <canvas id="perfChart"></canvas>
                         </div>
 
-                        <!-- Dates en bas épurées -->
                         <div class="mt-4 flex justify-between text-[10px] text-slate-600 font-bold overflow-hidden uppercase tracking-widest">
-                            <span>23/06/2024</span>
-                            <span class="hidden sm:inline">21/08/2024</span>
-                            <span class="hidden md:inline">19/10/2024</span>
-                            <span class="hidden lg:inline">15/12/2024</span>
+                            <span>Juin 2024</span>
+                            <span class="hidden sm:inline">Oct. 2024</span>
+                            <span class="hidden md:inline">Févr. 2025</span>
+                            <span class="hidden lg:inline">Oct. 2025</span>
                             <span>Aujourd'hui</span>
                         </div>
                     </div>
@@ -262,7 +265,7 @@
     <script>
         lucide.createIcons();
 
-        // Navbar scroll effect
+        // Navbar logic
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -282,11 +285,24 @@
             document.body.style.overflow = isActive ? 'hidden' : '';
         });
 
-        // CHART SCRIPT
+        // Graphique logic
         const ctx = document.getElementById('perfChart').getContext('2d');
-        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(191, 153, 107, 0.25)'); // Doré
-        gradient.addColorStop(1, 'rgba(10, 10, 10, 0)'); // Noir
+        const valueDisplay = document.getElementById('dynamic-value');
+        const dateDisplay = document.getElementById('dynamic-date');
+        
+        const initialValue = "17 624 €";
+        const initialDate = "Aujourd'hui";
+
+        const generateDates = (count) => {
+            const start = new Date(2024, 5, 23);
+            const dates = [];
+            for(let i = 0; i < count; i++) {
+                const current = new Date(start);
+                current.setDate(start.getDate() + (i * 12));
+                dates.push(current.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }));
+            }
+            return dates;
+        };
 
         const chartData = [
             10000, 10200, 10100, 10400, 10300, 10200, 10350, 10150, 10300, 10400,
@@ -296,47 +312,64 @@
             15800, 16400, 16900, 17200, 17800, 18100, 17900, 17100, 16800, 17200,
             17500, 17624
         ];
+        
+        const labels = generateDates(chartData.length);
+        labels[labels.length - 1] = "Aujourd'hui";
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(191, 153, 107, 0.25)');
+        gradient.addColorStop(1, 'rgba(10, 10, 10, 0)');
 
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: chartData.map((_, i) => i),
+                labels: labels,
                 datasets: [{
                     data: chartData,
                     borderColor: '#BF996B',
-                    borderWidth: 1.5,
+                    borderWidth: 2,
                     fill: true,
                     backgroundColor: gradient,
                     tension: 0.1,
                     pointRadius: 0,
-                    pointHitRadius: 10
+                    pointHitRadius: 20,
+                    hoverRadius: 6,
+                    hoverBackgroundColor: '#BF996B'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                },
                 scales: {
                     x: { display: false },
                     y: {
                         position: 'left',
-                        grid: { display: false },
+                        grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false },
                         ticks: {
                             color: '#444',
                             font: { size: 10, weight: 'bold' },
-                            callback: function(value) {
-                                return (value / 1000) + ' k €';
-                            },
-                            stepSize: 2000
+                            callback: (v) => (v / 1000) + 'k€'
                         },
-                        min: 10000,
-                        max: 18500
+                        min: 9000, max: 19000
                     }
                 },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                }
+                onHover: (event, activeElements) => {
+                    if (activeElements.length > 0) {
+                        const index = activeElements[0].index;
+                        valueDisplay.innerText = chartData[index].toLocaleString('fr-FR') + ' €';
+                        dateDisplay.innerText = labels[index];
+                        dateDisplay.style.color = '#BF996B';
+                    } else {
+                        valueDisplay.innerText = initialValue;
+                        dateDisplay.innerText = initialDate;
+                        dateDisplay.style.color = '#64748b';
+                    }
+                },
+                interaction: { intersect: false, mode: 'index' }
             }
         });
     </script>
