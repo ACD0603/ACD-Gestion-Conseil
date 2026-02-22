@@ -3,83 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sélecteur de Simulation | ACD Gestion & Conseil</title>
+    <title>Objectif | ACD Gestion & Conseil</title>
+    <meta name="description" content="Expertise en stratégie financière et accompagnement budgétaire à Lille. Optimisez votre patrimoine avec une approche pédagogique et indépendante.">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
+    
+    <!-- Scripts & Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:italic,wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:italic,wght@600;700&display=swap');
         
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        :root {
+            --brand-dark: #0F172A;
+            --brand-blue: #1E40AF;
+            --brand-accent: #3B82F6;
         }
 
-        .glass-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
-            border-color: #0F172A;
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f8fafc;
+            color: #1e293b;
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #1E40AF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 4px;
-            background: #E2E8F0;
-            border-radius: 5px;
-            outline: none;
+        /* Navigation Styles */
+        .nav-link { 
+            position: relative; 
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-blue);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link-active { color: var(--brand-blue) !important; }
+        .nav-link-active::after { width: 100% !important; }
+
+        /* Quiz & Cards Styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1);
         }
 
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            background: #0F172A;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .page-transition {
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .hidden-page {
+        .step-container {
             display: none;
-            opacity: 0;
-            transform: translateY(20px);
+            animation: slideIn 0.4s ease-out;
+        }
+        .step-container.active {
+            display: block;
         }
 
-        .visible-page {
-            display: block;
-            opacity: 1;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-page { display: none; }
+        
+        #mobile-menu {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(-20px);
+            opacity: 0;
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 90;
+        }
+        #mobile-menu.active {
             transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .progress-bar {
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
+<body class="selection:bg-blue-100 selection:text-blue-900">
 
-    <!-- Header Global -->
-    <header class="py-8 px-6 max-w-7xl mx-auto flex justify-between items-center relative z-50">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="goToHome()">
-            <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-sm">ACD</div>
-            <span class="font-bold tracking-tighter text-xl uppercase">Gestion & Conseil</span>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-[100] bg-white/80 backdrop-blur-md py-4 border-b border-slate-100">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-extrabold shadow-lg transition-transform group-hover:rotate-6">
+                    ACD
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-slate-900 leading-none">Gestion & Conseil</span>
+                    <span class="text-[9px] font-semibold text-blue-600 uppercase tracking-tighter flex items-center mt-1">
+                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="qui-suis-je.html" class="nav-link text-[12px] font-bold text-slate-600 uppercase tracking-wider">Qui suis-je ?</a>
+                <a href="objectif.html" class="nav-link nav-link-active text-[12px] font-bold text-slate-600 uppercase tracking-wider">Objectif</a>
+                <a href="simulation.html" class="nav-link text-[12px] font-bold text-slate-600 uppercase tracking-wider">Simulation</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-blue-700 transition-all">
+                    Consultation
+                </a>
+            </div>
+
+            <button id="menu-toggle" class="md:hidden p-2 text-slate-900">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
-        <nav class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-500">
-            <button onclick="goToHome()" class="hover:text-slate-900 transition-colors">Accueil</button>
-            <a href="#" class="hover:text-slate-900 transition-colors">Contact</a>
-        </nav>
+    </nav>
+
+    <!-- Menu Mobile Content -->
+    <div id="mobile-menu" class="flex items-center justify-center">
+        <div class="flex flex-col space-y-8 text-center">
+            <a href="qui-suis-je.html" class="text-3xl font-extrabold text-slate-900">Qui suis-je ?</a>
+            <a href="objectif.html" class="text-3xl font-extrabold text-blue-700">Objectif</a>
+            <a href="simulation.html" class="text-3xl font-extrabold text-slate-900">Simulation</a>
+            <a href="contact.html" class="text-3xl font-extrabold text-slate-900 underline underline-offset-8">Consultation</a>
+        </div>
+    </div>
     </header>
 
     <!-- PAGE 1: MENU DE SÉLECTION -->
