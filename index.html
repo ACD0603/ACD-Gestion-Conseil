@@ -24,108 +24,142 @@
             --brand-accent: #3B82F6;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
+         body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #FDFDFD;
+            overflow-x: hidden;
         }
-
         .font-serif { font-family: 'Playfair Display', serif; }
-
-        .hover-lift {
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-        }
-        .hover-lift:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        /* Timeline */
-        .timeline-container { position: relative; max-width: 1000px; margin: 60px auto; }
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, #E2E8F0, transparent);
-            top: 0; bottom: 0; left: 50%; margin-left: -1px;
-        }
-        .timeline-item { padding: 20px 50px; position: relative; width: 50%; }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 12px; height: 12px;
-            right: -6px; background-color: white;
-            border: 3px solid var(--brand-blue);
-            top: 35px; border-radius: 50%; z-index: 1;
-            transition: transform 0.3s ease;
-        }
-        .timeline-item:hover::after { transform: scale(1.5); background-color: var(--brand-blue); }
-        .left { left: 0; text-align: right; }
-        .right { left: 50%; text-align: left; }
-        .right::after { left: -6px; }
-
+        
         .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(241, 245, 249, 1);
-            border-radius: 2rem;
-        }
-
-        .contact-card-split {
-            display: flex;
-            overflow: hidden;
-            border-radius: 2.5rem;
             background: white;
-            box-shadow: 0 30px 60px -12px rgba(15, 23, 42, 0.12);
-        }
-        .contact-left { background: var(--brand-dark); color: white; width: 40%; padding: 80px 50px; }
-        .contact-right { width: 60%; padding: 80px 60px; }
-
-        .form-input {
-            width: 100%; padding: 16px 20px; border-radius: 16px;
-            border: 2px solid #F1F5F9; background: #F8FAFC; transition: all 0.2s ease;
-        }
-        .form-input:focus {
-            outline: none; border-color: var(--brand-accent);
-            background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            border-radius: 2rem;
+            border: 1px solid #f1f5f9;
         }
 
-        @media (max-width: 1024px) {
-            .contact-card-split { flex-direction: column; }
-            .contact-left, .contact-right { width: 100%; padding: 50px 30px; }
-            .timeline-container::after { left: 30px; }
-            .timeline-item { width: 100%; padding-left: 60px; padding-right: 20px; text-align: left !important; }
-            .timeline-item::after { left: 24px; }
-            .right { left: 0; }
+        /* Navbar style on scroll */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
+        }
+
+        /* Enhanced Mobile Menu */
+        #mobile-menu {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            padding: 100px 40px;
+        }
+        
+        #mobile-menu.active {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .mobile-link {
+            font-size: 1.875rem;
+            font-weight: 900;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        #mobile-menu.active .mobile-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #mobile-menu.active .mobile-link:nth-child(1) { transition-delay: 0.1s; }
+        #mobile-menu.active .mobile-link:nth-child(2) { transition-delay: 0.2s; }
+        #mobile-menu.active .mobile-link:nth-child(3) { transition-delay: 0.3s; }
+        #mobile-menu.active .mobile-link:nth-child(4) { transition-delay: 0.4s; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 450px;
         }
     </style>
 </head>
-<body class="bg-[#F8FAFC] text-slate-900 selection:bg-blue-100">
+<body class="text-slate-900 selection:bg-blue-100">
 
-    <!-- Navigation Unifiée -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-300 py-6">
         <div class="container mx-auto px-6 flex justify-between items-center relative">
-            <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
+            <a href="index.html" class="flex items-center space-x-3 group z-10">
+                <div id="logo-square" class="w-11 h-11 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black shadow-lg transition-all group-hover:rotate-6 group-hover:bg-blue-900">
                     ACD
                 </div>
-                <div class="hidden sm:flex flex-col">
-                    <span class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900">Gestion & Conseil</span>
-                    <span class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center">
+                <div class="flex flex-col">
+                    <span id="logo-text" class="text-[12px] font-black uppercase tracking-[0.2em] text-slate-900 transition-colors">Gestion & Conseil</span>
+                    <span id="logo-subtext" class="text-[9px] font-bold text-blue-800 uppercase tracking-widest flex items-center transition-colors">
                         <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> Lille & France
                     </span>
                 </div>
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/budget.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Analyse du budget</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
-                <a href="https://acd0603.github.io/ACD-Gestion-Conseil/contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
+                <a href="budget.html" class="text-sm font-bold text-blue-800 transition-colors">Analyse du budget</a>
+                <a href="stratégie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Stratégie d'investissement</a>
+                <a href="pédagogie.html" class="text-sm font-bold text-slate-600 hover:text-blue-800 transition-colors">Pédagogie</a>
+                <a href="contact.html" class="bg-slate-900 text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-blue-900 transition-all shadow-xl hover:scale-105 active:scale-95">
                     Me contacter
                 </a>
             </div>
+
+            <button id="menu-toggle" class="md:hidden p-3 text-slate-900 z-[110] transition-all hover:bg-slate-100 rounded-full focus:outline-none" aria-label="Menu">
+                <i id="menu-icon" data-lucide="menu" class="w-8 h-8"></i>
+            </button>
         </div>
     </nav>
+
+    <div id="mobile-menu">
+        <div class="flex flex-col space-y-10">
+            <a href="budget.html" class="mobile-link group">
+                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="pie-chart" class="w-8 h-8 text-blue-600"></i></span>
+                Analyse budget
+            </a>
+            <a href="stratégie.html" class="mobile-link group">
+                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="trending-up" class="w-8 h-8 text-blue-600"></i></span>
+                Stratégie
+            </a>
+            <a href="pédagogie.html" class="mobile-link group">
+                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="graduation-cap" class="w-8 h-8 text-blue-600"></i></span>
+                Pédagogie
+            </a>
+            <a href="contact.html" class="mobile-link group">
+                <span class="p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors"><i data-lucide="mail" class="w-8 h-8 text-blue-600"></i></span>
+                Contact
+            </a>
+        </div>
+        
+        <div class="mt-auto border-t border-slate-100 pt-10">
+            <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">Lille & France</p>
+            <div class="flex space-x-4">
+                <a href="#" class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-900 flex items-center justify-center"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Hero -->
     <header class="relative pt-40 pb-24 lg:pt-56 lg:pb-40 overflow-hidden bg-white">
