@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Objectif Financier</title>
+    <title>Mon Objectif Financier - Expert</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -44,6 +44,31 @@
         .hidden-page {
             display: none;
         }
+
+        .step-container {
+            display: none;
+        }
+
+        .step-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .progress-bar {
+            transition: width 0.4s ease;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        input[type="radio"]:checked + div {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
     </style>
 </head>
 <body class="text-slate-800">
@@ -68,160 +93,202 @@
         <header class="text-center mb-16">
             <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Quel est votre projet de vie ?</h1>
             <p class="text-slate-500 text-lg max-w-2xl mx-auto">
-                Choisissez l'objectif qui vous tient à cœur. Nous vous aiderons à définir la meilleure stratégie pour l'atteindre.
+                Complétez notre formulaire intelligent pour recevoir une stratégie financière adaptée à votre situation.
             </p>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Carte Immobilier -->
+            <!-- Les cartes d'objectifs -->
             <div onclick="showPage('immobilier')" class="glass-card p-8 rounded-3xl cursor-pointer group">
                 <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                     <i class="fas fa-home text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Achat Immobilier</h3>
-                <p class="text-slate-500 mb-6">Constituer votre apport personnel ou optimiser votre financement pour votre futur foyer.</p>
-                <span class="text-blue-600 font-semibold flex items-center">
-                    Commencer <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
-                </span>
+                <p class="text-slate-500 mb-6">Préparez votre dossier d'acquisition ou d'investissement.</p>
+                <span class="text-blue-600 font-semibold flex items-center">Analyser mon projet <i class="fas fa-arrow-right ml-2"></i></span>
             </div>
 
-            <!-- Carte Retraite -->
             <div onclick="showPage('retraite')" class="glass-card p-8 rounded-3xl cursor-pointer group">
                 <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                     <i class="fas fa-umbrella-beach text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Préparer ma Retraite</h3>
-                <p class="text-slate-500 mb-6">Maintenir votre niveau de vie et anticiper la fin de votre activité professionnelle sereinement.</p>
-                <span class="text-emerald-600 font-semibold flex items-center">
-                    Commencer <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
-                </span>
+                <p class="text-slate-500 mb-6">Optimisez vos futurs revenus dès aujourd'hui.</p>
+                <span class="text-emerald-600 font-semibold flex items-center">Simuler ma retraite <i class="fas fa-arrow-right ml-2"></i></span>
             </div>
 
-            <!-- Carte Épargne -->
             <div onclick="showPage('epargne')" class="glass-card p-8 rounded-3xl cursor-pointer group">
                 <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
                     <i class="fas fa-piggy-bank text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Épargne de Précaution</h3>
-                <p class="text-slate-500 mb-6">Se constituer un matelas de sécurité pour faire face aux imprévus de la vie quotidienne.</p>
-                <span class="text-amber-600 font-semibold flex items-center">
-                    Commencer <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
-                </span>
+                <p class="text-slate-500 mb-6">Sécurisez vos liquidités pour faire face aux imprévus.</p>
+                <span class="text-amber-600 font-semibold flex items-center">Calculer mon matelas <i class="fas fa-arrow-right ml-2"></i></span>
             </div>
 
-            <!-- Carte Etudes -->
             <div onclick="showPage('etudes')" class="glass-card p-8 rounded-3xl cursor-pointer group">
                 <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors">
                     <i class="fas fa-graduation-cap text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Études des Enfants</h3>
-                <p class="text-slate-500 mb-6">Financer l'avenir de vos enfants et leur offrir les meilleures opportunités éducatives.</p>
-                <span class="text-purple-600 font-semibold flex items-center">
-                    Commencer <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
-                </span>
+                <p class="text-slate-500 mb-6">Financer le parcours scolaire de vos enfants.</p>
+                <span class="text-purple-600 font-semibold flex items-center">Planifier l'avenir <i class="fas fa-arrow-right ml-2"></i></span>
             </div>
 
-            <!-- Carte Transmission -->
             <div onclick="showPage('transmission')" class="glass-card p-8 rounded-3xl cursor-pointer group">
                 <div class="w-14 h-14 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-rose-600 group-hover:text-white transition-colors">
                     <i class="fas fa-hand-holding-heart text-2xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Transmission / Succession</h3>
-                <p class="text-slate-500 mb-6">Protéger vos proches et organiser le transfert de votre patrimoine avec fiscalité optimisée.</p>
-                <span class="text-rose-600 font-semibold flex items-center">
-                    Commencer <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
-                </span>
+                <h3 class="text-xl font-bold mb-3">Transmission</h3>
+                <p class="text-slate-500 mb-6">Protégez vos héritiers et réduisez la fiscalité.</p>
+                <span class="text-rose-600 font-semibold flex items-center">Optimiser le transfert <i class="fas fa-arrow-right ml-2"></i></span>
             </div>
 
-            <!-- Carte Croissance -->
             <div onclick="showPage('croissance')" class="glass-card p-8 rounded-3xl cursor-pointer group">
                 <div class="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                     <i class="fas fa-chart-pie text-2xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Faire fructifier un capital</h3>
-                <p class="text-slate-500 mb-6">Optimiser vos placements existants pour maximiser vos rendements sur le long terme.</p>
-                <span class="text-indigo-600 font-semibold flex items-center">
-                    Commencer <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
-                </span>
+                <h3 class="text-xl font-bold mb-3">Fructifier un capital</h3>
+                <p class="text-slate-500 mb-6">Améliorez la rentabilité de vos placements.</p>
+                <span class="text-indigo-600 font-semibold flex items-center">Voir les opportunités <i class="fas fa-arrow-right ml-2"></i></span>
             </div>
         </div>
     </main>
 
-    <!-- PAGES DE DÉTAILS (Génériques pour l'exemple) -->
-    <section id="detail-page" class="max-w-4xl mx-auto px-6 py-12 hidden-page page-transition">
+    <!-- SECTION QUESTIONNAIRE DYNAMIQUE -->
+    <section id="detail-page" class="max-w-3xl mx-auto px-6 py-12 hidden-page page-transition">
         <button onclick="showPage('home')" class="mb-8 text-slate-500 hover:text-blue-600 transition-colors flex items-center">
-            <i class="fas fa-chevron-left mr-2"></i> Retour aux objectifs
+            <i class="fas fa-chevron-left mr-2"></i> Retour aux projets
         </button>
 
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden p-8 md:p-12">
-            <div id="detail-icon" class="w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
-                <!-- Icone injectée par JS -->
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div class="h-2 bg-slate-100 w-full">
+                <div id="progress" class="h-full bg-blue-600 progress-bar" style="width: 0%"></div>
             </div>
-            
-            <h2 id="detail-title" class="text-3xl font-bold mb-4">Objectif</h2>
-            <p id="detail-desc" class="text-slate-500 text-lg mb-8">Description de l'objectif...</p>
 
-            <div class="space-y-6">
-                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                    <h4 class="font-bold mb-4">Simulez votre projet</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Montant cible</label>
-                            <input type="text" placeholder="ex: 50 000 €" class="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">Horizon de temps (ans)</label>
-                            <input type="number" placeholder="ex: 10" class="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
-                        </div>
-                    </div>
+            <div class="p-8 md:p-12">
+                <div id="detail-header" class="mb-8 flex items-center space-x-4">
+                    <div id="detail-icon" class="w-12 h-12 rounded-xl flex items-center justify-center"></div>
+                    <h2 id="detail-title" class="text-2xl font-bold">Objectif</h2>
                 </div>
 
-                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-200">
-                    Prendre rendez-vous avec un conseiller
-                </button>
+                <form id="quiz-form" onsubmit="return false;">
+                    <div id="quiz-content">
+                        <!-- Questions injectées -->
+                    </div>
+
+                    <!-- ÉTAPE COORDONNÉES (Obligatoire pour tous) -->
+                    <div id="contact-step" class="step-container">
+                        <h3 class="text-xl font-semibold mb-6">Dernière étape : vos coordonnées</h3>
+                        <p class="text-slate-500 mb-6">Pour vous envoyer votre étude personnalisée, merci de compléter ces informations.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Nom complet *</label>
+                                <input type="text" id="user_name" class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Email professionnel ou personnel *</label>
+                                <input type="email" id="user_email" class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Téléphone *</label>
+                                <input type="tel" id="user_phone" class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="final-step" class="step-container">
+                        <div class="text-center py-8">
+                            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-check text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Dossier transmis avec succès !</h3>
+                            <p id="success-message" class="text-slate-500 mb-8">Merci. Un conseiller expert va analyser vos données et vous contactera sous 24h.</p>
+                            <button type="button" onclick="showPage('home')" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-colors">
+                                Revenir au menu
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="error-msg" class="error-message">Veuillez remplir ce champ pour continuer.</p>
+
+                    <div id="quiz-controls" class="mt-10 flex justify-between items-center">
+                        <button type="button" id="prev-btn" onclick="prevStep()" class="text-slate-400 font-bold hover:text-slate-600">
+                            Précédent
+                        </button>
+                        <button type="button" id="next-btn" onclick="nextStep()" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
+                            Suivant
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
 
     <script>
-        const content = {
+        const projectsData = {
             immobilier: {
                 title: "Achat Immobilier",
-                desc: "Votre projet immobilier nécessite une planification rigoureuse. Qu'il s'agisse d'une résidence principale ou d'un investissement locatif, nous analysons votre capacité d'emprunt et l'apport nécessaire.",
-                icon: "fa-home",
-                color: "bg-blue-100 text-blue-600"
+                icon: "fa-home", color: "bg-blue-100 text-blue-600",
+                questions: [
+                    { q: "Quel est l'usage du bien ?", options: ["Résidence Principale", "Investissement Locatif Pinel", "LMNP (Meublé)", "Locatif Classique"] },
+                    { q: "Avez-vous déjà trouvé le bien ?", options: ["Oui, j'ai signé un compromis", "Oui, je suis en négociation", "Non, je prospecte encore"] },
+                    { q: "Quel est votre budget global (frais d'agence inclus) ?", type: "number", placeholder: "ex: 350000", suffix: "€" },
+                    { q: "Quel est le montant de vos revenus annuels nets ?", type: "number", placeholder: "ex: 45000", suffix: "€ / an" },
+                    { q: "Quelle est votre situation professionnelle ?", options: ["CDI (période d'essai validée)", "CDD / Intérim", "Indépendant / Chef d'entreprise", "Fonctionnaire"] }
+                ]
             },
             retraite: {
                 title: "Préparer ma Retraite",
-                desc: "Anticiper la baisse de revenus à la retraite est crucial. Nous vous aidons à choisir les meilleurs supports (PER, Assurance-vie) pour vous garantir une sérénité financière future.",
-                icon: "fa-umbrella-beach",
-                color: "bg-emerald-100 text-emerald-600"
+                icon: "fa-umbrella-beach", color: "bg-emerald-100 text-emerald-600",
+                questions: [
+                    { q: "Quel est votre âge actuel ?", type: "number", placeholder: "ex: 42", suffix: "ans" },
+                    { q: "Avez-vous une idée de votre âge de départ souhaité ?", type: "number", placeholder: "ex: 64", suffix: "ans" },
+                    { q: "Quelle est votre tranche de revenus actuelle ?", options: ["Moins de 30k€", "30k€ à 60k€", "60k€ à 100k€", "Plus de 100k€"] },
+                    { q: "Souhaitez-vous une sortie en capital ou en rente ?", options: ["Capital (tout d'un coup)", "Rente (revenu mensuel)", "Un mélange des deux", "Je ne sais pas"] }
+                ]
             },
             epargne: {
                 title: "Épargne de Précaution",
-                desc: "L'épargne de précaution est le socle de votre patrimoine. Elle doit être liquide et disponible immédiatement pour parer aux coups durs sans impacter vos placements long terme.",
-                icon: "fa-piggy-bank",
-                color: "bg-amber-100 text-amber-600"
+                icon: "fa-piggy-bank", color: "bg-amber-100 text-amber-600",
+                questions: [
+                    { q: "Combien de mois de salaire souhaitez-vous sécuriser ?", options: ["1 à 3 mois", "3 à 6 mois", "Plus de 6 mois"] },
+                    { q: "Où est votre épargne actuelle ?", options: ["Livret A / LDD", "Compte courant", "Placements bloqués", "Sous le matelas"] },
+                    { q: "Quel est votre versement mensuel possible ?", type: "number", placeholder: "ex: 150", suffix: "€ / mois" }
+                ]
             },
             etudes: {
                 title: "Études des Enfants",
-                desc: "Le coût des études supérieures peut être important. En commençant tôt, vous lissez l'effort d'épargne pour offrir à vos enfants la liberté de choisir leur cursus.",
-                icon: "fa-graduation-cap",
-                color: "bg-purple-100 text-purple-600"
+                icon: "fa-graduation-cap", color: "bg-purple-100 text-purple-600",
+                questions: [
+                    { q: "Pour combien d'enfants préparez-vous ce projet ?", type: "number", placeholder: "ex: 2", suffix: "enfant(s)" },
+                    { q: "Âge de l'enfant le plus âgé ?", type: "number", placeholder: "ex: 10", suffix: "ans" },
+                    { q: "Prévoyez-vous des études à l'étranger ?", options: ["Oui, c'est probable", "Non", "Peut-être"] }
+                ]
             },
             transmission: {
-                title: "Transmission / Succession",
-                desc: "Organiser sa succession permet d'éviter les conflits et d'optimiser la pression fiscale pour vos héritiers. Protégez ceux que vous aimez dès aujourd'hui.",
-                icon: "fa-hand-holding-heart",
-                color: "bg-rose-100 text-rose-600"
+                title: "Transmission",
+                icon: "fa-hand-holding-heart", color: "bg-rose-100 text-rose-600",
+                questions: [
+                    { q: "Avez-vous déjà mis en place une assurance-vie ?", options: ["Oui, depuis plus de 8 ans", "Oui, récemment", "Non"] },
+                    { q: "Votre patrimoine est-il majoritairement :", options: ["Immobilier", "Financier (Bourse, Cash)", "Mixte"] },
+                    { q: "Souhaitez-vous faire une donation de votre vivant ?", options: ["Oui, rapidement", "À moyen terme", "Non"] }
+                ]
             },
             croissance: {
-                title: "Faire fructifier un capital",
-                desc: "Votre capital mérite une attention particulière. Nous étudions votre profil de risque pour vous proposer une allocation d'actifs diversifiée et performante.",
-                icon: "fa-chart-pie",
-                color: "bg-indigo-100 text-indigo-600"
+                title: "Fructifier un capital",
+                icon: "fa-chart-pie", color: "bg-indigo-100 text-indigo-600",
+                questions: [
+                    { q: "Quelle est l'origine du capital à investir ?", options: ["Épargne accumulée", "Vente d'un bien", "Héritage", "Autre"] },
+                    { q: "Sur 10 ans, quelle perte temporaire seriez-vous prêt à accepter ?", options: ["0% (sécurité totale)", "-10% pour booster le gain", "-30% pour viser le maximum"] },
+                    { q: "Connaissez-vous les marchés financiers ?", options: ["Expert", "Intermédiaire", "Débutant"] }
+                ]
             }
         };
+
+        let currentStep = 0;
+        let currentQuestions = [];
+        let activeProjectId = '';
 
         function showPage(pageId) {
             const home = document.getElementById('home-page');
@@ -230,21 +297,127 @@
             if (pageId === 'home') {
                 detail.classList.add('hidden-page');
                 home.classList.remove('hidden-page');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                const data = content[pageId];
-                if (data) {
-                    document.getElementById('detail-title').innerText = data.title;
-                    document.getElementById('detail-desc').innerText = data.desc;
-                    
-                    const iconDiv = document.getElementById('detail-icon');
-                    iconDiv.className = `w-20 h-20 rounded-2xl flex items-center justify-center mb-8 ${data.color}`;
-                    iconDiv.innerHTML = `<i class="fas ${data.icon} text-3xl"></i>`;
+                activeProjectId = pageId;
+                const data = projectsData[pageId];
+                currentQuestions = data.questions;
+                currentStep = 0;
+                document.getElementById('quiz-form').reset();
 
-                    home.classList.add('hidden-page');
-                    detail.classList.remove('hidden-page');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.getElementById('detail-title').innerText = data.title;
+                const iconDiv = document.getElementById('detail-icon');
+                iconDiv.className = `w-12 h-12 rounded-xl flex items-center justify-center ${data.color}`;
+                iconDiv.innerHTML = `<i class="fas ${data.icon} text-xl"></i>`;
+
+                renderQuestions();
+                home.classList.add('hidden-page');
+                detail.classList.remove('hidden-page');
+                updateStepVisibility();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('quiz-content');
+            container.innerHTML = '';
+            currentQuestions.forEach((q, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.id = `step-${index}`;
+                stepDiv.className = 'step-container';
+                
+                let inputHtml = '';
+                if (q.options) {
+                    inputHtml = `<div class="grid grid-cols-1 gap-3">
+                        ${q.options.map((opt, i) => `
+                            <label class="cursor-pointer">
+                                <input type="radio" name="q_${index}" value="${opt}" class="hidden peer" ${i === 0 ? '' : ''}>
+                                <div class="p-4 border-2 border-slate-100 rounded-2xl peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-slate-50 transition-all">
+                                    <span class="font-medium">${opt}</span>
+                                </div>
+                            </label>
+                        `).join('')}
+                    </div>`;
+                } else {
+                    inputHtml = `<div class="relative">
+                        <input type="${q.type}" id="input_${index}" placeholder="${q.placeholder}" class="w-full p-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none text-xl font-bold">
+                        <span class="absolute right-4 top-4 text-xl font-bold text-slate-400">${q.suffix}</span>
+                    </div>`;
                 }
+
+                stepDiv.innerHTML = `<h3 class="text-xl font-semibold mb-6">${q.q}</h3>${inputHtml}`;
+                container.appendChild(stepDiv);
+            });
+        }
+
+        function validateCurrentStep() {
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.style.display = 'none';
+
+            // Si on est sur les questions dynamiques
+            if (currentStep < currentQuestions.length) {
+                const q = currentQuestions[currentStep];
+                if (q.options) {
+                    const selected = document.querySelector(`input[name="q_${currentStep}"]:checked`);
+                    if (!selected) { errorMsg.style.display = 'block'; return false; }
+                } else {
+                    const input = document.getElementById(`input_${currentStep}`);
+                    if (!input.value) { errorMsg.style.display = 'block'; return false; }
+                }
+            } 
+            // Si on est sur l'étape contact
+            else if (currentStep === currentQuestions.length) {
+                const name = document.getElementById('user_name').value;
+                const email = document.getElementById('user_email').value;
+                const phone = document.getElementById('user_phone').value;
+                if (!name || !email || !phone) { errorMsg.style.display = 'block'; return false; }
+            }
+            return true;
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) return;
+
+            const totalQuestions = currentQuestions.length;
+            if (currentStep <= totalQuestions) {
+                currentStep++;
+                updateStepVisibility();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateStepVisibility();
+            }
+        }
+
+        function updateStepVisibility() {
+            document.querySelectorAll('.step-container').forEach(s => s.classList.remove('active'));
+            document.getElementById('contact-step').classList.remove('active');
+            document.getElementById('final-step').classList.remove('active');
+
+            const totalStepsCount = currentQuestions.length + 1; // Questions + Contact
+            const progress = (currentStep / totalStepsCount) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+
+            const controls = document.getElementById('quiz-controls');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (currentStep < currentQuestions.length) {
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                controls.classList.remove('hidden');
+                prevBtn.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+                nextBtn.innerText = 'Suivant';
+            } else if (currentStep === currentQuestions.length) {
+                document.getElementById('contact-step').classList.add('active');
+                controls.classList.remove('hidden');
+                prevBtn.style.visibility = 'visible';
+                nextBtn.innerText = 'Envoyer mon dossier';
+            } else {
+                document.getElementById('final-step').classList.add('active');
+                controls.classList.add('hidden');
+                document.getElementById('progress').style.width = '100%';
             }
         }
     </script>
