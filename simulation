@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélecteur de Simulation | ACD Gestion & Conseil</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:italic,wght@700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .font-serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+            border-color: #0F172A;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #E2E8F0;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #0F172A;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .page-transition {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hidden-page {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .visible-page {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Header Global -->
+    <header class="py-8 px-6 max-w-7xl mx-auto flex justify-between items-center relative z-50">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="goToHome()">
+            <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-sm">ACD</div>
+            <span class="font-bold tracking-tighter text-xl uppercase">Gestion & Conseil</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-500">
+            <button onclick="goToHome()" class="hover:text-slate-900 transition-colors">Accueil</button>
+            <a href="#" class="hover:text-slate-900 transition-colors">Contact</a>
+        </nav>
+    </header>
+
+    <!-- PAGE 1: MENU DE SÉLECTION -->
+    <div id="page-home" class="page-transition visible-page max-w-6xl mx-auto px-6 py-12 md:py-24">
+        <section class="text-center mb-16">
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 gradient-text">
+                Espace <span class="font-serif-italic">Décisionnel</span>
+            </h1>
+            <p class="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl">
+                Sélectionnez le module d'analyse souhaité pour simuler vos perspectives financières.
+            </p>
+        </section>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <!-- Carte Croissance -->
+            <div onclick="showPage('strategy')" class="glass-card p-10 rounded-[2.5rem] cursor-pointer group relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <i data-lucide="trending-up" class="w-32 h-32 text-slate-900"></i>
+                </div>
+                <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-8">
+                    <i data-lucide="trending-up" class="w-7 h-7"></i>
+                </div>
+                <h2 class="text-3xl font-black mb-4">Stratégie de Croissance</h2>
+                <p class="text-slate-500 mb-8 leading-relaxed">Simulez l'évolution de votre capital et vos investissements sur le long terme avec des intérêts composés.</p>
+                <div class="flex items-center text-sm font-black uppercase tracking-widest text-blue-600">
+                    Lancer le simulateur <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Carte Budget -->
+            <div onclick="showPage('budget')" class="glass-card p-10 rounded-[2.5rem] cursor-pointer group relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <i data-lucide="pie-chart" class="w-32 h-32 text-slate-900"></i>
+                </div>
+                <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-8">
+                    <i data-lucide="calculator" class="w-7 h-7"></i>
+                </div>
+                <h2 class="text-3xl font-black mb-4">Analyse de Budget</h2>
+                <p class="text-slate-500 mb-8 leading-relaxed">Analysez la rentabilité de votre activité mensuelle en répartissant vos charges et votre CA.</p>
+                <div class="flex items-center text-sm font-black uppercase tracking-widest text-purple-600">
+                    Lancer le simulateur <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: MODULE STRATÉGIE -->
+    <div id="page-strategy" class="page-transition hidden-page max-w-6xl mx-auto px-6 py-12">
+        <button onclick="goToHome()" class="mb-8 flex items-center text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">
+            <i data-lucide="chevron-left" class="w-4 h-4 mr-1"></i> Retour au menu
+        </button>
+        
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-5 space-y-8">
+                <div class="glass-card p-8 rounded-[2rem] shadow-sm">
+                    <h2 class="text-xl font-black mb-8 flex items-center gap-2 text-blue-600">
+                        Paramètres de Croissance
+                    </h2>
+                    <div class="space-y-10">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Investissement Initial</label><span id="initialValue" class="text-xl font-black">50 000 €</span></div>
+                            <input type="range" id="initial" min="1000" max="500000" step="5000" value="50000" oninput="calculateGrowth()">
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Apport Mensuel</label><span id="monthlyValue" class="text-xl font-black">1 000 €</span></div>
+                            <input type="range" id="monthly" min="0" max="20000" step="100" value="1000" oninput="calculateGrowth()">
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Taux Annuel (%)</label><span id="rateValue" class="text-xl font-black text-blue-600">7 %</span></div>
+                            <input type="range" id="annualRate" min="1" max="25" step="0.5" value="7" oninput="calculateGrowth()">
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-end"><label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Durée (Ans)</label><span id="yearsValue" class="text-xl font-black">10 ans</span></div>
+                            <input type="range" id="years" min="1" max="30" step="1" value="10" oninput="calculateGrowth()">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-card p-6 rounded-3xl"><p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Total Projeté</p><p id="totalResult" class="text-2xl font-black text-slate-900">0 €</p></div>
+                    <div class="glass-card p-6 rounded-3xl border-l-4 border-l-emerald-500"><p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Intérêts</p><p id="interestEarned" class="text-2xl font-black text-emerald-600">0 €</p></div>
+                </div>
+            </div>
+            <div class="lg:col-span-7">
+                <div class="glass-card p-8 rounded-[2.5rem] h-[500px]">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: MODULE BUDGET -->
+    <div id="page-budget" class="page-transition hidden-page max-w-6xl mx-auto px-6 py-12">
+        <button onclick="goToHome()" class="mb-8 flex items-center text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">
+            <i data-lucide="chevron-left" class="w-4 h-4 mr-1"></i> Retour au menu
+        </button>
+
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-5 space-y-6">
+                <div class="glass-card p-8 rounded-[2rem] shadow-sm">
+                    <h2 class="text-xl font-black mb-8 text-purple-600">Structure des Charges</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2">CA Mensuel Estimé</label>
+                            <input type="number" id="ca_mensuel" value="15000" class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 font-bold focus:border-slate-900 outline-none transition-all">
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl space-y-4">
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Charges Fixes</label>
+                                <input type="number" id="fixes" value="3000" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Masse Salariale</label>
+                                <input type="number" id="salaires" value="5000" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Marketing</label>
+                                <input type="number" id="marketing" value="2000" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 font-bold outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-3xl bg-slate-900 text-white flex justify-between items-center">
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Marge Nette</p>
+                        <p id="margeValeur" class="text-3xl font-black">0 €</p>
+                    </div>
+                    <span id="margePercent" class="bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full font-black text-sm">0%</span>
+                </div>
+            </div>
+            <div class="lg:col-span-7">
+                <div class="glass-card p-8 rounded-[2.5rem] h-[500px] flex items-center justify-center">
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
+        &copy; 2024 ACD Gestion & Conseil
+    </footer>
+
+    <script>
+        let growthChartInstance = null;
+        let budgetChartInstance = null;
+
+        // --- NAVIGATION INTER-PAGES ---
+        function showPage(pageId) {
+            document.getElementById('page-home').classList.add('hidden-page');
+            document.getElementById('page-home').classList.remove('visible-page');
+            
+            // Masquer les autres pages au cas où
+            document.getElementById('page-strategy').classList.add('hidden-page');
+            document.getElementById('page-budget').classList.add('hidden-page');
+
+            const activePage = document.getElementById('page-' + pageId);
+            activePage.classList.remove('hidden-page');
+            setTimeout(() => activePage.classList.add('visible-page'), 50);
+
+            if(pageId === 'strategy') calculateGrowth();
+            if(pageId === 'budget') updateBudget();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function goToHome() {
+            document.getElementById('page-strategy').classList.add('hidden-page');
+            document.getElementById('page-budget').classList.add('hidden-page');
+            document.getElementById('page-strategy').classList.remove('visible-page');
+            document.getElementById('page-budget').classList.remove('visible-page');
+
+            const home = document.getElementById('page-home');
+            home.classList.remove('hidden-page');
+            setTimeout(() => home.classList.add('visible-page'), 50);
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // --- LOGIQUE CROISSANCE ---
+        function calculateGrowth() {
+            const initial = parseFloat(document.getElementById('initial').value);
+            const monthly = parseFloat(document.getElementById('monthly').value);
+            const rate = parseFloat(document.getElementById('annualRate').value) / 100 / 12;
+            const years = parseInt(document.getElementById('years').value);
+            
+            document.getElementById('initialValue').innerText = initial.toLocaleString() + " €";
+            document.getElementById('monthlyValue').innerText = monthly.toLocaleString() + " €";
+            document.getElementById('rateValue').innerText = (rate * 1200).toFixed(1) + " %";
+            document.getElementById('yearsValue').innerText = years + " ans";
+
+            let labels = [];
+            let dataPoints = [];
+            let currentBalance = initial;
+            let totalInvested = initial;
+
+            for (let i = 0; i <= years * 12; i++) {
+                if (i % 12 === 0) labels.push("An " + (i / 12));
+                dataPoints.push(currentBalance);
+                currentBalance = (currentBalance + monthly) * (1 + rate);
+                totalInvested += monthly;
+            }
+
+            document.getElementById('totalResult').innerText = Math.round(currentBalance).toLocaleString() + " €";
+            document.getElementById('interestEarned').innerText = "+" + Math.round(currentBalance - totalInvested).toLocaleString() + " €";
+
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            if (growthChartInstance) growthChartInstance.destroy();
+            growthChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Capital',
+                        data: dataPoints.filter((_, idx) => idx % 12 === 0),
+                        borderColor: '#0F172A',
+                        borderWidth: 4,
+                        fill: true,
+                        tension: 0.4,
+                        backgroundColor: 'rgba(15, 23, 42, 0.05)',
+                        pointRadius: 4,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#0F172A',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+        }
+
+        // --- LOGIQUE BUDGET ---
+        function updateBudget() {
+            const ca = parseFloat(document.getElementById('ca_mensuel').value) || 0;
+            const fixes = parseFloat(document.getElementById('fixes').value) || 0;
+            const salaires = parseFloat(document.getElementById('salaires').value) || 0;
+            const marketing = parseFloat(document.getElementById('marketing').value) || 0;
+
+            const totalDepenses = fixes + salaires + marketing;
+            const marge = ca - totalDepenses;
+            const margePercent = ca > 0 ? (marge / ca * 100).toFixed(1) : 0;
+
+            document.getElementById('margeValeur').innerText = Math.round(marge).toLocaleString() + " €";
+            document.getElementById('margePercent').innerText = margePercent + "%";
+            
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            if (budgetChartInstance) budgetChartInstance.destroy();
+            budgetChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Fixes', 'Salaires', 'Marketing', 'Marge'],
+                    datasets: [{
+                        data: [fixes, salaires, marketing, Math.max(0, marge)],
+                        backgroundColor: ['#94A3B8', '#475569', '#1E293B', '#10B981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '70%' }
+            });
+        }
+
+        // INIT
+        window.onload = () => {
+            lucide.createIcons();
+            document.querySelectorAll('#page-budget input').forEach(i => i.addEventListener('input', updateBudget));
+        };
+    </script>
+</body>
+</html>
