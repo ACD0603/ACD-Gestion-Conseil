@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Objectif | ACD Gestion & Conseil</title>
-    <meta name="description" content="Expertise en stratégie financière et accompagnement budgétaire à Lille. Optimisez votre patrimoine avec une approche pédagogique et indépendante.">
+    <meta name="description" content="Définissez vos objectifs patrimoniaux et profitez d'un accompagnement sur mesure à Lille.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230F172A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='45' fill='white'%3EACD%3C/text%3E%3C/svg%3E">
@@ -82,7 +82,7 @@
 
         .hidden-page { display: none; }
         
-        /* Mobile Menu */
+        /* Mobile Menu Overlay */
         #mobile-menu {
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             clip-path: circle(0% at 90% 5%);
@@ -278,7 +278,7 @@
     <script>
         lucide.createIcons();
 
-        // --- NAVIGATION LOGIC (Identique à Index) ---
+        // --- NAVIGATION LOGIC ---
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if(window.scrollY > 40) {
@@ -304,7 +304,7 @@
             document.body.style.overflow = isMenuOpen ? 'hidden' : '';
         });
 
-        // --- QUIZ LOGIC ---
+        // --- QUIZ DATA ---
         const projectsData = {
             immobilier: {
                 title: "Achat Immobilier",
@@ -314,7 +314,7 @@
                     { q: "Avez-vous déjà trouvé le bien ?", options: ["Oui, j'ai signé un compromis", "Oui, je suis en négociation", "Non, je prospecte encore"] },
                     { q: "Quel est votre budget global ?", type: "number", placeholder: "ex: 350000", suffix: "€" },
                     { q: "Montant de vos revenus annuels nets ?", type: "number", placeholder: "ex: 45000", suffix: "€ / an" },
-                    { q: "Quelle est votre situation professionnelle ?", options: ["CDI (période d'essai validée)", "CDD / Intérim", "Indépendant", "Fonctionnaire"] }
+                    { q: "Situation professionnelle ?", options: ["CDI (période d'essai validée)", "CDD / Indépendant", "Fonctionnaire", "Retraité"] }
                 ]
             },
             retraite: {
@@ -323,17 +323,17 @@
                 questions: [
                     { q: "Quel est votre âge actuel ?", type: "number", placeholder: "ex: 42", suffix: "ans" },
                     { q: "Âge de départ souhaité ?", type: "number", placeholder: "ex: 64", suffix: "ans" },
-                    { q: "Tranche de revenus actuelle ?", options: ["Moins de 30k€", "30k€ à 60k€", "60k€ à 100k€", "Plus de 100k€"] },
-                    { q: "Mode de sortie préféré ?", options: ["Capital", "Rente", "Un mélange", "Pas encore d'idée"] }
+                    { q: "Revenus annuels actuels ?", options: ["Moins de 30k€", "30k€ à 60k€", "60k€ à 100k€", "Plus de 100k€"] },
+                    { q: "Objectif de rente mensuelle ?", type: "number", placeholder: "ex: 2000", suffix: "€ / mois" }
                 ]
             },
             epargne: {
                 title: "Épargne de Précaution",
                 icon: "fa-piggy-bank", color: "bg-amber-100 text-amber-600",
                 questions: [
-                    { q: "Nombre de mois de salaire à sécuriser ?", options: ["1 à 3 mois", "3 à 6 mois", "Plus de 6 mois"] },
-                    { q: "Où se trouve votre épargne actuelle ?", options: ["Livrets (A/LDD)", "Compte courant", "Autres placements"] },
-                    { q: "Capacité d'épargne mensuelle ?", type: "number", placeholder: "ex: 150", suffix: "€ / mois" }
+                    { q: "Montant à sécuriser ?", options: ["1 à 3 mois de salaire", "3 à 6 mois de salaire", "Plus de 6 mois"] },
+                    { q: "Capacité d'épargne mensuelle ?", type: "number", placeholder: "ex: 200", suffix: "€" },
+                    { q: "Disponibilité souhaitée ?", options: ["Immédiate (Livrets)", "Semi-bloquée (Assurance-vie)", "Peu importe"] }
                 ]
             },
             etudes: {
@@ -341,26 +341,26 @@
                 icon: "fa-graduation-cap", color: "bg-purple-100 text-purple-600",
                 questions: [
                     { q: "Nombre d'enfants ?", type: "number", placeholder: "ex: 2", suffix: "enfant(s)" },
-                    { q: "Âge de l'enfant le plus âgé ?", type: "number", placeholder: "ex: 10", suffix: "ans" },
-                    { q: "Études à l'étranger prévues ?", options: ["Oui, c'est probable", "Non", "À déterminer"] }
+                    { q: "Horizon de temps ?", type: "number", placeholder: "ex: 8", suffix: "ans" },
+                    { q: "Budget cible par enfant ?", type: "number", placeholder: "ex: 30000", suffix: "€" }
                 ]
             },
             transmission: {
                 title: "Transmission",
                 icon: "fa-hand-holding-heart", color: "bg-rose-100 text-rose-600",
                 questions: [
+                    { q: "Patrimoine actuel estimé ?", options: ["Moins de 200k€", "200k€ à 500k€", "500k€ à 1M€", "Plus de 1M€"] },
                     { q: "Assurance-vie déjà ouverte ?", options: ["Oui, de plus de 8 ans", "Oui, de moins de 8 ans", "Non"] },
-                    { q: "Composition du patrimoine ?", options: ["Immobilier", "Financier", "Mixte"] },
-                    { q: "Projet de donation anticipée ?", options: ["Oui", "Non", "À étudier"] }
+                    { q: "Priorité ?", options: ["Protéger le conjoint", "Optimiser pour les enfants", "Réduire les taxes"] }
                 ]
             },
             croissance: {
                 title: "Fructifier un capital",
                 icon: "fa-chart-pie", color: "bg-indigo-100 text-indigo-600",
                 questions: [
-                    { q: "Origine du capital ?", options: ["Épargne cumulée", "Vente d'un bien", "Héritage", "Autre"] },
-                    { q: "Niveau de risque accepté ?", options: ["Prudent", "Équilibré", "Dynamique"] },
-                    { q: "Niveau de connaissance ?", options: ["Débutant", "Intermédiaire", "Expert"] }
+                    { q: "Montant à investir ?", type: "number", placeholder: "ex: 50000", suffix: "€" },
+                    { q: "Niveau de risque ?", options: ["Prudent", "Équilibré", "Dynamique"] },
+                    { q: "Durée de placement ?", options: ["2-5 ans", "5-10 ans", "Plus de 10 ans"] }
                 ]
             }
         };
@@ -375,7 +375,6 @@
             if (pageId === 'home') {
                 detail.classList.add('hidden-page');
                 home.classList.remove('hidden-page');
-                if (isMenuOpen) menuBtn.click();
             } else {
                 const data = projectsData[pageId];
                 currentQuestions = data.questions;
