@@ -66,24 +66,15 @@
             box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.1);
         }
 
-        #mobile-menu {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: translateY(-100%);
-            opacity: 0;
-            position: fixed;
-            inset: 0;
-            background: white;
-            z-index: 90;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        #mobile-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
+    #mobile-menu {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    #mobile-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
         .loader {
             width: 18px;
             height: 18px;
@@ -132,14 +123,19 @@
     </nav>
 
     <!-- Menu Mobile -->
-    <div id="mobile-menu">
-        <div class="flex flex-col space-y-10 text-center">
-            <a href="qui-suis-je.html" class="text-4xl font-extrabold text-slate-900">Qui suis-je ?</a>
-            <a href="objectif.html" class="text-4xl font-extrabold text-slate-900">Objectif</a>
-            <a href="simulation.html" class="text-4xl font-extrabold text-slate-900">Simulation</a>
-            <a href="contact.html" class="text-4xl font-extrabold text-blue-700">Contact</a>
-        </div>
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[90] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-400 -translate-y-full">
+    <div class="flex flex-col space-y-8 text-center items-center w-full px-6">
+        <!-- Liens Classiques -->
+        <a href="qui-suis-je.html" class="text-3xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Qui suis-je ?</a>
+        <a href="objectif.html" class="text-3xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Objectif</a>
+        <a href="simulation.html" class="text-3xl font-extrabold text-slate-900 hover:text-blue-700 transition-colors">Simulation</a>
+        
+        <!-- Bouton de Contact style PC -->
+        <a href="contact.html" class="w-full max-w-xs bg-slate-900 text-white py-5 rounded-2xl text-lg font-bold uppercase tracking-widest shadow-xl active:scale-95 transition-all mt-4">
+            Consultation
+        </a>
     </div>
+</div>
 
     <!-- Header Section -->
     <header class="pt-48 pb-20 px-6">
@@ -375,17 +371,25 @@
 
         // Mobile Menu
         const menuBtn = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
 
-        menuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            mobileMenu.classList.toggle('active');
-            menuBtn.innerHTML = isMenuOpen 
-                ? `<i data-lucide="x" class="w-8 h-8"></i>` 
-                : `<i data-lucide="menu" class="w-8 h-8"></i>`;
-            lucide.createIcons();
-            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    menuBtn.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        
+        // Active/Désactive la classe pour l'animation
+        mobileMenu.classList.toggle('active');
+        
+        // Change l'icône du bouton (Menu -> X)
+        menuBtn.innerHTML = isMenuOpen 
+            ? `<i data-lucide="x" class="w-8 h-8"></i>` 
+            : `<i data-lucide="menu" class="w-8 h-8"></i>`;
+        
+        // Réinitialise les icônes Lucide
+        if (window.lucide) lucide.createIcons();
+        
+        // Bloque le défilement de la page quand le menu est ouvert
+        document.body.style.overflow = isMenuOpen ? 'hidden' : '';
         });
 
         // Form Submission
