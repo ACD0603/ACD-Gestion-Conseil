@@ -1,816 +1,458 @@
 <!DOCTYPE html>
-<html lang="fr" class="h-full bg-slate-50">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthManager Pro - Tableau de Bord & Synchronisation Partagée</title>
-    <!-- Tailwind CSS -->
+    <title>ACD Gestion & Conseil - Gestion de Patrimoine</title>
+    <!-- Favicon SVG dynamique (Icône de banque/institution) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23d97706%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><line x1=%223%22 x2=%2221%22 y1=%2222%22 y2=%2222%22/><line x1=%226%22 x2=%226%22 y1=%2218%22 y2=%2211%22/><line x1=%2210%22 x2=%2210%22 y1=%2218%22 y2=%2211%22/><line x1=%2214%22 x2=%2214%22 y1=%2218%22 y2=%2211%22/><line x1=%2218%22 x2=%2218%22 y1=%2218%22 y2=%2211%22/><polygon points=%2212 2 20 7 4 7%22/></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // Bleu profond pour la confiance
+                        secondary: '#d97706', // Or/Ambre pour la valeur
+                        light: '#f8fafc',
+                        dark: '#0f172a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); }
-        .animate-fade-in { animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .pulse-subtle { animation: pulseGlow 2s infinite; }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
         }
     </style>
 </head>
-<body class="min-h-full flex flex-col text-slate-800 bg-slate-50">
+<body class="bg-light text-slate-800 antialiased">
 
-    <!-- Header / Navigation bar -->
-    <header class="sticky top-0 w-full z-40 glass border-b border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-tr from-indigo-600 via-indigo-700 to-purple-600 rounded-xl flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-200">
-                    WM
+    <header class="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <!-- Logo / Nom de l'entreprise -->
+                    <a href="#accueil" class="text-2xl font-bold text-primary flex items-center gap-2">
+                        <i data-lucide="landmark" class="w-8 h-8 text-secondary"></i>
+                        <span>ACD Gestion & Conseil</span>
+                    </a>
                 </div>
-                <div>
-                    <h1 class="font-bold text-xl text-slate-900 tracking-tight leading-none">WealthManager <span class="text-indigo-600">Pro</span></h1>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5">Gestion de Patrimoine Synchronisée</p>
+                <!-- Menu de navigation (Desktop) -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-slate-600 hover:text-primary transition-colors font-medium">Nos Services</a>
+                    <a href="#approche" class="text-slate-600 hover:text-primary transition-colors font-medium">Notre Approche</a>
+                    <a href="#a-propos" class="text-slate-600 hover:text-primary transition-colors font-medium">À Propos</a>
+                    <a href="#contact" class="text-secondary hover:text-primary transition-colors font-medium">Contact</a>
+                </nav>
+                <!-- Bouton Menu Mobile -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2" aria-label="Ouvrir le menu">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
                 </div>
             </div>
+        </div>
 
-            <!-- Workspace Sync Selector Badge & Auth -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Sync indicator badge -->
-                <button onclick="openWorkspaceModal()" class="flex items-center gap-2 text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-xl border border-indigo-200/80 font-medium transition shadow-sm">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                    <span class="hidden md:inline text-slate-500">Espace :</span>
-                    <span id="header-workspace-name" class="font-bold text-indigo-900">Chargement...</span>
-                    <span class="text-indigo-400">⚡</span>
-                </button>
-
-                <div id="auth-status" class="hidden sm:flex items-center gap-2 text-xs bg-slate-100 px-3 py-2 rounded-xl border border-slate-200 text-slate-600 font-medium">
-                    <span id="user-id-display">Mode Partagé</span>
-                </div>
-
-                <button id="btn-logout" onclick="handleLogout()" class="hidden text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-3 py-2 rounded-xl transition">
-                    Déconnexion
-                </button>
+        <!-- Menu Mobile (Caché par défaut) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-4 space-y-1 flex flex-col">
+                <a href="#services" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-3 py-3 rounded-md text-base font-medium">Nos Services</a>
+                <a href="#approche" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-3 py-3 rounded-md text-base font-medium">Notre Approche</a>
+                <a href="#a-propos" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-3 py-3 rounded-md text-base font-medium">À Propos</a>
+                <a href="#contact" class="mobile-link text-secondary hover:text-primary hover:bg-slate-50 block px-3 py-3 rounded-md text-base font-medium">Contact</a>
             </div>
         </div>
     </header>
 
-    <main class="pt-6 pb-20 px-4 sm:px-6 max-w-7xl mx-auto w-full flex-grow">
-
-        <!-- Synchronized Workspace Notification Banner -->
-        <div class="mb-6 bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-950 text-white rounded-2xl p-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg border border-indigo-800/50">
-            <div class="flex items-center gap-3">
-                <div class="p-2.5 bg-indigo-500/20 rounded-xl text-indigo-300 text-xl border border-indigo-400/20">
-                    🔄
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <h3 class="font-bold text-sm text-indigo-100">Synchronisation Multi-Pages Active</h3>
-                        <span class="px-2 py-0.5 text-[10px] uppercase tracking-wider font-extrabold bg-emerald-500/20 text-emerald-300 rounded-md border border-emerald-400/30">En direct</span>
-                    </div>
-                    <p class="text-xs text-indigo-200/80 mt-0.5">Toutes les pages portant le même nom d'espace <span id="banner-workspace-tag" class="font-bold text-white underline decoration-indigo-400">"..."</span> affichent exactement les mêmes données en temps réel.</p>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                <button onclick="copyWorkspaceCode()" class="text-xs bg-white/10 hover:bg-white/20 text-indigo-100 font-semibold px-3 py-2 rounded-xl border border-white/10 transition flex items-center gap-1.5 active:scale-95">
-                    <span>📋</span> Copier le nom
-                </button>
-                <button onclick="openWorkspaceModal()" class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-3.5 py-2 rounded-xl transition shadow-md shadow-indigo-950 active:scale-95">
-                    Changer d'Espace
-                </button>
+    <section id="accueil" class="hero-bg h-screen min-h-[600px] flex items-center justify-center pt-20">
+        <div class="text-center px-4 max-w-4xl mx-auto">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Sécurisez et Développez Votre Patrimoine.
+            </h1>
+            <p class="text-xl text-slate-200 mb-10 max-w-2xl mx-auto">
+                Accompagnement indépendant et sur-mesure pour l'optimisation fiscale, la préparation à la retraite et la transmission de vos actifs, dans le strict respect du cadre légal.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contact" class="bg-secondary hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 shadow-lg text-center">
+                    Prendre un rendez-vous conseil
+                </a>
+                <a href="#services" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold py-3 px-8 rounded-lg transition duration-300 backdrop-blur-sm text-center">
+                    Découvrir nos solutions
+                </a>
             </div>
         </div>
+    </section>
 
-        <!-- Auth Section (Shown when logged out) -->
-        <section id="loginSection" class="max-w-md mx-auto my-8 bg-white p-8 sm:p-10 rounded-3xl shadow-2xl border border-slate-100 animate-fade-in hidden">
-            <div class="text-center mb-8">
-                <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 font-bold text-2xl border border-indigo-100">
-                    🔒
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Espace Privé</h2>
-                <p class="text-slate-500 text-sm mt-2">Connectez-vous pour accéder à votre patrimoine sécurisé.</p>
+    <section id="services" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-primary mb-4">Nos Domaines d'Expertise</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto rounded-full"></div>
+                <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
+                    Nous proposons une approche globale pour répondre à l'ensemble de vos problématiques patrimoniales.
+                </p>
             </div>
 
-            <!-- Auth Tabs -->
-            <div class="flex border-b border-slate-200 mb-6 text-sm font-semibold">
-                <button id="tab-login-btn" onclick="switchAuthTab('login')" class="w-1/2 py-2 border-b-2 border-indigo-600 text-indigo-600 transition">Connexion</button>
-                <button id="tab-signup-btn" onclick="switchAuthTab('signup')" class="w-1/2 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition">S'inscrire</button>
-            </div>
-
-            <form id="loginForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Adresse email</label>
-                    <input type="email" id="loginEmail" required placeholder="adresse@email.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Mot de passe</label>
-                    <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-light rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                        <i data-lucide="trending-up" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Stratégie d'Investissement</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Allocation d'actifs personnalisée (Assurance-vie, PEA, Compte-titres) en fonction de votre profil de risque et de vos objectifs financiers à long terme.
+                    </p>
                 </div>
                 
-                <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3.5 rounded-xl transition shadow-lg shadow-slate-200 text-sm active:scale-95">
-                    Se connecter
-                </button>
-            </form>
+                <!-- Service 2 -->
+                <div class="bg-light rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                        <i data-lucide="calculator" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Optimisation Fiscale</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Analyse de votre situation et proposition de dispositifs légaux (Pinel, PER, Girardin...) pour maîtriser votre imposition sur le revenu et la fortune.
+                    </p>
+                </div>
 
-            <div class="mt-6 pt-6 border-t border-slate-100 text-center">
-                <p class="text-xs text-slate-400 mb-3">Ou accédez directement en mode démonstration :</p>
-                <button onclick="handleDemoLogin()" class="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-semibold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-2">
-                    <span>🚀</span> Accès Démo Rapide (Invité)
-                </button>
+                <!-- Service 3 -->
+                <div class="bg-light rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                        <i data-lucide="home" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Conseil Immobilier</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Accompagnement dans l'acquisition, la gestion et l'optimisation de votre patrimoine immobilier (LMNP, SCPI, investissement direct).
+                    </p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-light rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                        <i data-lucide="shield" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Préparation Retraite</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Bilan retraite complet et mise en place de stratégies de capitalisation pour anticiper la baisse de revenus lors du passage à la retraite.
+                    </p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="bg-light rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                        <i data-lucide="users" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Transmission & Succession</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Structuration de votre patrimoine pour faciliter sa transmission à vos héritiers tout en limitant les droits de mutation, dans un cadre juridique sécurisé.
+                    </p>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="bg-light rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow border border-slate-100">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+                        <i data-lucide="briefcase" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Accompagnement Dirigeants</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Conseil spécifique pour les chefs d'entreprise : gestion de la trésorerie excédentaire, pacte Dutreil, cession d'entreprise.
+                    </p>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Dashboard Section -->
-        <div id="dashboardSection" class="space-y-8 animate-fade-in">
-            
-            <!-- Hero Consolidated Net Worth Card -->
-            <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden border border-slate-800">
-                <div class="absolute -right-10 -top-10 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                    <div>
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20 mb-3">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                            Patrimoine Consolidé - <span id="hero-space-name">Espace Général</span>
-                        </span>
-                        <h2 class="text-indigo-200 font-medium tracking-wide uppercase text-xs">Valeur totale de votre patrimoine</h2>
-                        <div id="total-patrimoine" class="text-3xl sm:text-5xl font-extrabold mt-2 tracking-tight text-white">
-                            0,00 €
+    <section id="approche" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 w-full">
+                    <!-- Image réparée avec un lien Unsplash plus stable -->
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1000&q=80" alt="Consultation en gestion de patrimoine" class="rounded-2xl shadow-xl w-full object-cover h-[400px] lg:h-[500px]">
+                </div>
+                <div class="lg:w-1/2 w-full">
+                    <h2 class="text-3xl font-bold text-primary mb-6">Une méthode rigoureuse en 4 étapes</h2>
+                    <p class="text-slate-600 mb-8 text-lg">
+                        Notre approche est basée sur la transparence, l'indépendance et la recherche de solutions sur-mesure pour chaque client.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xl">1</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-1">Audit Patrimonial</h4>
+                                <p class="text-slate-600">Photographie détaillée de votre situation familiale, professionnelle, fiscale et financière.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xl">2</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-1">Définition des Objectifs</h4>
+                                <p class="text-slate-600">Écoute attentive pour comprendre vos projets de vie et évaluer votre profil d'investisseur.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xl">3</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-1">Stratégie & Préconisations</h4>
+                                <p class="text-slate-600">Remise d'une lettre de mission et d'un rapport écrit détaillé proposant des solutions adaptées et juridiquement validées.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xl">4</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-1">Mise en place & Suivi</h4>
+                                <p class="text-slate-600">Accompagnement dans la souscription des solutions et suivi régulier pour ajuster la stratégie dans le temps.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vraie Section À Propos -->
+    <section id="a-propos" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row-reverse gap-16 items-center">
+                <div class="lg:w-1/3 w-full">
+                    <!-- Photo de profil d'illustration (à remplacer par votre propre photo si vous le souhaitez) -->
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Adrien Czurczak-Delcampe - Fondateur" class="rounded-2xl shadow-xl w-full object-cover aspect-[4/5]">
+                </div>
+                <div class="lg:w-2/3 w-full">
+                    <h2 class="text-3xl font-bold text-primary mb-4">À Propos du Fondateur</h2>
+                    <div class="w-24 h-1 bg-secondary mb-8 rounded-full"></div>
+                    
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Adrien Czurczak-Delcampe</h3>
+                    <p class="text-slate-600 mb-6 text-lg leading-relaxed">
+                        Passionné par l'économie et la stratégie financière, j'ai fondé <strong>ACD Gestion & Conseil</strong> avec une conviction forte : l'ingénierie patrimoniale doit être accessible, transparente et totalement indépendante.
+                    </p>
+                    <p class="text-slate-600 mb-6 text-lg leading-relaxed">
+                        Mon approche se démarque de la gestion de patrimoine classique. Je n'ai <strong>aucun produit financier, d'assurance ou immobilier à vous vendre</strong>, et je ne perçois aucune commission de partenaires. Mon unique objectif est d'analyser votre situation en toute objectivité.
+                    </p>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        En tant que conseil indépendant, je me positionne comme un <strong>éducateur et un stratège</strong>. Je décrypte pour vous la complexité fiscale et financière afin de vous donner toutes les clés nécessaires pour prendre les meilleures décisions pour votre avenir et celui de vos proches, avant de vous orienter vers les professionnels habilités (notaires, experts-comptables, courtiers) pour la mise en place.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Conformité Légale (L'ID a-propos a été retiré pour ne pas faire conflit) -->
+    <section class="bg-primary text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i data-lucide="scale" class="w-12 h-12 mx-auto text-secondary mb-4"></i>
+            <h2 class="text-2xl font-bold mb-4">Cadre d'Intervention & Transparence</h2>
+            <p class="max-w-4xl mx-auto text-slate-200 leading-relaxed">
+                ACD Gestion & Conseil opère sous le statut d'Entrepreneur Individuel (EI). Le cabinet propose des prestations de <strong>conseil d'ordre général, d'éducation financière, d'optimisation budgétaire et d'ingénierie patrimoniale globale</strong>.
+                <br><br>
+                <em>Important : Adrien Czurczak-Delcampe ne dispose pas des statuts réglementés de Conseiller en Investissements Financiers (CIF), de Courtier en assurance (IAS), d'Intermédiaire en Opérations de Banque et en Services de Paiement (IOBSP), ni de la carte de transaction immobilière (Carte T).</em>
+                <br><br>
+                Par conséquent, nos prestations se limitent strictement à de l'aide à la décision théorique. <strong>Aucun acte d'entremise, aucune vente, ni recommandation personnalisée de produits financiers, d'assurance ou immobiliers n'est réalisée.</strong> Nous agissons en totale indépendance et ne percevons aucune commission de distribution. Pour la souscription de placements spécifiques, le client sera invité à se rapprocher d'établissements agréés ou de professionnels habilités (notaires, avocats, banquiers, courtiers).
+            </p>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-primary mb-4">Contactez-nous</h2>
+                <p class="text-slate-600 text-lg">
+                    Vous souhaitez réaliser un premier bilan patrimonial ? Laissez-nous un message, nous vous recontacterons dans les plus brefs délais.
+                </p>
+            </div>
+
+            <div class="bg-slate-50 p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100">
+                <form id="contact-form" action="https://formspree.io/f/mlgwopye" method="POST" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="prenom" class="block text-sm font-medium text-slate-700 mb-1">Prénom</label>
+                            <input type="text" id="prenom" name="prenom" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" required>
+                        </div>
+                        <div>
+                            <label for="nom" class="block text-sm font-medium text-slate-700 mb-1">Nom</label>
+                            <input type="text" id="nom" name="nom" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" required>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Adresse e-mail</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" required>
+                        </div>
+                        <div>
+                            <label for="telephone" class="block text-sm font-medium text-slate-700 mb-1">Téléphone</label>
+                            <input type="tel" id="telephone" name="telephone" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-3">
-                        <button onclick="openAddModal()" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-5 py-3 rounded-2xl transition shadow-lg shadow-emerald-900/30 text-sm active:scale-95">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                            Ajouter un bien / actif
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Breakdown progress bar -->
-                <div class="mt-8 pt-6 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
                     <div>
-                        <p class="text-slate-400 font-medium">🏠 Immobilier</p>
-                        <p id="subtotal-immobilier" class="text-sm font-bold text-slate-200 mt-0.5">0,00 €</p>
+                        <label for="sujet" class="block text-sm font-medium text-slate-700 mb-1">Sujet de votre demande</label>
+                        <select id="sujet" name="sujet" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-white">
+                            <option value="">Sélectionnez un sujet</option>
+                            <option value="bilan">Bilan patrimonial</option>
+                            <option value="impots">Réduction d'impôts</option>
+                            <option value="retraite">Préparation à la retraite</option>
+                            <option value="immobilier">Investissement immobilier</option>
+                            <option value="autre">Autre</option>
+                        </select>
                     </div>
+
                     <div>
-                        <p class="text-slate-400 font-medium">📈 Bourse & Actions</p>
-                        <p id="subtotal-bourse" class="text-sm font-bold text-slate-200 mt-0.5">0,00 €</p>
-                    </div>
-                    <div>
-                        <p class="text-slate-400 font-medium">🏦 Comptes & Epargne</p>
-                        <p id="subtotal-bancaire" class="text-sm font-bold text-slate-200 mt-0.5">0,00 €</p>
-                    </div>
-                    <div>
-                        <p class="text-slate-400 font-medium">🛡️ Alternatifs & Crypto</p>
-                        <p id="subtotal-alternatifs" class="text-sm font-bold text-slate-200 mt-0.5">0,00 €</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Quick Access / Category Pills -->
-            <section>
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-slate-900">Accès rapide & Filtrage</h3>
-                    <span id="asset-count-badge" class="text-xs font-semibold bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full">0 actif(s)</span>
-                </div>
-                
-                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                    <button onclick="setCategoryFilter('ALL')" id="pill-ALL" class="p-4 bg-white border-2 border-indigo-600 rounded-2xl shadow-sm text-left transition hover:shadow-md">
-                        <div class="text-indigo-600 mb-1 text-xl">🌐</div>
-                        <p class="font-bold text-slate-900 text-sm">Tous les biens</p>
-                        <p class="text-xs text-slate-400 mt-0.5">Vue globale</p>
-                    </button>
-                    <button onclick="setCategoryFilter('Bancaire')" id="pill-Bancaire" class="p-4 bg-white border border-slate-200 rounded-2xl text-left transition hover:border-indigo-500 hover:shadow-md">
-                        <div class="text-indigo-600 mb-1 text-xl">🏦</div>
-                        <p class="font-bold text-slate-800 text-sm">Bancaire</p>
-                        <p class="text-xs text-slate-400 mt-0.5">Livrets & Comptes</p>
-                    </button>
-                    <button onclick="setCategoryFilter('Immobilier')" id="pill-Immobilier" class="p-4 bg-white border border-slate-200 rounded-2xl text-left transition hover:border-emerald-500 hover:shadow-md">
-                        <div class="text-emerald-600 mb-1 text-xl">🏠</div>
-                        <p class="font-bold text-slate-800 text-sm">Immobilier</p>
-                        <p class="text-xs text-slate-400 mt-0.5">Résidences & Locatif</p>
-                    </button>
-                    <button onclick="setCategoryFilter('Bourse')" id="pill-Bourse" class="p-4 bg-white border border-slate-200 rounded-2xl text-left transition hover:border-amber-500 hover:shadow-md">
-                        <div class="text-amber-600 mb-1 text-xl">📈</div>
-                        <p class="font-bold text-slate-800 text-sm">Bourse</p>
-                        <p class="text-xs text-slate-400 mt-0.5">Actions, PEA, CTO</p>
-                    </button>
-                    <button onclick="setCategoryFilter('Alternatifs')" id="pill-Alternatifs" class="p-4 bg-white border border-slate-200 rounded-2xl text-left transition hover:border-purple-500 hover:shadow-md col-span-2 sm:col-span-1">
-                        <div class="text-purple-600 mb-1 text-xl">🛡️</div>
-                        <p class="font-bold text-slate-800 text-sm">Alternatifs</p>
-                        <p class="text-xs text-slate-400 mt-0.5">Crypto & Assurances</p>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Search & Assets Table Container -->
-            <section class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row gap-3 items-center justify-between">
-                    <div class="relative w-full sm:w-80">
-                        <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        <input id="search-input" oninput="renderAssets()" type="text" placeholder="Rechercher (ex: Appartement, PEA, LVMH)..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
+                        <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Votre message</label>
+                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none" required></textarea>
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                        Synchronisé avec Firestore (Espace Partagé)
+                    <!-- Case à cocher RGPD -->
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="rgpd" name="rgpd" type="checkbox" class="w-4 h-4 text-primary border-slate-300 rounded focus:ring-primary" required>
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="rgpd" class="font-medium text-slate-700">Consentement RGPD</label>
+                            <p class="text-slate-500">En soumettant ce formulaire, j'accepte que les informations saisies soient exploitées dans le cadre de ma demande de contact et de la relation commerciale qui peut en découler.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
-                            <tr>
-                                <th class="px-6 py-4 font-semibold">Nom du bien / Actif</th>
-                                <th class="px-6 py-4 font-semibold">Catégorie</th>
-                                <th class="px-6 py-4 font-semibold">Détails / Qté</th>
-                                <th class="px-6 py-4 font-semibold">Prix Unitaire</th>
-                                <th class="px-6 py-4 font-semibold text-right">Valeur Totale</th>
-                                <th class="px-6 py-4 font-semibold text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="assets-list-body" class="divide-y divide-slate-100 text-sm">
-                            <tr>
-                                <td colspan="6" class="px-6 py-16 text-center text-slate-400">
-                                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-indigo-600 border-t-transparent mb-3"></div>
-                                    <p class="text-sm font-medium text-slate-600">Connexion à l'espace synchronisé...</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Modal: Workspace / Shared Name Switcher -->
-    <div id="workspace-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 transform transition-all animate-fade-in">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xl">
-                        🔗
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-900">Espace Partagé</h3>
-                        <p class="text-xs text-slate-500">Entrez le nom d'un dossier pour synchroniser</p>
-                    </div>
-                </div>
-                <button onclick="closeWorkspaceModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-xl hover:bg-slate-100 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
+                    <button type="submit" id="submit-btn" class="w-full bg-primary hover:bg-blue-800 text-white font-bold py-3 px-4 rounded-lg transition duration-300 shadow-md flex justify-center items-center gap-2">
+                        <span>Envoyer la demande</span>
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </form>
             </div>
-
-            <form onsubmit="handleWorkspaceSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Nom de l'Espace ou du Dossier</label>
-                    <input id="input-workspace-name" type="text" required placeholder="ex: Patrimoine-Famille, MonPatrimoine, SCI-2026" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition font-semibold text-indigo-900">
-                    <p class="text-xs text-slate-400 mt-2">💡 Toutes les personnes ou tous les onglets saisissant exactement ce même nom verront leurs données synchronisées instantanément.</p>
-                </div>
-
-                <div class="pt-2 flex gap-3">
-                    <button type="button" onclick="closeWorkspaceModal()" class="w-1/2 px-4 py-3 border border-slate-200 text-slate-600 font-semibold rounded-xl hover:bg-slate-50 text-sm transition">
-                        Annuler
-                    </button>
-                    <button type="submit" class="w-1/2 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-sm transition shadow-lg shadow-indigo-200 active:scale-95">
-                        Rejoindre l'espace
-                    </button>
-                </div>
-            </form>
         </div>
-    </div>
+    </section>
 
-    <!-- Modal: Add / Edit Asset -->
-    <div id="asset-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 transform transition-all animate-fade-in">
-            <div class="flex justify-between items-center mb-6">
-                <h3 id="modal-title" class="text-xl font-bold text-slate-900">Ajouter un actif</h3>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-xl hover:bg-slate-100 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
+    <footer class="bg-dark text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 text-white font-bold text-xl mb-4">
+                        <i data-lucide="landmark" class="w-6 h-6 text-secondary"></i>
+                        <span>ACD Gestion & Conseil</span>
+                    </div>
+                    <p class="text-sm">
+                        Cabinet de conseil en gestion de patrimoine indépendant. Accompagnement sur-mesure pour les particuliers et les professionnels.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Mentions Légales Obligatoires</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><strong>Adrien Czurczak-Delcampe EI</strong></li>
+                        <!-- Correction de la faute de frappe ici : Consei -> Conseil -->
+                        <li><strong>ACD Gestion & Conseil</strong></li>
+                        <li><strong>Adresse du siège social :</strong> 45, rue Duhem, 59000 Lille</li>
+                        <li><strong>SIREN :</strong> 994 156 529</li>
+                        <li><strong>Coordonnées de contact :</strong> [Votre Numéro]</li>
+                        <li><strong>TVA non applicable, article 293 B du Code Général des Impôts (CGI).</strong></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Liens Utiles</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Mentions Légales Complètes</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Politique de Confidentialité (RGPD)</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Document d'Entrée en Relation (DER)</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Traitement des réclamations</a></li>
+                    </ul>
+                </div>
             </div>
-
-            <form id="asset-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
-                <input type="hidden" id="modal-asset-id">
-                
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Nom ou Libellé</label>
-                    <input id="modal-asset-name" type="text" required placeholder="ex: Appartement T3 Lille, PEA Boursorama, Livret A" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Catégorie</label>
-                    <select id="modal-asset-category" onchange="toggleCategoryFields()" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition font-medium text-slate-700">
-                        <option value="Immobilier">🏠 Immobilier</option>
-                        <option value="Bourse">📈 Actions & Bourse</option>
-                        <option value="Bancaire">🏦 Compte Bancaire / Épargne</option>
-                        <option value="Alternatifs">🛡️ Crypto / Assurance / Alternatifs</option>
-                    </select>
-                </div>
-
-                <!-- Unit-based assets (Stocks, Crypto, Qty x Price) -->
-                <div id="unit-fields" class="grid grid-cols-2 gap-3 hidden">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Quantité</label>
-                        <input id="modal-asset-qty" type="number" step="any" min="0" placeholder="ex: 15" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Prix Unit. (€)</label>
-                        <input id="modal-asset-price" type="number" step="any" min="0" placeholder="ex: 650.00" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                    </div>
-                </div>
-
-                <!-- Direct valuation/balance assets (Real Estate, Savings) -->
-                <div id="balance-field">
-                    <label id="balance-label" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Valeur estimée (€)</label>
-                    <div class="relative">
-                        <input id="modal-asset-balance" type="number" step="any" min="0" placeholder="250000" class="w-full pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-sm">€</span>
-                    </div>
-                </div>
-
-                <div class="pt-4 flex gap-3">
-                    <button type="button" onclick="closeModal()" class="w-1/2 px-4 py-3 border border-slate-200 text-slate-600 font-semibold rounded-xl hover:bg-slate-50 text-sm transition">
-                        Annuler
-                    </button>
-                    <button type="submit" id="modal-submit-btn" class="w-1/2 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-sm transition shadow-lg shadow-indigo-200 active:scale-95">
-                        Enregistrer
-                    </button>
-                </div>
-            </form>
+            <div class="mt-12 pt-8 border-t border-slate-800 text-center text-sm">
+                <p>&copy; 2026 ACD Gestion & Conseil. Tous droits réservés.</p>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- Modal: Delete Confirmation -->
-    <div id="delete-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform transition-all animate-fade-in text-center">
-            <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-4 font-bold text-xl">
-                🗑️
-            </div>
+    <script>
+        // Initialisation des icônes Lucide
+        lucide.createIcons();
+
+        // 1. Gestion du Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        // Bascule (Ouvrir/Fermer) le menu au clic sur le bouton
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fermer le menu si on clique sur un lien
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 2. Gestion améliorée de la soumission du formulaire
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            <h3 class="text-lg font-bold text-slate-900 mb-1">Supprimer cet actif ?</h3>
-            <p class="text-xs text-slate-500 mb-6">Êtes-vous sûr de vouloir retirer <span id="delete-asset-name" class="font-semibold text-slate-800">cet actif</span> ? Cette action sera synchronisée sur toutes les pages ouvertes.</p>
-
-            <div class="flex gap-3">
-                <button onclick="closeDeleteModal()" class="w-1/2 px-4 py-2.5 border border-slate-200 text-slate-600 font-semibold rounded-xl hover:bg-slate-50 text-sm transition">
-                    Annuler
-                </button>
-                <button onclick="confirmDeleteAsset()" class="w-1/2 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl text-sm transition shadow-md shadow-red-200 active:scale-95">
-                    Supprimer
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification Box -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInAnonymously, signInWithCustomToken, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Global environment bindings
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'wealth-manager-pro';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "AIzaSyC44TI-kF0B-E999nxSq0mpn5me6Ncay4s",
-            authDomain: "solution-client-c9f55.firebaseapp.com",
-            projectId: "solution-client-c9f55"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let rawAssets = [];
-        let activeCategoryFilter = 'ALL';
-        let assetToDeleteId = null;
-        let currentUser = null;
-        let currentUnsubscribe = null;
-
-        // Shared Workspace Name (Default to "MonPatrimoine" or retrieve from URL / LocalStorage)
-        const urlParams = new URLSearchParams(window.location.search);
-        let currentWorkspaceName = urlParams.get('workspace') || localStorage.getItem('wm_workspace_name') || 'MonPatrimoine';
-
-        // BroadcastChannel for instant local tab-to-tab notification
-        const syncChannel = new BroadcastChannel('wm_sync_channel');
-        syncChannel.onmessage = (event) => {
-            if (event.data && event.data.type === 'WORKSPACE_CHANGED') {
-                if (event.data.workspace !== currentWorkspaceName) {
-                    showToast(`Un autre onglet a basculé vers l'espace : ${event.data.workspace}`, 'info');
-                }
-            }
-        };
-
-        const categoryMeta = {
-            'Immobilier': { label: 'Immobilier', bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', icon: '🏠', isUnit: false, labelBalance: 'Valeur du bien (€)' },
-            'Bourse': { label: 'Bourse & Actions', bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200', icon: '📈', isUnit: true },
-            'Bancaire': { label: 'Bancaire & Épargne', bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200', icon: '🏦', isUnit: false, labelBalance: 'Solde courant / épargne (€)' },
-            'Alternatifs': { label: 'Alternatifs & Crypto', bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200', icon: '🛡️', isUnit: false, labelBalance: 'Valeur du contrat / portfolio (€)' }
-        };
-
-        // Formatters
-        const formatEUR = (val) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(val || 0);
-        const formatQty = (val) => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 4 }).format(val || 0);
-
-        function sanitizeWorkspaceName(str) {
-            return (str || 'MonPatrimoine')
-                .trim()
-                .toLowerCase()
-                .replace(/[^a-z0-9_-]/g, '_')
-                .substring(0, 40) || 'monpatrimoine';
-        }
-
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            let bgClass = 'bg-slate-900 text-white';
-            if (type === 'error') bgClass = 'bg-red-600 text-white';
-            if (type === 'info') bgClass = 'bg-indigo-600 text-white';
-
-            toast.className = `${bgClass} px-4 py-3 rounded-2xl shadow-xl text-sm font-semibold flex items-center gap-2 animate-fade-in pointer-events-auto border border-white/10`;
-            toast.innerHTML = `
-                <span>${type === 'success' ? '✓' : type === 'info' ? 'ℹ️' : '⚠️'}</span>
-                <span>${message}</span>
-            `;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        }
-
-        // Initialize Authentication before Firestore listeners
-        async function ensureAuthenticated() {
+            // Sauvegarder le contenu original
+            const originalContent = submitBtn.innerHTML;
+            
+            // État de chargement
+            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> <span>Envoi en cours...</span>';
+            submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+            lucide.createIcons();
+            
             try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else if (!auth.currentUser) {
-                    await signInAnonymously(auth);
-                }
-            } catch (e) {
-                console.warn("Falling back to anonymous sign-in:", e);
-                if (!auth.currentUser) await signInAnonymously(auth);
-            }
-        }
-
-        // Connect real-time listener to current shared portfolio workspace
-        async function subscribeToWorkspace(workspaceName) {
-            await ensureAuthenticated();
-            if (!auth.currentUser) return;
-
-            currentWorkspaceName = workspaceName;
-            localStorage.setItem('wm_workspace_name', workspaceName);
-            
-            const cleanSlug = sanitizeWorkspaceName(workspaceName);
-            
-            // Update UI Labels
-            document.getElementById('header-workspace-name').innerText = workspaceName;
-            document.getElementById('banner-workspace-tag').innerText = `"${workspaceName}"`;
-            document.getElementById('hero-space-name').innerText = `Espace "${workspaceName}"`;
-
-            // Unsubscribe existing listener if switching workspaces
-            if (currentUnsubscribe) {
-                currentUnsubscribe();
-            }
-
-            // Path adhering strictly to Rule 1: /artifacts/{appId}/public/data/{collectionName}
-            const publicCollectionName = `portfolio_${cleanSlug}`;
-            const assetsRef = collection(db, 'artifacts', appId, 'public', 'data', publicCollectionName);
-
-            currentUnsubscribe = onSnapshot(assetsRef, (snapshot) => {
-                rawAssets = [];
-                snapshot.forEach((doc) => {
-                    rawAssets.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
+                // Envoi des données vers Formspree
+                const response = await fetch(e.target.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
                 });
 
-                rawAssets.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-                updateCalculatedTotals();
-                renderAssets();
-            }, (error) => {
-                console.error("Firestore workspace sync error:", error);
-                showToast("Erreur de synchronisation réseau", "error");
-            });
-        }
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-                subscribeToWorkspace(currentWorkspaceName);
-            }
-        });
-
-        window.openWorkspaceModal = () => {
-            document.getElementById('input-workspace-name').value = currentWorkspaceName;
-            document.getElementById('workspace-modal').classList.remove('hidden');
-        };
-
-        window.closeWorkspaceModal = () => {
-            document.getElementById('workspace-modal').classList.add('hidden');
-        };
-
-        window.handleWorkspaceSubmit = (e) => {
-            e.preventDefault();
-            const newName = document.getElementById('input-workspace-name').value.trim();
-            if (!newName) return;
-
-            subscribeToWorkspace(newName);
-            closeWorkspaceModal();
-            showToast(`Espace synchronisé connecté : "${newName}" !`, 'info');
-
-            // Notify other open tabs
-            syncChannel.postMessage({ type: 'WORKSPACE_CHANGED', workspace: newName });
-        };
-
-        window.copyWorkspaceCode = () => {
-            const temp = document.createElement('textarea');
-            temp.value = currentWorkspaceName;
-            document.body.appendChild(temp);
-            temp.select();
-            document.execCommand('copy');
-            document.body.removeChild(temp);
-            showToast(`Nom d'espace "${currentWorkspaceName}" copié !`);
-        };
-
-        function calculateAssetValue(asset) {
-            const cat = categoryMeta[asset.category] || categoryMeta['Immobilier'];
-            if (cat.isUnit) {
-                const q = parseFloat(asset.qty) || 0;
-                const p = parseFloat(asset.price) || 0;
-                return q * p;
-            }
-            return parseFloat(asset.balance) || parseFloat(asset.value) || parseFloat(asset.amount) || 0;
-        }
-
-        function updateCalculatedTotals() {
-            let total = 0;
-            let subImmo = 0, subBourse = 0, subBancaire = 0, subAlt = 0;
-
-            rawAssets.forEach(item => {
-                const val = calculateAssetValue(item);
-                total += val;
-
-                const c = item.category || 'Immobilier';
-                if (c === 'Immobilier') subImmo += val;
-                else if (c === 'Bourse') subBourse += val;
-                else if (c === 'Bancaire') subBancaire += val;
-                else subAlt += val;
-            });
-
-            document.getElementById('total-patrimoine').innerText = formatEUR(total);
-            document.getElementById('subtotal-immobilier').innerText = formatEUR(subImmo);
-            document.getElementById('subtotal-bourse').innerText = formatEUR(subBourse);
-            document.getElementById('subtotal-bancaire').innerText = formatEUR(subBancaire);
-            document.getElementById('subtotal-alternatifs').innerText = formatEUR(subAlt);
-            document.getElementById('asset-count-badge').innerText = `${rawAssets.length} actif(s)`;
-        }
-
-        window.setCategoryFilter = (category) => {
-            activeCategoryFilter = category;
-            
-            ['ALL', 'Bancaire', 'Immobilier', 'Bourse', 'Alternatifs'].forEach(cat => {
-                const btn = document.getElementById(`pill-${cat}`);
-                if (!btn) return;
-                if (cat === category) {
-                    btn.className = "p-4 bg-white border-2 border-indigo-600 rounded-2xl shadow-md text-left transition";
+                if (response.ok) {
+                    // État de succès
+                    submitBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5 text-green-400"></i> <span class="text-white">Message envoyé avec succès</span>';
+                    submitBtn.classList.remove('bg-primary', 'hover:bg-blue-800', 'opacity-80', 'cursor-not-allowed');
+                    submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    lucide.createIcons(); 
+                    
+                    // Réinitialiser après 3 secondes
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalContent;
+                        submitBtn.classList.add('bg-primary', 'hover:bg-blue-800');
+                        submitBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                        form.reset();
+                        lucide.createIcons(); 
+                    }, 3000);
                 } else {
-                    btn.className = "p-4 bg-white border border-slate-200 rounded-2xl text-left transition hover:border-indigo-400 hover:shadow-sm";
+                    throw new Error('Erreur réseau');
                 }
-            });
-
-            renderAssets();
-        };
-
-        window.renderAssets = () => {
-            const tbody = document.getElementById('assets-list-body');
-            const search = (document.getElementById('search-input').value || '').toLowerCase();
-
-            const filtered = rawAssets.filter(a => {
-                const matchesSearch = (a.name || '').toLowerCase().includes(search);
-                const matchesCat = activeCategoryFilter === 'ALL' || (a.category || 'Immobilier') === activeCategoryFilter;
-                return matchesSearch && matchesCat;
-            });
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="px-6 py-12 text-center text-slate-400">
-                            <div class="w-12 h-12 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-3 font-bold text-xl">
-                                📂
-                            </div>
-                            <h4 class="font-bold text-slate-700 mb-1">Aucun actif trouvé</h4>
-                            <p class="text-xs text-slate-400 mb-4">${rawAssets.length === 0 ? 'Cet espace partagé est encore vide. Ajoutez votre premier actif ci-dessous.' : 'Aucun résultat ne correspond à votre recherche.'}</p>
-                            ${rawAssets.length === 0 ? `<button onclick="openAddModal()" class="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-sm hover:bg-indigo-700 transition">+ Ajouter un actif</button>` : ''}
-                        </td>
-                    </tr>
-                `;
-                return;
+            } catch (error) {
+                // État d'erreur
+                submitBtn.innerHTML = '<i data-lucide="x" class="w-5 h-5 text-red-400"></i> <span class="text-white">Erreur lors de l\'envoi</span>';
+                submitBtn.classList.remove('bg-primary', 'hover:bg-blue-800');
+                submitBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalContent;
+                    submitBtn.classList.add('bg-primary', 'hover:bg-blue-800');
+                    submitBtn.classList.remove('bg-red-600', 'hover:bg-red-700', 'opacity-80', 'cursor-not-allowed');
+                    lucide.createIcons();
+                }, 3000);
             }
-
-            tbody.innerHTML = filtered.map(a => {
-                const cat = categoryMeta[a.category] || categoryMeta['Immobilier'];
-                const totalVal = calculateAssetValue(a);
-
-                return `
-                    <tr class="hover:bg-slate-50 transition-colors group">
-                        <td class="px-6 py-4 font-bold text-slate-900">
-                            <div class="flex items-center gap-3">
-                                <span class="text-xl p-2 bg-slate-100 rounded-xl">${cat.icon}</span>
-                                <span>${escapeHtml(a.name)}</span>
-                            </div>
-                        </td>
-
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${cat.bg} ${cat.text} ${cat.border} border">
-                                ${cat.label}
-                            </span>
-                        </td>
-
-                        <td class="px-6 py-4 text-slate-700 font-medium">
-                            ${cat.isUnit ? formatQty(a.qty) + ' unité(s)' : 'Valeur Fixe / Solde'}
-                        </td>
-
-                        <td class="px-6 py-4 text-slate-700">
-                            ${cat.isUnit ? formatEUR(a.price) : '-'}
-                        </td>
-
-                        <td class="px-6 py-4 font-extrabold text-slate-900 text-right text-base">
-                            ${formatEUR(totalVal)}
-                        </td>
-
-                        <td class="px-6 py-4 text-center">
-                            <div class="flex items-center justify-center gap-1">
-                                <button onclick="openEditModal('${a.id}')" title="Modifier" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                </button>
-                                <button onclick="openDeleteModal('${a.id}', '${escapeHtml(a.name)}')" title="Supprimer" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        };
-
-        function escapeHtml(str) {
-            return (str || '').replace(/[&<>"']/g, function(m) {
-                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-            });
-        }
-
-        window.toggleCategoryFields = () => {
-            const category = document.getElementById('modal-asset-category').value;
-            const config = categoryMeta[category] || categoryMeta['Immobilier'];
-
-            const unitFields = document.getElementById('unit-fields');
-            const balanceField = document.getElementById('balance-field');
-            const balanceLabel = document.getElementById('balance-label');
-
-            if (config.isUnit) {
-                unitFields.classList.remove('hidden');
-                balanceField.classList.add('hidden');
-            } else {
-                unitFields.classList.add('hidden');
-                balanceField.classList.remove('hidden');
-                balanceLabel.innerText = config.labelBalance || 'Valeur estimée (€)';
-            }
-        };
-
-        window.openAddModal = () => {
-            document.getElementById('modal-title').innerText = "Ajouter un actif";
-            document.getElementById('modal-submit-btn').innerText = "Enregistrer";
-            document.getElementById('modal-asset-id').value = "";
-            document.getElementById('modal-asset-name').value = "";
-            document.getElementById('modal-asset-category').value = "Immobilier";
-            document.getElementById('modal-asset-qty').value = "";
-            document.getElementById('modal-asset-price').value = "";
-            document.getElementById('modal-asset-balance').value = "";
-            
-            toggleCategoryFields();
-            document.getElementById('asset-modal').classList.remove('hidden');
-        };
-
-        window.openEditModal = (id) => {
-            const asset = rawAssets.find(a => a.id === id);
-            if (!asset) return;
-
-            document.getElementById('modal-title').innerText = "Modifier l'actif";
-            document.getElementById('modal-submit-btn').innerText = "Mettre à jour";
-            document.getElementById('modal-asset-id').value = asset.id;
-            document.getElementById('modal-asset-name').value = asset.name || "";
-            document.getElementById('modal-asset-category').value = asset.category || "Immobilier";
-            document.getElementById('modal-asset-qty').value = asset.qty || "";
-            document.getElementById('modal-asset-price').value = asset.price || "";
-            document.getElementById('modal-asset-balance').value = asset.balance || asset.value || asset.amount || "";
-
-            toggleCategoryFields();
-            document.getElementById('asset-modal').classList.remove('hidden');
-        };
-
-        window.closeModal = () => {
-            document.getElementById('asset-modal').classList.add('hidden');
-        };
-
-        window.handleFormSubmit = async (event) => {
-            event.preventDefault();
-            await ensureAuthenticated();
-            if (!auth.currentUser) return;
-
-            const id = document.getElementById('modal-asset-id').value;
-            const name = document.getElementById('modal-asset-name').value.trim();
-            const category = document.getElementById('modal-asset-category').value;
-            const config = categoryMeta[category] || categoryMeta['Immobilier'];
-
-            if (!name) return;
-
-            const assetData = {
-                name,
-                category,
-                updatedAt: Date.now()
-            };
-
-            if (config.isUnit) {
-                assetData.qty = parseFloat(document.getElementById('modal-asset-qty').value) || 0;
-                assetData.price = parseFloat(document.getElementById('modal-asset-price').value) || 0;
-            } else {
-                assetData.balance = parseFloat(document.getElementById('modal-asset-balance').value) || 0;
-                assetData.value = assetData.balance;
-            }
-
-            const cleanSlug = sanitizeWorkspaceName(currentWorkspaceName);
-            const publicCollectionName = `portfolio_${cleanSlug}`;
-
-            try {
-                if (id) {
-                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', publicCollectionName, id);
-                    await updateDoc(docRef, assetData);
-                    showToast("Actif mis à jour et synchronisé !");
-                } else {
-                    assetData.createdAt = Date.now();
-                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', publicCollectionName);
-                    await addDoc(colRef, assetData);
-                    showToast("Actif ajouté et synchronisé en direct !");
-                }
-                closeModal();
-            } catch (err) {
-                console.error("Save error:", err);
-                showToast("Erreur lors de l'enregistrement", "error");
-            }
-        };
-
-        window.openDeleteModal = (id, name) => {
-            assetToDeleteId = id;
-            document.getElementById('delete-asset-name').innerText = `"${name}"`;
-            document.getElementById('delete-modal').classList.remove('hidden');
-        };
-
-        window.closeDeleteModal = () => {
-            assetToDeleteId = null;
-            document.getElementById('delete-modal').classList.add('hidden');
-        };
-
-        window.confirmDeleteAsset = async () => {
-            if (!assetToDeleteId) return;
-            await ensureAuthenticated();
-            if (!auth.currentUser) return;
-
-            const cleanSlug = sanitizeWorkspaceName(currentWorkspaceName);
-            const publicCollectionName = `portfolio_${cleanSlug}`;
-
-            try {
-                const docRef = doc(db, 'artifacts', appId, 'public', 'data', publicCollectionName, assetToDeleteId);
-                await deleteDoc(docRef);
-                showToast("Actif supprimé et synchronisé partout");
-                closeDeleteModal();
-            } catch (err) {
-                console.error("Delete error:", err);
-                showToast("Erreur lors de la suppression", "error");
-            }
-        };
-
-        // Close modals on background click
-        document.getElementById('asset-modal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('asset-modal')) closeModal();
-        });
-        document.getElementById('delete-modal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('delete-modal')) closeDeleteModal();
-        });
-        document.getElementById('workspace-modal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('workspace-modal')) closeWorkspaceModal();
-        });
-
-        // Initialize default workspace subscription on startup
-        ensureAuthenticated().then(() => {
-            subscribeToWorkspace(currentWorkspaceName);
         });
     </script>
 </body>
