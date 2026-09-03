@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADC Gestion & Conseil</title>
+    <!-- Favicon SVG dynamique -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23d97706%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><line x1=%223%22 x2=%2221%22 y1=%2222%22 y2=%2222%22/><line x1=%226%22 x2=%226%22 y1=%2218%22 y2=%2211%22/><line x1=%2210%22 x2=%2210%22 y1=%2218%22 y2=%2211%22/><line x1=%2214%22 x2=%2214%22 y1=%2218%22 y2=%2211%22/><line x1=%2218%22 x2=%2218%22 y1=%2218%22 y2=%2211%22/><polygon points=%2212 2 20 7 4 7%22/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // Bleu profond
+                        secondary: '#d97706', // Or/Ambre
+                        light: '#f8fafc',
+                        dark: '#0f172a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.75)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        /* Animation pour la modale */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-animate {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-light text-slate-800 antialiased selection:bg-secondary selection:text-white">
+
+    <!-- MODALE OFFRE DE BIENVENUE -->
+    <div id="welcome-modal" class="hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full relative modal-animate overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-secondary"></div>
+            
+            <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition-colors bg-slate-100 rounded-full p-1" aria-label="Fermer">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i data-lucide="gift" class="w-10 h-10 text-secondary"></i>
+                </div>
+                
+                <span class="text-xs font-bold tracking-widest text-secondary uppercase mb-2 block">Offre de Lancement</span>
+                <h2 class="text-3xl font-bold text-primary mb-4">1 An d'Accompagnement Offert !</h2>
+                
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Pour fêter le lancement d'<strong>ADC Gestion & Conseil</strong> et vous remercier de votre confiance, je vous offre <strong>1 an d'accompagnement gratuit</strong>. L'occasion parfaite de faire le point sur vos finances sans aucun engagement.
+                </p>
+                
+                <div class="flex flex-col gap-3">
+                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="close-modal bg-secondary hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                        <i data-lucide="calendar-plus" class="w-5 h-5"></i>
+                        Réserver mon RDV sur Google Agenda
+                    </a>
+                    <button class="close-modal text-slate-500 hover:text-slate-800 font-medium py-2 px-4 transition-colors text-sm">
+                        Non merci, je découvre le site
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#accueil" class="text-2xl font-bold text-primary flex items-center gap-2 group">
+                        <i data-lucide="landmark" class="w-8 h-8 text-secondary group-hover:scale-110 transition-transform"></i>
+                        <span>ADC Gestion & Conseil</span>
+                    </a>
+                </div>
+                <!-- Nav Desktop -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-slate-600 hover:text-primary transition-colors font-medium">Mes services</a>
+                    <a href="#approche" class="text-slate-600 hover:text-primary transition-colors font-medium">Mon approche</a>
+                    <a href="#a-propos" class="text-slate-600 hover:text-primary transition-colors font-medium">Mon profil</a>
+                    <a href="#prendre-rendez-vous" class="text-slate-600 hover:text-primary transition-colors font-medium">Prendre rendez-vous</a>
+                    <!-- Bouton RDV Calendar bien intégré dans le Header -->
+                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 bg-secondary hover:bg-amber-600 text-white px-5 py-2.5 rounded-lg transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i data-lucide="calendar-plus" class="w-4 h-4"></i> RDV (1 an offert)
+                    </a>
+                </nav>
+                <!-- Menu Mobile Btn -->
+                <div class="md:hidden flex items-center gap-4">
+                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-amber-600" aria-label="Prendre rendez-vous">
+                        <i data-lucide="calendar-plus" class="w-6 h-6"></i>
+                    </a>
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2" aria-label="Ouvrir le menu">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#services" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mes services</a>
+                <a href="#approche" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Monapproche</a>
+                <a href="#a-propos" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mon profil</a>
+                <a href="#prendre-rendez-vous" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Prendre rendez-vous</a>
+                <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="mobile-link bg-secondary hover:bg-amber-600 text-white flex items-center justify-center gap-2 px-4 py-3 mt-2 rounded-md text-base font-medium shadow-sm">
+                    <i data-lucide="calendar-plus" class="w-5 h-5"></i> RDV (1 an offert)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="accueil" class="hero-bg h-screen min-h-[700px] flex items-center justify-center pt-20">
+        <div class="text-center px-4 max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-medium tracking-wider mb-6 backdrop-blur-sm">
+                🤝 UN ÉCHANGE GAGNANT-GAGNANT
+            </span>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                Prenez en main vos finances, <br class="hidden sm:block"> sans prise de tête.
+            </h1>
+            <p class="text-xl text-slate-200 mb-10 max-w-2xl mx-auto font-light">
+                Étudiant passionné par la gestion de patrimoine, je vous aide à structurer vos projets pendant que j'affine mon expertise. Sérieux, transparent, et décontracté.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                <!-- Lien Calendar Principal -->
+                <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-secondary hover:bg-amber-600 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 relative overflow-hidden">
+                    <span class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">1 AN OFFERT</span>
+                    <i data-lucide="calendar-clock" class="w-5 h-5"></i>
+                    Prendre RDV sur Google Agenda
+                </a>
+                <a href="#a-propos" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold py-4 px-8 rounded-lg transition-all duration-300 backdrop-blur-sm text-center">
+                    Découvrir mon approche
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Les sujets sur lesquels je peux vous aider</h2>
+                <div class="w-24 h-1.5 bg-secondary mx-auto rounded-full"></div>
+                <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
+                    Mon but est de vulgariser ces sujets souvent complexes pour vous donner les clés de compréhension, avant que vous ne preniez vos décisions.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card -->
+                <div class="bg-light rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-primary/5 group-hover:bg-primary group-hover:text-white rounded-xl flex items-center justify-center mb-6 text-primary transition-colors duration-300">
+                        <i data-lucide="trending-up" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-primary transition-colors">Éducation Financière</h3>
+                    <p class="text-slate-600 leading-relaxed">Comprendre les bases : comment fonctionnent l'assurance-vie, le PEA, les livrets. Mon but est que vous sachiez exactement où va votre argent.</p>
+                </div>
+                
+                <div class="bg-light rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-primary/5 group-hover:bg-primary group-hover:text-white rounded-xl flex items-center justify-center mb-6 text-primary transition-colors duration-300">
+                        <i data-lucide="calculator" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-primary transition-colors">Logique Fiscale</h3>
+                    <p class="text-slate-600 leading-relaxed">Étude de votre feuille d'impôt ensemble. Je vous aide à comprendre les mécanismes et à repérer les pistes d'optimisation (PER, niches fiscales...).</p>
+                </div>
+
+                <div class="bg-light rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-primary/5 group-hover:bg-primary group-hover:text-white rounded-xl flex items-center justify-center mb-6 text-primary transition-colors duration-300">
+                        <i data-lucide="home" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-primary transition-colors">Stratégie Immobilière</h3>
+                    <p class="text-slate-600 leading-relaxed">LMNP, SCPI, investissement locatif... On analyse vos idées pour vérifier leur rentabilité théorique et la viabilité de votre projet.</p>
+                </div>
+
+                <div class="bg-light rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-primary/5 group-hover:bg-primary group-hover:text-white rounded-xl flex items-center justify-center mb-6 text-primary transition-colors duration-300">
+                        <i data-lucide="shield" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-primary transition-colors">Bilan Retraite</h3>
+                    <p class="text-slate-600 leading-relaxed">On fait le point sur vos droits actuels et on calcule ensemble l'effort d'épargne nécessaire aujourd'hui pour être serein demain.</p>
+                </div>
+
+                <div class="bg-light rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-primary/5 group-hover:bg-primary group-hover:text-white rounded-xl flex items-center justify-center mb-6 text-primary transition-colors duration-300">
+                        <i data-lucide="users" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-primary transition-colors">Préparation de l'Avenir</h3>
+                    <p class="text-slate-600 leading-relaxed">Comment protéger votre famille ou anticiper une transmission ? J'étudie votre situation pour vous présenter les schémas classiques possibles.</p>
+                </div>
+
+                <div class="bg-light rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-primary/5 group-hover:bg-primary group-hover:text-white rounded-xl flex items-center justify-center mb-6 text-primary transition-colors duration-300">
+                        <i data-lucide="piggy-bank" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-primary transition-colors">Organisation Budgétaire</h3>
+                    <p class="text-slate-600 leading-relaxed">Remettre les choses à plat : analyse de vos revenus et dépenses pour dégager une capacité d'épargne que vous ne soupçonniez peut-être pas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="approche" class="py-24 bg-slate-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 w-full relative">
+                    <div class="absolute inset-0 bg-primary/10 rounded-3xl transform translate-x-4 translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" alt="Échange convivial et conseil" class="relative rounded-2xl shadow-xl w-full object-cover h-[450px] lg:h-[550px] z-10">
+                </div>
+                <div class="lg:w-1/2 w-full">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">Comment on va s'y prendre ?</h2>
+                    <p class="text-slate-600 mb-10 text-lg">
+                        Pas de termes compliqués ou de réunions guindées. Juste du bon sens, de la théorie solide et un travail d'équipe.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-5">
+                            <div class="flex-shrink-0 w-14 h-14 rounded-full bg-white shadow-md text-secondary border border-slate-100 flex items-center justify-center font-bold text-2xl">1</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-2">On fait connaissance</h4>
+                                <p class="text-slate-600">Un appel ou une visio sympa via Google Meet. Vous me racontez vos projets, votre situation, et on voit si le courant passe.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <div class="flex-shrink-0 w-14 h-14 rounded-full bg-white shadow-md text-secondary border border-slate-100 flex items-center justify-center font-bold text-2xl">2</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-2">Je bosse de mon côté</h4>
+                                <p class="text-slate-600">Je mets en pratique mes cours et mes recherches pour analyser votre situation et construire un cas d'étude réel.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <div class="flex-shrink-0 w-14 h-14 rounded-full bg-white shadow-md text-secondary border border-slate-100 flex items-center justify-center font-bold text-2xl">3</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-2">Restitution pédagogique</h4>
+                                <p class="text-slate-600">Je vous explique tout de A à Z. On explore les pistes possibles, toujours de manière théorique et éducative.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <div class="flex-shrink-0 w-14 h-14 rounded-full bg-white shadow-md text-secondary border border-slate-100 flex items-center justify-center font-bold text-2xl">4</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800 mb-2">Passage à l'action</h4>
+                                <p class="text-slate-600">Si vous voulez concrétiser les stratégies abordées, je vous réoriente vers les bons professionnels habilités (notaires, courtiers...).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="a-propos" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row-reverse gap-16 items-center">
+                <div class="lg:w-1/3 w-full">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-secondary/10 rounded-2xl transform -translate-x-4 -translate-y-4"></div>
+                        <img src="image-personelle.png" alt="Adrien Czurczak-Delcampe - Fondateur" class="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/5] z-10" onerror="this.src='https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                </div>
+                <div class="lg:w-2/3 w-full">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Salut, moi c'est Adrien !</h2>
+                    <div class="w-24 h-1.5 bg-secondary mb-8 rounded-full"></div>
+                    
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Étudiant et passionné de finances.</h3>
+                    <p class="text-slate-600 mb-6 text-lg leading-relaxed">
+                        J'ai créé <strong>ADC Gestion & Conseil</strong> avec une philosophie simple : apprendre en faisant, et rendre service en partageant.
+                    </p>
+                    <p class="text-slate-600 mb-6 text-lg leading-relaxed">
+                        Actuellement étudiant, je suis fasciné par l'ingénierie patrimoniale. Plutôt que de garder la tête dans mes bouquins, j'ai décidé de confronter mes connaissances au monde réel. Mon approche est 100% gagnant-gagnant : vous bénéficiez d'un regard neuf, motivé et dévoué pour décortiquer vos finances, et de mon côté, vos cas concrets me permettent de m'améliorer et de devenir un meilleur professionnel pour l'avenir.
+                    </p>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        L'avantage pour vous ? Je n'ai <strong>absolument rien à vous vendre</strong>. Aucun produit financier, aucune assurance. Mon rôle est purement pédagogique. Je suis là pour vous coacher, vous expliquer comment le système fonctionne de manière simple, sérieuse, mais sans la rigidité d'un costume-cravate.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary text-white py-16 relative overflow-hidden">
+        <!-- Décoration de fond -->
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-secondary/20 rounded-full blur-2xl"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl mb-6 backdrop-blur-sm">
+                <i data-lucide="info" class="w-10 h-10 text-secondary"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">Les règles du jeu (Transparence totale)</h2>
+            <div class="bg-dark/20 p-8 rounded-2xl backdrop-blur-sm border border-white/10 text-left">
+                <p class="text-slate-200 leading-relaxed">
+                    ADC Gestion & Conseil est une structure pensée pour l'éducation financière et l'analyse théorique de votre patrimoine.
+                    <br><br>
+                    <em class="text-white/80 font-medium">Point important : Étant étudiant, je ne dispose pas des statuts réglementés de Conseiller en Investissements Financiers (CIF), de Courtier en assurance (IAS) ou d'agent immobilier (Carte T).</em>
+                    <br><br>
+                    Qu'est-ce que ça veut dire pour vous ? Mon intervention est strictly <strong>pédagogique et informative</strong>. Je ne ferai aucun acte de vente, d'entremise, ni de recommandation personnalisée sur des produits financiers précis. Mon rôle est de vous éclairer sur les concepts, de réaliser des simulations et de vous donner la culture financière nécessaire. Si vous souhaitez souscrire à un produit, je vous indiquerai vers quel professionnel agréé vous tourner !
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="prendre-rendez-vous" class="py-24 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Prise de Rendez-vous</h2>
+                <div class="w-24 h-1.5 bg-secondary mx-auto rounded-full mb-6"></div>
+                <p class="text-slate-600 text-lg">
+                    Réservez votre créneau directement dans mon agenda Google. Pas de formulaire intermédiaire, choisissez simplement le jour et l'heure qui vous conviennent !
+                </p>
+            </div>
+
+            <!-- Carte Principale Prise de RDV Google Agenda -->
+            <div class="bg-white border-2 border-secondary/30 rounded-3xl p-8 sm:p-12 text-center shadow-xl relative overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-secondary to-primary"></div>
+                
+                <!-- Badge Offre de lancement -->
+                <div class="inline-flex items-center gap-1.5 bg-secondary/10 border border-secondary/30 text-secondary text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Offre Spéciale : 1 an offert
+                </div>
+
+                <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
+                    <i data-lucide="calendar" class="w-10 h-10 text-primary"></i>
+                </div>
+                
+                <h3 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">Échange Pédagogique (30 min)</h3>
+                
+                <p class="text-slate-600 mb-8 max-w-xl mx-auto text-lg leading-relaxed">
+                    Un moment privilégié par téléphone ou en visioconférence pour faire le point sur votre situation, répondre à vos questions et structurer vos objectifs financiers.
+                </p>
+
+                <!-- Points clés de l'entretien -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 text-left max-w-2xl mx-auto">
+                    <div class="flex items-center gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                        <i data-lucide="clock" class="w-5 h-5 text-secondary flex-shrink-0"></i>
+                        <span class="text-sm font-medium text-slate-700">30 minutes environ</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                        <i data-lucide="video" class="w-5 h-5 text-secondary flex-shrink-0"></i>
+                        <span class="text-sm font-medium text-slate-700">Visio ou Téléphone</span>
+                    </div>
+                    <div class="flex items-center gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-secondary flex-shrink-0"></i>
+                        <span class="text-sm font-medium text-slate-700">100% Sans engagement</span>
+                    </div>
+                </div>
+
+                <!-- Bouton d'action Google Calendar -->
+                <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center justify-center gap-3 bg-primary hover:bg-blue-800 text-white font-bold text-lg py-4 px-10 rounded-xl transition duration-300 shadow-lg hover:shadow-2xl w-full sm:w-auto relative overflow-hidden">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+                    <i data-lucide="calendar-plus" class="w-6 h-6 group-hover:scale-110 transition-transform"></i> 
+                    Réserver mon créneau sur Google Agenda
+                </a>
+
+                <p class="mt-4 text-xs text-slate-400">
+                    Vous serez automatiquement redirigé vers l'interface sécurisée de Google Agenda.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <div class="flex items-center gap-2 text-white font-bold text-2xl mb-6">
+                        <i data-lucide="landmark" class="w-8 h-8 text-secondary"></i>
+                        <span>ADC Gestion & Conseil</span>
+                    </div>
+                    <p class="text-sm leading-relaxed pr-4">
+                        Conseil et éducation financière par un étudiant passionné. Une approche transparente, décontractée, pour vous aider à y voir clair dans vos finances.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="info" class="w-5 h-5 text-secondary"></i> Infos Pratiques
+                    </h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><strong>Adrien Czurczak-Delcampe EI</strong></li>
+                        <li><strong>ADC Gestion & Conseil</strong></li>
+                        <li><strong>Basé à :</strong> 45, rue Duhem, 59000 Lille</li>
+                        <li><strong>SIREN :</strong> 994 156 529</li>
+                        <li><strong>TVA :</strong> Non applicable, art. 293 B du CGI.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="link" class="w-5 h-5 text-secondary"></i> Liens rapides
+                    </h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-white transition-colors flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Mon Agenda Google</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="politique-confidentialite.html" class="hover:text-white transition-colors">Politique de Confidentialité</a></li>
+                        <li><a href="mentions-legales.html" class="hover:text-white transition-colors">Mentions Légales</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <p>&copy; 2026 ADC Gestion & Conseil. Tous droits réservés.</p>
+                <div class="flex gap-4">
+                    <a href="#accueil" class="hover:text-white transition-colors">Retour en haut &uarr;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialisation des icônes Lucide
+        lucide.createIcons();
+
+        // GESTION DE LA MODALE "OFFRE"
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('welcome-modal');
+            const closeBtns = document.querySelectorAll('.close-modal');
+            
+            // Affiche la modale après 1 seconde
+            if (!sessionStorage.getItem('offerSeen')) {
+                setTimeout(() => {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }, 1000);
+            }
+
+            // Fermer la modale
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    sessionStorage.setItem('offerSeen', 'true');
+                });
+            });
+        });
+
+        // Gestion du Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Apparition de l'ombre sur le header au scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+                header.classList.replace('bg-white/95', 'bg-white/98');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.replace('bg-white/98', 'bg-white/95');
+            }
+        });
+    </script>
+</body>
+</html>

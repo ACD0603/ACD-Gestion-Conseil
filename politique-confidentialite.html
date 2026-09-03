@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité - ACD Gestion & Conseil</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23d97706%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><line x1=%223%22 x2=%2221%22 y1=%2222%22 y2=%2222%22/><line x1=%226%22 x2=%226%22 y1=%2218%22 y2=%2211%22/><line x1=%2210%22 x2=%2210%22 y1=%2218%22 y2=%2211%22/><line x1=%2214%22 x2=%2214%22 y1=%2218%22 y2=%2211%22/><line x1=%2218%22 x2=%2218%22 y1=%2218%22 y2=%2211%22/><polygon points=%2212 2 20 7 4 7%22/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a',
+                        secondary: '#d97706',
+                        light: '#f8fafc',
+                        dark: '#0f172a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        /* Style spécifique pour le contenu textuel légal */
+        .legal-content p { margin-bottom: 1rem; line-height: 1.75; }
+        .legal-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .legal-content li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="bg-light text-slate-800 antialiased selection:bg-secondary selection:text-white flex flex-col min-h-screen">
+
+    <header class="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2 group">
+                        <i data-lucide="landmark" class="w-8 h-8 text-secondary group-hover:scale-110 transition-transform"></i>
+                        <span>ACD Gestion & Conseil</span>
+                    </a>
+                </div>
+                <!-- Nav Desktop -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#services" class="text-slate-600 hover:text-primary transition-colors font-medium">Mes services</a>
+                    <a href="index.html#approche" class="text-slate-600 hover:text-primary transition-colors font-medium">Mon approche</a>
+                    <a href="index.html#a-propos" class="text-slate-600 hover:text-primary transition-colors font-medium">Mon profil</a>
+                    <a href="index.html#prendre-rendez-vous" class="text-slate-600 hover:text-primary transition-colors font-medium">Prendre rendez-vous</a>
+                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 bg-secondary hover:bg-amber-600 text-white px-5 py-2.5 rounded-lg transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i data-lucide="calendar-plus" class="w-4 h-4"></i> Prendre RDV
+                    </a>
+                </nav>
+                <!-- Menu Mobile Btn -->
+                <div class="md:hidden flex items-center gap-4">
+                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-amber-600">
+                        <i data-lucide="calendar-plus" class="w-6 h-6"></i>
+                    </a>
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="index.html#services" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mes services</a>
+                <a href="index.html#approche" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mon approche</a>
+                <a href="index.html#a-propos" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mon profil</a>
+                <a href="index.html#prendre-rendez-vous" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-20">
+        <!-- Bannière de la page -->
+        <div class="bg-primary/5 py-12 border-b border-primary/10">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center justify-center p-3 bg-white rounded-2xl mb-4 shadow-sm border border-slate-100">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-secondary"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">Politique de Confidentialité</h1>
+                <p class="text-slate-600 text-lg">Protection de vos données personnelles et conformité RGPD</p>
+            </div>
+        </div>
+
+        <!-- Contenu Légal -->
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white rounded-2xl shadow-sm my-8 border border-slate-100">
+            <div class="legal-content text-slate-700">
+                <p class="text-slate-500 italic text-sm mb-8">Dernière mise à jour : 1er Septembre 2026</p>
+
+                <p>
+                    La présente politique de confidentialité a pour objectif de vous informer sur la manière dont <strong>Adrien Czurczak-Delcampe EI (ACD Gestion & Conseil)</strong> collecte, utilise et protège vos données à caractère personnel dans le cadre de votre navigation sur notre site internet et de l'utilisation de nos services, conformément au Règlement Général sur la Protection des Données (RGPD - Règlement UE 2016/679) et à la loi Informatique et Libertés.
+                </p>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="user-check" class="w-6 h-6 text-secondary"></i>
+                    1. Identité du responsable de traitement
+                </h2>
+                <p>
+                    Le responsable du traitement des données personnelles collectées est :<br>
+                    <strong>Adrien Czurczak-Delcampe EI</strong> (opérant sous le nom commercial ACD Gestion & Conseil)<br>
+                    Siège social : 45, rue Duhem, 59000 Lille<br>
+                    SIREN : 994 156 529
+                </p>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="database" class="w-6 h-6 text-secondary"></i>
+                    2. Données personnelles collectées
+                </h2>
+                <p>Nous pouvons être amenés à collecter les catégories de données suivantes, directement auprès de vous :</p>
+                <ul>
+                    <li><strong>Données d'identification :</strong> nom, prénom.</li>
+                    <li><strong>Données de contact :</strong> adresse e-mail, numéro de téléphone.</li>
+                    <li><strong>Données relatives à votre projet :</strong> informations partagées volontairement dans le champ "message" de notre formulaire de contact, concernant votre situation patrimoniale ou vos besoins en conseil.</li>
+                </ul>
+                <p class="text-sm bg-slate-50 p-4 rounded-lg border border-slate-200 mt-2">
+                    <em>Note : Le site ACD Gestion & Conseil n'exige la création d'aucun compte utilisateur.</em>
+                </p>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="target" class="w-6 h-6 text-secondary"></i>
+                    3. Finalités et bases légales du traitement
+                </h2>
+                <p>Vos données sont collectées pour des finalités déterminées, explicites et légitimes :</p>
+                <ul>
+                    <li><strong>La gestion de vos demandes de contact et de rendez-vous :</strong> (Base légale : Votre consentement explicite via la case à cocher du formulaire, et/ou l'exécution de mesures précontractuelles).</li>
+                    <li><strong>L'organisation de la relation client :</strong> établissement d'audits, lettres de mission et conseils patrimoniaux (Base légale : L'exécution d'un contrat).</li>
+                    <li><strong>Le respect de nos obligations légales et réglementaires.</strong></li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="share-2" class="w-6 h-6 text-secondary"></i>
+                    4. Destinataires des données
+                </h2>
+                <p>
+                    Vos données personnelles sont strictement confidentielles. Elles sont exclusivement destinées à Adrien Czurczak-Delcampe EI. 
+                    Elles ne sont <strong>jamais vendues, louées ou cédées</strong> à des tiers à des fins commerciales.
+                </p>
+                <p>Cependant, dans le cadre du fonctionnement du site, certaines données transitent par des sous-traitants techniques garantissant un niveau de sécurité conforme au RGPD :</p>
+                <ul>
+                    <li><strong>Formspree :</strong> pour le traitement et l'acheminement des formulaires de contact.</li>
+                    <li><strong>Google (Google Calendar) :</strong> pour la gestion de la prise de rendez-vous en ligne.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="clock" class="w-6 h-6 text-secondary"></i>
+                    5. Durée de conservation
+                </h2>
+                <p>Vos données sont conservées pour la durée strictement nécessaire aux finalités pour lesquelles elles ont été collectées :</p>
+                <ul>
+                    <li><strong>Pour les prospects :</strong> 3 ans à compter de leur collecte ou du dernier contact émanant du prospect.</li>
+                    <li><strong>Pour les clients :</strong> pendant toute la durée de la relation commerciale, augmentée de 5 ans (prescription légale) après la fin de la prestation, afin de répondre aux obligations légales de conservation et à des fins de preuve.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="settings-2" class="w-6 h-6 text-secondary"></i>
+                    6. Vos droits
+                </h2>
+                <p>Conformément à la réglementation en vigueur, vous disposez des droits suivants concernant vos données personnelles :</p>
+                <ul>
+                    <li><strong>Droit d'accès :</strong> obtenir la confirmation que vos données sont traitées et en obtenir une copie.</li>
+                    <li><strong>Droit de rectification :</strong> demander la correction de données inexactes ou incomplètes.</li>
+                    <li><strong>Droit à l'effacement (droit à l'oubli) :</strong> demander la suppression de vos données dans certaines conditions.</li>
+                    <li><strong>Droit à la limitation du traitement :</strong> geler temporairement l'utilisation de vos données.</li>
+                    <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données pour des motifs légitimes.</li>
+                    <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format structuré.</li>
+                </ul>
+                <p class="font-medium mt-4">Pour exercer ces droits, vous pouvez nous contacter :</p>
+                <ul>
+                    <li>Par voie postale : Adrien Czurczak-Delcampe, 45 rue Duhem, 59000 Lille</li>
+                    <li>Via notre <a href="index.html#contact" class="text-primary hover:text-secondary underline">formulaire de contact</a>.</li>
+                </ul>
+                <p>
+                    Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (Commission Nationale de l'Informatique et des Libertés) sur <strong>www.cnil.fr</strong>.
+                </p>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="cookie" class="w-6 h-6 text-secondary"></i>
+                    7. Cookies et traceurs
+                </h2>
+                <p>
+                    Le site internet <strong>ACD Gestion & Conseil</strong> est conçu pour respecter votre vie privée. Nous n'utilisons aucun cookie de ciblage publicitaire ni aucun traceur invasif nécessitant votre consentement préalable. 
+                </p>
+                <p>
+                    Des cookies strictement nécessaires (techniques) peuvent être générés par les services d'hébergement ou la navigation de base. La prise de rendez-vous via Google Calendar peut entraîner le dépôt de cookies tiers gérés directement par Google, selon leurs propres politiques de confidentialité que nous vous invitons à consulter.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-slate-400 py-16 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <div class="flex items-center gap-2 text-white font-bold text-2xl mb-6">
+                        <i data-lucide="landmark" class="w-8 h-8 text-secondary"></i>
+                        <span>ACD</span>
+                    </div>
+                    <p class="text-sm leading-relaxed pr-4">
+                        Cabinet de conseil en gestion de patrimoine indépendant. Accompagnement sur-mesure pour les particuliers et les professionnels désireux d'optimiser leur situation.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="info" class="w-5 h-5 text-secondary"></i> Informations Légales
+                    </h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><strong>Adrien Czurczak-Delcampe EI</strong></li>
+                        <li><strong>ACD Gestion & Conseil</strong></li>
+                        <li><strong>Siège social :</strong> 45, rue Duhem, 59000 Lille</li>
+                        <li><strong>SIREN :</strong> 994 156 529</li>
+                        <li><strong>TVA :</strong> Non applicable, art. 293 B du CGI.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="link" class="w-5 h-5 text-secondary"></i> Raccourcis
+                    </h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-white transition-colors flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Prendre RDV en ligne</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="politique-confidentialite.html" class="text-white font-medium transition-colors">Politique de Confidentialité</a></li>
+                        <li><a href="mentions-legales.html" class="hover:text-white transition-colors">Mentions Légales</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <p>&copy; 2026 ACD Gestion & Conseil. Tous droits réservés.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Retour en haut &uarr;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialisation des icônes
+        lucide.createIcons();
+
+        // Gestion du Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Apparition du header au scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+                header.classList.replace('bg-white/95', 'bg-white/98');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.replace('bg-white/98', 'bg-white/95');
+            }
+        });
+    </script>
+</body>
+</html>

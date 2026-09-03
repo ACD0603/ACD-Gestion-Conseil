@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales - ACD Gestion & Conseil</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23d97706%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><line x1=%223%22 x2=%2221%22 y1=%2222%22 y2=%2222%22/><line x1=%226%22 x2=%226%22 y1=%2218%22 y2=%2211%22/><line x1=%2210%22 x2=%2210%22 y1=%2218%22 y2=%2211%22/><line x1=%2214%22 x2=%2214%22 y1=%2218%22 y2=%2211%22/><line x1=%2218%22 x2=%2218%22 y1=%2218%22 y2=%2211%22/><polygon points=%2212 2 20 7 4 7%22/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a',
+                        secondary: '#d97706',
+                        light: '#f8fafc',
+                        dark: '#0f172a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        .legal-content p { margin-bottom: 1rem; line-height: 1.75; }
+        .legal-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .legal-content li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="bg-light text-slate-800 antialiased selection:bg-secondary selection:text-white flex flex-col min-h-screen">
+
+    <header class="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary flex items-center gap-2 group">
+                        <i data-lucide="landmark" class="w-8 h-8 text-secondary group-hover:scale-110 transition-transform"></i>
+                        <span>ACD Gestion & Conseil</span>
+                    </a>
+                </div>
+                <!-- Nav Desktop -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#services" class="text-slate-600 hover:text-primary transition-colors font-medium">Mes services</a>
+                    <a href="index.html#approche" class="text-slate-600 hover:text-primary transition-colors font-medium">Mon approche</a>
+                    <a href="index.html#a-propos" class="text-slate-600 hover:text-primary transition-colors font-medium">Mon profil</a>
+                    <a href="index.html#prendre-rendez-vous" class="text-slate-600 hover:text-primary transition-colors font-medium">Prendre rendez-vous</a>
+                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 bg-secondary hover:bg-amber-600 text-white px-5 py-2.5 rounded-lg transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i data-lucide="calendar-plus" class="w-4 h-4"></i> Prendre RDV
+                    </a>
+                </nav>
+                <!-- Menu Mobile Btn -->
+                <div class="md:hidden flex items-center gap-4">
+                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-amber-600">
+                        <i data-lucide="calendar-plus" class="w-6 h-6"></i>
+                    </a>
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="index.html#services" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mes services</a>
+                <a href="index.html#approche" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mon approche</a>
+                <a href="index.html#a-propos" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Mon profil</a>
+                <a href="index.html#prendre-rendez-vous" class="mobile-link text-slate-600 hover:text-primary hover:bg-slate-50 block px-4 py-3 rounded-md text-base font-medium">Prendre rendez-vous</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-20">
+        <div class="bg-primary/5 py-12 border-b border-primary/10">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center justify-center p-3 bg-white rounded-2xl mb-4 shadow-sm border border-slate-100">
+                    <i data-lucide="file-text" class="w-8 h-8 text-secondary"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">Mentions Légales</h1>
+                <p class="text-slate-600 text-lg">Informations réglementaires et conditions d'utilisation du site</p>
+            </div>
+        </div>
+
+        <!-- Contenu Légal -->
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white rounded-2xl shadow-sm my-8 border border-slate-100">
+            <div class="legal-content text-slate-700">
+                <p class="text-slate-500 italic text-sm mb-8">En vigueur au 1er Septembre 2026</p>
+
+                <h2 class="text-2xl font-bold text-primary mt-6 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="building" class="w-6 h-6 text-secondary"></i>
+                    1. Éditeur du site
+                </h2>
+                <p>
+                    Le site internet <strong>ACD Gestion & Conseil</strong> (accessible à l'adresse du domaine) est édité par :
+                </p>
+                <ul>
+                    <li><strong>Raison sociale / Nom commercial :</strong> ACD Gestion & Conseil</li>
+                    <li><strong>Nom de l'exploitant :</strong> Adrien Czurczak-Delcampe</li>
+                    <li><strong>Statut juridique :</strong> Entrepreneur Individuel (EI)</li>
+                    <li><strong>Siège social :</strong> 45, rue Duhem, 59000 Lille, France</li>
+                    <li><strong>Numéro SIREN :</strong> 994 156 529</li>
+                    <li><strong>TVA Intracommunautaire :</strong> TVA non applicable, article 293 B du Code Général des Impôts (CGI).</li>
+                    <li><strong>Directeur de la publication :</strong> Adrien Czurczak-Delcampe</li>
+                    <li><strong>Contact :</strong> Via le <a href="index.html#contact" class="text-primary hover:text-secondary underline font-medium">formulaire de contact en ligne</a>.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="server" class="w-6 h-6 text-secondary"></i>
+                    2. Hébergement du site
+                </h2>
+                <p>
+                    Le site internet est hébergé de manière sécurisée auprès de prestataires d'hébergement web conformes aux exigences de sécurité européennes.
+                </p>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="scale" class="w-6 h-6 text-secondary"></i>
+                    3. Cadre réglementaire et Activités exercées
+                </h2>
+                <p>
+                    Le cabinet <strong>ACD Gestion & Conseil</strong> propose exclusivement des prestations d'<strong>éducation financière, de conseil en organisation patrimoniale théorique, d'optimisation budgétaire et d'ingénierie patrimoniale globale</strong>.
+                </p>
+                <div class="bg-amber-50/60 p-5 rounded-xl border border-amber-200 text-slate-700 text-sm my-4">
+                    <p class="font-bold text-amber-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="shield-alert" class="w-5 h-5 text-secondary"></i> Précisions statutaires d'exercice :
+                    </p>
+                    <p class="mb-0 leading-relaxed">
+                        Adrien Czurczak-Delcampe EI ne dispose pas des statuts réglementés de Conseiller en Investissements Financiers (CIF), de Courtier d'assurance (IAS), d'Intermédiaire en Opérations de Banque et en Services de Paiement (IOBSP), ni de la carte de transaction immobilière (Carte T).<br><br>
+                        À ce titre, <strong>aucun acte de démarchage, d'intermédiation, de vente ou de recommandation personnalisée de produits financiers, d'assurance ou d'investissement immobilier</strong> n'est effectué sur ce site ni dans le cadre des consultations. Nos conseils sont délivrés en toute indépendance sous forme d'aide à la décision théorique et pédagogique.
+                    </p>
+                </div>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="copyright" class="w-6 h-6 text-secondary"></i>
+                    4. Propriété intellectuelle
+                </h2>
+                <p>
+                    L'ensemble des éléments constituant le site internet <strong>ACD Gestion & Conseil</strong> (textes, graphismes, logos, icônes, images, identité visuelle, structure générale) est la propriété exclusive d'Adrien Czurczak-Delcampe EI, sauf mention contraire ou crédits d'images de banques libres de droits (notamment Unsplash et les icônes Lucide).
+                </p>
+                <p>
+                    Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable du responsable de la publication. Toute exploitation non autorisée sera considérée comme constitutive d'une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de la Propriété Intellectuelle.
+                </p>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="alert-triangle" class="w-6 h-6 text-secondary"></i>
+                    5. Limitation de responsabilité
+                </h2>
+                <p>
+                    Les informations contenues sur le site sont fournies à titre indicatif et pédagogique. Malgré le soin apporté à la vérification des données, ACD Gestion & Conseil ne saurait être tenu responsable des erreurs, omissions ou des résultats qui pourraient être obtenus par un mauvais usage de ces informations.
+                </p>
+                <p>
+                    L'utilisateur est invité à vérifier l'adéquation des conseils généraux transmis à sa situation personnelle et, le cas échéant, à consulter un professionnel agréé (notaire, avocat, expert-comptable, établissement bancaire) avant de souscrire tout engagement financier ou juridique.
+                </p>
+
+                <h2 class="text-2xl font-bold text-primary mt-10 mb-4 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i data-lucide="gavel" class="w-6 h-6 text-secondary"></i>
+                    6. Droit applicable et attribution de juridiction
+                </h2>
+                <p>
+                    Tout litige en relation avec l'utilisation du site ACD Gestion & Conseil est soumis au droit français. En cas de différend qui ne pourrait être résolu à l'amiable, attribution exclusive de juridiction est faite aux tribunaux compétents du ressort du siège social (Lille).
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-slate-400 py-16 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <div class="flex items-center gap-2 text-white font-bold text-2xl mb-6">
+                        <i data-lucide="landmark" class="w-8 h-8 text-secondary"></i>
+                        <span>ACD</span>
+                    </div>
+                    <p class="text-sm leading-relaxed pr-4">
+                        Cabinet de conseil en gestion de patrimoine indépendant. Accompagnement sur-mesure pour les particuliers et les professionnels désireux d'optimiser leur situation.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="info" class="w-5 h-5 text-secondary"></i> Informations Légales
+                    </h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><strong>Adrien Czurczak-Delcampe EI</strong></li>
+                        <li><strong>ACD Gestion & Conseil</strong></li>
+                        <li><strong>Siège social :</strong> 45, rue Duhem, 59000 Lille</li>
+                        <li><strong>SIREN :</strong> 994 156 529</li>
+                        <li><strong>TVA :</strong> Non applicable, art. 293 B du CGI.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="link" class="w-5 h-5 text-secondary"></i> Raccourcis
+                    </h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-white transition-colors flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Prendre RDV en ligne</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="politique-confidentialite.html" class="hover:text-white transition-colors">Politique de Confidentialité</a></li>
+                        <li><a href="mentions-legales.html" class="text-white font-medium transition-colors">Mentions Légales</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <p>&copy; 2026 ACD Gestion & Conseil. Tous droits réservés.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Retour en haut &uarr;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+                header.classList.replace('bg-white/95', 'bg-white/98');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.replace('bg-white/98', 'bg-white/95');
+            }
+        });
+    </script>
+</body>
+</html>
