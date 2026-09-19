@@ -7,6 +7,7 @@
     <!-- Favicon SVG dynamique mis à jour avec la nouvelle couleur or -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23dcb974%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><line x1=%223%22 x2=%2221%22 y1=%2222%22 y2=%2222%22/><line x1=%226%22 x2=%226%22 y1=%2218%22 y2=%2211%22/><line x1=%2210%22 x2=%2210%22 y1=%2218%22 y2=%2211%22/><line x1=%2214%22 x2=%2214%22 y1=%2218%22 y2=%2211%22/><line x1=%2218%22 x2=%2218%22 y1=%2218%22 y2=%2211%22/><polygon points=%2212 2 20 7 4 7%22/></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         tailwind.config = {
             theme: {
@@ -29,6 +30,7 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         h1, h2, h3 { font-family: 'Merriweather', serif; }
@@ -40,13 +42,21 @@
             background-attachment: fixed;
         }
         
-        /* Animation pour la modale */
+        /* Animation pour la modale et les onglets */
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95) translateY(-20px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
         .modal-animate {
             animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes tabFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tab-fade-in {
+            animation: tabFadeIn 0.4s ease-out forwards;
         }
     </style>
 </head>
@@ -74,9 +84,9 @@
                 </p>
                 
                 <div class="flex flex-col gap-3">
-                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="close-modal bg-secondary hover:bg-secondaryHover text-btndark font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
-                        <i data-lucide="calendar-plus" class="w-5 h-5"></i>
-                        Réserver mon RDV sur Google Agenda
+                    <a href="#prendre-rendez-vous" class="close-modal bg-secondary hover:bg-secondaryHover text-btndark font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                        <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                        Choisir mon accompagnement
                     </a>
                     <button class="close-modal text-slate-400 hover:text-white font-medium py-2 px-4 transition-colors text-sm">
                         Non merci, je découvre le site
@@ -100,15 +110,16 @@
                     <a href="#services" class="text-slate-300 hover:text-secondary transition-colors font-medium">Mes services</a>
                     <a href="#approche" class="text-slate-300 hover:text-secondary transition-colors font-medium">Mon approche</a>
                     <a href="#a-propos" class="text-slate-300 hover:text-secondary transition-colors font-medium">Mon profil</a>
-                    <a href="#prendre-rendez-vous" class="text-slate-300 hover:text-secondary transition-colors font-medium">Prendre rendez-vous</a>
-                    <!-- Bouton RDV Calendar bien intégré dans le Header -->
-                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 bg-secondary hover:bg-secondaryHover text-btndark px-5 py-2.5 rounded-lg transition-all duration-300 font-bold text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                        <i data-lucide="calendar-plus" class="w-4 h-4"></i> RDV (1 an offert)
+                    
+                    <!-- Bouton RDV Header (Renvoie vers la section choix) -->
+                    <a href="#prendre-rendez-vous" class="hidden lg:flex items-center gap-2 bg-secondary hover:bg-secondaryHover text-btndark px-5 py-2.5 rounded-lg transition-all duration-300 font-bold text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <i data-lucide="calendar-plus" class="w-4 h-4"></i> Prendre RDV
                     </a>
                 </nav>
+
                 <!-- Menu Mobile Btn -->
                 <div class="md:hidden flex items-center gap-4">
-                    <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-secondaryHover" aria-label="Prendre rendez-vous">
+                    <a href="#prendre-rendez-vous" class="text-secondary hover:text-secondaryHover" aria-label="Prendre rendez-vous">
                         <i data-lucide="calendar-plus" class="w-6 h-6"></i>
                     </a>
                     <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none p-2" aria-label="Ouvrir le menu">
@@ -118,15 +129,14 @@
             </div>
         </div>
 
-        <!-- Menu Mobile -->
+        <!-- Menu Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-cardbg border-t border-white/10 absolute w-full shadow-xl">
             <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
                 <a href="#services" class="mobile-link text-slate-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-md text-base font-medium">Mes services</a>
                 <a href="#approche" class="mobile-link text-slate-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-md text-base font-medium">Mon approche</a>
                 <a href="#a-propos" class="mobile-link text-slate-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-md text-base font-medium">Mon profil</a>
-                <a href="#prendre-rendez-vous" class="mobile-link text-slate-300 hover:text-white hover:bg-white/5 block px-4 py-3 rounded-md text-base font-medium">Prendre rendez-vous</a>
-                <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="mobile-link bg-secondary hover:bg-secondaryHover text-btndark font-bold flex items-center justify-center gap-2 px-4 py-3 mt-2 rounded-md text-base shadow-sm">
-                    <i data-lucide="calendar-plus" class="w-5 h-5"></i> RDV (1 an offert)
+                <a href="#prendre-rendez-vous" class="mobile-link bg-secondary hover:bg-secondaryHover text-btndark font-bold flex items-center justify-center gap-2 px-4 py-3 mt-2 rounded-md text-base shadow-sm">
+                    <i data-lucide="calendar-plus" class="w-5 h-5"></i> Prendre RDV
                 </a>
             </div>
         </div>
@@ -144,11 +154,11 @@
                 Étudiant passionné par la gestion de patrimoine, je vous aide à structurer vos projets pendant que j'affine mon expertise. Sérieux, transparent, et décontracté.
             </p>
             <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
-                <!-- Lien Calendar Principal -->
-                <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-secondary hover:bg-secondaryHover text-btndark font-bold py-4 px-8 rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 relative overflow-hidden">
+                <!-- Lien RDV renvoyant vers la section des choix -->
+                <a href="#prendre-rendez-vous" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-secondary hover:bg-secondaryHover text-btndark font-bold py-4 px-8 rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 relative overflow-hidden">
                     <span class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">1 AN OFFERT</span>
-                    <i data-lucide="calendar-clock" class="w-5 h-5"></i>
-                    Prendre RDV sur Google Agenda
+                    <i data-lucide="calendar-plus" class="w-5 h-5"></i>
+                    Commencer mon accompagnement
                 </a>
                 <a href="#a-propos" class="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/20 font-semibold py-4 px-8 rounded-lg transition-all duration-300 backdrop-blur-sm text-center">
                     Découvrir mon approche
@@ -319,60 +329,139 @@
     </section>
 
     <section id="prendre-rendez-vous" class="py-24 bg-darkbg">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Prise de Rendez-vous</h2>
                 <div class="w-24 h-1.5 bg-secondary mx-auto rounded-full mb-6"></div>
-                <p class="text-slate-300 text-lg">
-                    Réservez votre créneau directement dans mon agenda Google. Pas de formulaire intermédiaire, choisissez simplement le jour et l'heure qui vous conviennent !
+                <p class="text-slate-300 text-lg max-w-3xl mx-auto">
+                    Afin de vous accompagner au mieux, choisissez l'option qui correspond à votre situation et à votre objectif pour réserver votre créneau.
                 </p>
             </div>
 
-            <!-- Carte Principale Prise de RDV Google Agenda -->
-            <div class="bg-cardbg border border-secondary/30 rounded-3xl p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cardbg via-secondary to-cardbg"></div>
+            <!-- Sélecteur de profil (Onglets RDV) -->
+            <div class="flex flex-col md:flex-row bg-cardbg p-2 rounded-2xl md:rounded-full border border-white/10 mx-auto max-w-4xl mb-12 shadow-lg gap-2">
+                <button id="btn-rdv-budget" class="flex-1 py-4 px-4 rounded-xl md:rounded-full text-center transition-all duration-300 bg-secondary text-btndark font-bold shadow-md flex items-center justify-center gap-2 text-sm sm:text-base" onclick="switchRdvTab('budget')">
+                    <i data-lucide="piggy-bank" class="w-5 h-5 hidden sm:block"></i>
+                    1. Maîtriser mon budget
+                </button>
+                <button id="btn-rdv-patrimoine" class="flex-1 py-4 px-4 rounded-xl md:rounded-full text-center transition-all duration-300 text-slate-400 hover:text-white hover:bg-white/5 font-medium flex items-center justify-center gap-2 text-sm sm:text-base" onclick="switchRdvTab('patrimoine')">
+                    <i data-lucide="trending-up" class="w-5 h-5 hidden sm:block"></i>
+                    2. Accroître mon patrimoine
+                </button>
+                <button id="btn-rdv-suivi" class="flex-1 py-4 px-4 rounded-xl md:rounded-full text-center transition-all duration-300 text-slate-400 hover:text-white hover:bg-white/5 font-medium flex items-center justify-center gap-2 text-sm sm:text-base" onclick="switchRdvTab('suivi')">
+                    <i data-lucide="calendar-check" class="w-5 h-5 hidden sm:block"></i>
+                    Déjà client ? (Suivi)
+                </button>
+            </div>
+
+            <!-- Contenu des onglets RDV -->
+            <div class="max-w-4xl mx-auto">
                 
-                <!-- Badge Offre de lancement -->
-                <div class="inline-flex items-center gap-1.5 bg-secondary/10 border border-secondary/30 text-secondary text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
-                    <i data-lucide="sparkles" class="w-4 h-4"></i> Offre Spéciale : 1 an offert
+                <!-- Profil 1 : Budget -->
+                <div id="content-rdv-budget" class="block tab-fade-in">
+                    <div class="bg-cardbg rounded-3xl p-8 sm:p-12 border border-white/10 shadow-xl flex flex-col md:flex-row items-center gap-10">
+                        <div class="flex-1">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">Maîtriser mon budget</h3>
+                            <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                                L'objectif est de reprendre le contrôle de vos finances au quotidien, d'optimiser vos dépenses et de créer votre épargne de sécurité.
+                            </p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary flex-shrink-0 mt-1">
+                                        <i data-lucide="calculator" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-lg mb-1">Organisation Budgétaire</h4>
+                                        <p class="text-slate-400 leading-relaxed text-sm">Analyse de vos revenus et dépenses pour dégager une capacité d'épargne.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary flex-shrink-0 mt-1">
+                                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-lg mb-1">Éducation Financière de base</h4>
+                                        <p class="text-slate-400 leading-relaxed text-sm">Comprendre le fonctionnement des livrets, contrer l'inflation et bâtir un fonds d'urgence.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-auto bg-darkbg p-6 rounded-2xl border border-white/5 text-center flex-shrink-0">
+                            <div class="inline-flex items-center gap-1.5 bg-secondary/10 border border-secondary/30 text-secondary text-xs font-bold px-4 py-1.5 rounded-full mb-4 uppercase tracking-wider">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i> NOUVEAU CLIENT
+                            </div>
+                            <h4 class="text-white font-bold mb-4">Prêt à commencer ?</h4>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScwe_vSpKPY8K3lVFiW6tTCRIMxuDMbc5_hoV2oqQw9MQvjgA/viewform?usp=header target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondaryHover text-btndark font-bold text-sm py-3 px-6 rounded-xl transition duration-300 shadow-lg w-full mb-3">
+                                <i data-lucide="file-text" class="w-4 h-4"></i> 
+                                Formulaire Budget
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i data-lucide="calendar" class="w-10 h-10 text-secondary"></i>
+                <!-- Profil 2 : Patrimoine -->
+                <div id="content-rdv-patrimoine" class="hidden">
+                    <div class="bg-cardbg rounded-3xl p-8 sm:p-12 border border-secondary/30 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-10">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/5 rounded-bl-full pointer-events-none"></div>
+                        <div class="flex-1 relative z-10">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">Accroître mon patrimoine</h3>
+                            <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+                                Vous avez déjà une capacité d'épargne et souhaitez la faire fructifier, optimiser votre fiscalité et préparer l'avenir.
+                            </p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary flex-shrink-0 mt-1">
+                                        <i data-lucide="home" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-lg mb-1">Stratégie d'Investissement & Immobilier</h4>
+                                        <p class="text-slate-400 leading-relaxed text-sm">Assurance-vie, PEA, LMNP, SCPI... Analyse de la rentabilité théorique de vos projets.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary flex-shrink-0 mt-1">
+                                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-lg mb-1">Logique Fiscale & Retraite</h4>
+                                        <p class="text-slate-400 leading-relaxed text-sm">Étude de votre feuille d'impôts, pistes d'optimisation (PER) et anticipation de la transmission.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-auto bg-darkbg p-6 rounded-2xl border border-white/5 text-center flex-shrink-0 relative z-10">
+                            <div class="inline-flex items-center gap-1.5 bg-secondary/10 border border-secondary/30 text-secondary text-xs font-bold px-4 py-1.5 rounded-full mb-4 uppercase tracking-wider">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i> NOUVEAU CLIENT
+                            </div>
+                            <h4 class="text-white font-bold mb-4">Prêt à commencer ?</h4>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSchLttBhoOAtFmm9I_GRr0qdzncIVnALcuChD22xs0FYnTzWg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondaryHover text-btndark font-bold text-sm py-3 px-6 rounded-xl transition duration-300 shadow-lg w-full mb-3">
+                                <i data-lucide="file-text" class="w-4 h-4"></i> 
+                                Formulaire Patrimoine
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                
-                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">Échange Pédagogique (30 min)</h3>
-                
-                <p class="text-slate-300 mb-8 max-w-xl mx-auto text-lg leading-relaxed">
-                    Un moment privilégié par téléphone ou en visioconférence pour faire le point sur votre situation, répondre à vos questions et structurer vos objectifs financiers.
-                </p>
 
-                <!-- Points clés de l'entretien -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 text-left max-w-2xl mx-auto">
-                    <div class="flex items-center gap-3 bg-darkbg p-3.5 rounded-xl border border-white/5">
-                        <i data-lucide="clock" class="w-5 h-5 text-secondary flex-shrink-0"></i>
-                        <span class="text-sm font-medium text-slate-300">30 minutes environ</span>
-                    </div>
-                    <div class="flex items-center gap-3 bg-darkbg p-3.5 rounded-xl border border-white/5">
-                        <i data-lucide="video" class="w-5 h-5 text-secondary flex-shrink-0"></i>
-                        <span class="text-sm font-medium text-slate-300">Visio ou Téléphone</span>
-                    </div>
-                    <div class="flex items-center gap-3 bg-darkbg p-3.5 rounded-xl border border-white/5">
-                        <i data-lucide="shield-check" class="w-5 h-5 text-secondary flex-shrink-0"></i>
-                        <span class="text-sm font-medium text-slate-300">100% Sans engagement</span>
+                <!-- 3ème Onglet : Suivi -->
+                <div id="content-rdv-suivi" class="hidden">
+                    <div class="bg-cardbg rounded-3xl p-8 sm:p-12 border border-white/10 shadow-xl text-center">
+                        <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="calendar-check" class="w-8 h-8 text-slate-300"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Entretien de Suivi</h3>
+                        <p class="text-lg text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+                            Nous avons déjà fait connaissance ou entamé un accompagnement ? Choisissez le créneau qui vous convient dans mon agenda.
+                        </p>
+                        
+                        <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm py-4 px-8 rounded-xl transition duration-300 shadow-lg">
+                            <i data-lucide="calendar-clock" class="w-5 h-5"></i> 
+                            Ouvrir mon Google Agenda
+                        </a>
                     </div>
                 </div>
 
-                <!-- Bouton d'action Google Calendar -->
-                <a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center justify-center gap-3 bg-secondary hover:bg-secondaryHover text-btndark font-bold text-lg py-4 px-10 rounded-xl transition duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto relative overflow-hidden">
-                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
-                    <i data-lucide="calendar-plus" class="w-6 h-6 group-hover:scale-110 transition-transform"></i> 
-                    Réserver mon créneau sur Google Agenda
-                </a>
-
-                <p class="mt-4 text-xs text-slate-500">
-                    Vous serez automatiquement redirigé vers l'interface sécurisée de Google Agenda.
-                </p>
             </div>
         </div>
     </section>
@@ -406,9 +495,12 @@
                         <i data-lucide="link" class="w-5 h-5 text-secondary"></i> Liens rapides
                     </h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-white transition-colors flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Mon Agenda Google</a></li>
-                        <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
-                        <li><a href="politique-confidentialite.html" class="hover:text-white transition-colors">Politique de Confidentialité</a></li>
+                        <!-- Liens mis à jour avec la séparation des profils -->
+                        <li><a href="LIEN_GOOGLE_FORMS_BUDGET_ICI" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2"><i data-lucide="piggy-bank" class="w-4 h-4"></i> 1er RDV : Budget</a></li>
+                        <li><a href="LIEN_GOOGLE_FORMS_PATRIMOINE_ICI" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-white transition-colors flex items-center gap-2"><i data-lucide="trending-up" class="w-4 h-4"></i> 1er RDV : Patrimoine</a></li>
+                        <li><a href="https://calendar.app.google/JQmoMiriwiNGCnGw8" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2 mt-3 pt-3 border-t border-white/10"><i data-lucide="calendar" class="w-4 h-4"></i> Mon Agenda (Suivi)</a></li>
+                        
+                        <li><a href="politique-confidentialite.html" class="hover:text-white transition-colors mt-3 block">Politique de Confidentialité</a></li>
                         <li><a href="mentions-legales.html" class="hover:text-white transition-colors">Mentions Légales</a></li>
                     </ul>
                 </div>
@@ -475,6 +567,36 @@
                 header.classList.replace('bg-cardbg/98', 'bg-cardbg/95');
             }
         });
+
+        function switchRdvTab(tabId) {
+            const tabs = ['budget', 'patrimoine', 'suivi'];
+            
+            // Classes Tailwind pour les états actif/inactif
+            const activeClasses = ['bg-secondary', 'text-btndark', 'font-bold', 'shadow-md'];
+            const inactiveClasses = ['text-slate-400', 'hover:text-white', 'hover:bg-white/5', 'font-medium'];
+
+            tabs.forEach(t => {
+                const btn = document.getElementById(`btn-rdv-${t}`);
+                const content = document.getElementById(`content-rdv-${t}`);
+                
+                if (t === tabId) {
+                    // Activer l'onglet cliqué
+                    btn.classList.remove(...inactiveClasses);
+                    btn.classList.add(...activeClasses);
+                    content.classList.remove('hidden');
+                    
+                    // Force le reflow pour relancer l'animation CSS
+                    void content.offsetWidth;
+                    content.classList.add('tab-fade-in');
+                } else {
+                    // Désactiver les autres onglets
+                    btn.classList.remove(...activeClasses);
+                    btn.classList.add(...inactiveClasses);
+                    content.classList.add('hidden');
+                    content.classList.remove('tab-fade-in');
+                }
+            });
+        }
     </script>
 </body>
 </html>
